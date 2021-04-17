@@ -1,0 +1,39 @@
+@import "./recursos";
+
+.navbar {
+  background-color: rgba($color: #ffffff, $alpha: 1);
+  -webkit-box-shadow: 0px 5px 5px 0px rgba(0, 0, 0, 0.3);
+  -moz-box-shadow: 0px 5px 5px 0px rgba(0, 0, 0, 0.3);
+  box-shadow: 0px 5px 5px 0px rgba(0, 0, 0, 0.3);
+  z-index: 3;
+
+  .logo {
+    width: 4.5rem;
+    height: 70px;
+    background-image: $logo;
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: contain;
+    display: inline-block;
+  }
+
+  .nav-link {
+    &:hover {
+      color: rgba($color: #0092b1, $alpha: 1) !important;
+    }
+  }
+  .dropdown-menu {
+    position: absolute;
+  }
+
+  .dropdown-item.active,
+  .dropdown-item:active {
+    color: #fff;
+    text-decoration: none;
+    background-color: #0092b1;
+  }
+  .dropdown-item.bold {
+    font-family: $font_bold;
+    font-weight: $font-weight-bold;
+  }
+}

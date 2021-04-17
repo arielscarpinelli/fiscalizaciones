@@ -1,0 +1,96 @@
+/*Colores*/
+$color_primario:rgba(6,144,175,1);
+$color_secundario: rgba(0,0,0,.5);
+$color_terciario: rgba(0,0,0,1);
+$color_background: rgba(246,246,246,1);
+$color_background_2: rgba(204,204,204,1);
+
+/*tipografia*/
+@font-face {
+    font-family: 'NeueHaasGroteskDisp Pro XLt';
+    src: url('../fonts/NHaasGroteskDSPro-35XLt.eot');
+    src: url('../fonts/NHaasGroteskDSPro-35XLt.eot?#iefix') format('embedded-opentype'),
+        url('../fonts/NHaasGroteskDSPro-35XLt.woff2') format('woff2'),
+        url('../fonts/NHaasGroteskDSPro-35XLt.woff') format('woff'),
+        url('../fonts/NHaasGroteskDSPro-35XLt.ttf') format('truetype'),
+        url('../fonts/NHaasGroteskDSPro-35XLt.svg#NHaasGroteskDSPro-35XLt') format('svg');
+    font-weight: 300;
+    font-style: normal;
+    font-display: swap;
+}
+$font_extra_light: 'NeueHaasGroteskDisp Pro XLt', sans-serif;
+$font-weight-normal: 300;
+
+@font-face {
+    font-family: 'NeueHaasGroteskDisp Pro Lt';
+    src: url('../fonts/NHaasGroteskDSPro-45Lt.eot');
+    src: url('../fonts/NHaasGroteskDSPro-45Lt.eot?#iefix') format('embedded-opentype'),
+        url('../fonts/NHaasGroteskDSPro-45Lt.woff2') format('woff2'),
+        url('../fonts/NHaasGroteskDSPro-45Lt.woff') format('woff'),
+        url('../fonts/NHaasGroteskDSPro-45Lt.ttf') format('truetype'),
+        url('../fonts/NHaasGroteskDSPro-45Lt.svg#NHaasGroteskDSPro-45Lt') format('svg');
+    font-weight: 300;
+    font-style: normal;
+    font-display: swap;
+}
+$font_light: 'NeueHaasGroteskDisp Pro Lt', sans-serif;
+$font-weight-light: 300;
+
+@font-face {
+    font-family: 'NeueHaasGroteskDisp Pro';
+    src: url('../fonts/NHaasGroteskDSPro-55Rg.eot');
+    src: url('../fonts/NHaasGroteskDSPro-55Rg.eot?#iefix') format('embedded-opentype'),
+        url('../fonts/NHaasGroteskDSPro-55Rg.woff2') format('woff2'),
+        url('../fonts/NHaasGroteskDSPro-55Rg.woff') format('woff'),
+        url('../fonts/NHaasGroteskDSPro-55Rg.ttf') format('truetype'),
+        url('../fonts/NHaasGroteskDSPro-55Rg.svg#NHaasGroteskDSPro-55Rg') format('svg');
+    font-weight: 500;
+    font-style: normal;
+    font-display: swap;
+}
+$font_regular: 'NeueHaasGroteskDisp Pro', sans-serif;
+$font-weight-regular: 500;
+
+@font-face {
+    font-family: 'NeueHaasGroteskDisp Pro Md';
+    src: url('../fonts/NHaasGroteskDSPro-65Md.eot');
+    src: url('../fonts/NHaasGroteskDSPro-65Md.eot?#iefix') format('embedded-opentype'),
+        url('../fonts/NHaasGroteskDSPro-65Md.woff2') format('woff2'),
+        url('../fonts/NHaasGroteskDSPro-65Md.woff') format('woff'),
+        url('../fonts/NHaasGroteskDSPro-65Md.ttf') format('truetype'),
+        url('../fonts/NHaasGroteskDSPro-65Md.svg#NHaasGroteskDSPro-65Md') format('svg');
+    font-weight: 500;
+    font-style: normal;
+    font-display: swap;
+}
+
+$font_medium: 'NeueHaasGroteskDisp Pro Md', sans-serif;
+$font-weight-medium: 500;
+
+@font-face {
+    font-family: 'NeueHaasGroteskText Pro';
+    src: url('../fonts/NHaasGroteskTXPro-75Bd.eot');
+    src: url('../fonts/NHaasGroteskTXPro-75Bd.eot?#iefix') format('embedded-opentype'),
+        url('../fonts/NHaasGroteskTXPro-75Bd.woff2') format('woff2'),
+        url('../fonts/NHaasGroteskTXPro-75Bd.woff') format('woff'),
+        url('../fonts/NHaasGroteskTXPro-75Bd.ttf') format('truetype'),
+        url('../fonts/NHaasGroteskTXPro-75Bd.svg#NHaasGroteskTXPro-75Bd') format('svg');
+    font-weight: bold;
+    font-style: normal;
+    font-display: swap;
+}
+
+$font_bold: 'NeueHaasGroteskText Pro', sans-serif;
+$font-weight-bold: bold;
+
+
+
+
+/*iconos*/
+$usuario_off: url("../img/user_off.svg");
+$usuario_on: url("../img/user_on.svg");
+$dropdown_off: url("../img/dropdown_off.svg");
+$dropdown_on: url("../img/dropdown_on.svg");
+$logo: url("../img/logo.svg");
+
+

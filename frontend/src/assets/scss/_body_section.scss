@@ -1,0 +1,25 @@
+@import "./recursos";
+
+#body_section {
+    &.body-section-01 {
+        background-color: $color_primario;
+    }
+    &.body-section-02 {
+        background-color: $color_background;
+    }
+    &.body-section-03 {
+        height: 100%;
+        background-color: $color_background_2;
+    }
+    &.body-section-04 {
+        height: 100%;
+        background-color: $color_background_2;
+    }
+    &.body-section-05 {
+        height: 100%;
+        background-color: $color_background_2;
+    }
+}
+.padding-header-fixed {
+    padding-top: 132px;
+}

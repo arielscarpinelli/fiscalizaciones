@@ -1,0 +1,110 @@
+@import "./recursos";
+@import "./body_section";
+@import "./header_fixed";
+
+@import "./components/tables";
+
+/*General*/
+
+html,
+body {
+  font-family: $font_regular;
+  font-weight: $font-weight-regular;
+  font-size: 16px;
+  line-height: 20px;
+}
+
+body {
+  &.fixed {
+    width: 100%;
+    position: fixed;
+  }
+}
+
+h1 {
+  font-size: 1rem;
+  line-height: 1rem;
+  font-family: $font_bold;
+  font-weight: $font-weight-bold;
+  color: $color_primario;
+}
+
+button:focus,
+button:active,
+button:hover {
+  outline: none !important;
+  box-shadow: none !important;
+}
+
+.Toastify__toast-container {
+  margin-top: 102px;
+}
+
+.avatar-sm {
+  height: 36px;
+  width: 36px;
+  border-radius: 50%;
+  object-fit: cover;
+}
+
+.avatar-container {
+  position: relative;
+  text-align: center;
+
+  .avatar {
+    height: 150px;
+    width: 150px;
+    border-radius: 50%;
+    object-fit: cover;
+  }
+
+  .btn-change-avatar {
+    position: absolute;
+    top: 130px;
+    left: 54px;
+  }
+}
+
+.modal {
+  height: 100vh;
+  overflow-y: auto;
+}
+
+.btn {
+  &.btn-unidos {
+    font-family: "NeueHaasGroteskText Pro", sans-serif;
+    font-weight: bold;
+    font-size: 1rem;
+    line-height: 1rem;
+    border: none;
+    box-shadow: 5px 5px 5px 0px rgba(0, 0, 0, 0.3);
+    padding: 0.5rem;
+    border-radius: 0.25rem;
+
+    &.fab-sm {
+      width: 20px;
+      height: 20px;
+      line-height: 20px;
+      padding: 0px;
+      border-radius: 20px;
+      font-size: 14px;
+    }
+
+    &.btn-unidos-white {
+      color: #0690af;
+      background-color: #fff;
+    }
+
+    &.btn-unidos-primary {
+      color: #fff;
+      background-color: #0690af;
+      outline: none !important;
+      box-shadow: none !important;
+    }
+
+    &.btn-unidos-danger {
+      color: #ffffff;
+      background-color: #dc3545;
+    }
+  }
+}

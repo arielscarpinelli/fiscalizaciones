@@ -1,0 +1,13 @@
+module.exports = {
+  apps: [
+    {
+      name: "sistema-voto-backoffice",
+      script: "./index.js",
+      watch: false,
+      env_production: {
+        NODE_ENV: "production",
+        PORT: 3000,
+      },
+    },
+  ],
+};

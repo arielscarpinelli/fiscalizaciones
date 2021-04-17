@@ -1,0 +1,26 @@
+module.exports = {
+  apps: [
+    {
+      name: "sistema-voto-backend",
+      script: "./src/index.js",
+      watch: false,
+      env_production: {
+        NODE_ENV: "production",
+        PORT: 5000,
+        UNIDOS_API_EMAIL: "", // DON'T PUSH TO REPOSITORY
+        UNIDOS_API_PASSWORD: "", // DON'T PUSH TO REPOSITORY
+        EMAIL_FROM_NAME: "Unidos Argentina",
+        EMAIL_FROM_ADDRESS: "votaciones@unidosargentina.org",
+        SECRET: "", // Secret must have 32 characters,
+        SESSION_SECRET: "",
+        SMTP_SERVER: "",
+        SMTP_USER: "",
+        SMTP_PORT: 587,
+        SMTP_SECURE: true,
+        SMTP_PASSWORD: "",
+        URL_BACKOFFICE_FRONTEND:"https://backoffice-votacion.unidosargentina.org",
+        URL_VOTING_FRONTEND:"https://votacion.unidosargentina.org",
+      },
+    },
+  ],
+};
