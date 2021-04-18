@@ -3,9 +3,7 @@ import { Route, Switch } from "react-router-dom";
 import PrivateRoute from "directives/PrivateRoute";
 
 import Home from "pages/System/Home";
-import CandidatesRoutes from "routes/System/CandidatesRoutes";
-import PositionsRoutes from "routes/System/PositionsRoutes";
-import VotingsRoutes from "routes/System/VotingsRoutes";
+import FiscalesRoutes from "routes/System/FiscalesRoutes";
 import UsersRoutes from "routes/System/UsersRoutes";
 
 const SystemRoutes = () => {
@@ -16,16 +14,8 @@ const SystemRoutes = () => {
         return (
           <Switch>
             <PrivateRoute
-              path={`${path}/candidatos`}
-              component={CandidatesRoutes}
-            />
-            <PrivateRoute
-              path={`${path}/posiciones`}
-              component={PositionsRoutes}
-            />
-            <PrivateRoute
-              path={`${path}/votaciones`}
-              component={VotingsRoutes}
+              path={`${path}/fiscales`}
+              component={FiscalesRoutes}
             />
             <PrivateRoute
               path={`${path}/usuarios`}

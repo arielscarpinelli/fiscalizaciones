@@ -2,30 +2,30 @@
 import React, { useEffect, useState } from "react";
 import { Link, useHistory, useParams } from "react-router-dom";
 
-import PositionForm from "components/Positions/PositionForm";
+import FiscalForm from "components/Fiscales/FiscalForm";
 import {
-  getPosition,
-  putPosition,
-  deletePosition,
-} from "api/modules/positions.api";
+  getFiscal,
+  putFiscal,
+  deleteFiscal,
+} from "api/modules/fiscales.api";
 import { toast } from "react-toastify";
 
-const ShowPosition = () => {
+const ShowFiscal = () => {
   const { id } = useParams();
   const history = useHistory();
 
-  const [position, setPosition] = useState(null);
+  const [fiscal, setFiscal] = useState(null);
   const [isReadonly, setIsReadonly] = useState(true);
   const [isSubmitting, setSubmitting] = useState(false);
   const [hasErrors, setErrors] = useState({});
 
   const invokeFetchVoting = () => {
-    fetchPositionByParamId();
-  };
+    fetchFiscalByParamId();
+  }
 
   useEffect(invokeFetchVoting, []);
 
-  const makePositionEditable = () => {
+  const makeFiscalEditable = () => {
     setIsReadonly(false);
   };
 
@@ -33,13 +33,13 @@ const ShowPosition = () => {
     setIsReadonly(true);
   };
 
-  const fetchPositionByParamId = async () => {
+  const fetchFiscalByParamId = async () => {
     try {
-      const response = await getPosition(id);
-      setPosition(response.data);
+      const response = await getFiscal(id);
+      setFiscal(response.data);
     } catch (error) {
-      setPosition(null);
-      toast.error("No existe una posición con ese identificador");
+      setFiscal(null);
+      toast.error("No existe un fiscal con ese identificador");
     }
   };
 
@@ -47,34 +47,38 @@ const ShowPosition = () => {
     setSubmitting(true);
     setErrors({});
     try {
-      const response = await putPosition(id, data);
-      setPosition((oldPosition) => {
+      const response = await putFiscal(id, data);
+      setFiscal((oldFiscal) => {
         return {
-          ...oldPosition,
+          ...oldFiscal,
           ...response.data,
         };
       });
       setIsReadonly(true);
-      toast.info("La posición ha sido modificada exitosamente");
+      toast.info("El fiscal ha sido modificado exitosamente");
     } catch (error) {
       setSubmitting(false);
       if (error.isAxiosError && error.response.status === 422) {
         toast.warn("Alguno de los datos ingresados son inválidos");
         setErrors(error.response.data.errors);
       } else {
-        toast.error("Ha ocurrido un error al modificar la posición");
+        toast.error("Ha ocurrido un error al modificar el fiscal");
       }
     }
   };
 
-  const removePosition = async () => {
-    if (confirm(`¿Deseas eliminar la posición ${position.name}?`)) {
+  const removeFiscal = async () => {
+    if (
+      confirm(
+        `¿Deseas eliminar al fiscal ${fiscal.first_name} ${fiscal.last_name}?`
+      )
+    ) {
       try {
-        await deletePosition(id);
-        toast.info("La posición ha sido eliminada exitosamente");
-        history.push("/sistema/posiciones");
+        await deleteFiscal(id);
+        toast.info("El fiscal ha sido eliminado exitosamente");
+        history.push("/sistema/fiscales");
       } catch (error) {
-        toast.error("Ha ocurrido un error al eliminar la posición");
+        toast.error("Ha ocurrido un error al eliminar el fiscal");
       }
     }
   };
@@ -84,34 +88,38 @@ const ShowPosition = () => {
       <div className="col-lg-10 col-xl-8 mx-auto">
         <div className="d-flex align-items-center justify-content-between">
           <div>
-            <h2 className="m-0">{position ? position.name : "Posición"}</h2>
-            Volver al <Link to="posiciones">listado de posiciones</Link>
+            <h2 className="m-0">
+              {fiscal
+                ? fiscal.first_name + " " + fiscal.last_name
+                : "Fiscal"}
+            </h2>
+            Volver al <Link to="/sistema/fiscales">listado de fiscales</Link>
           </div>
           <div>
             {isReadonly && (
               <div className="btn-group">
                 <button
                   className="btn btn-sm btn-outline-primary"
-                  onClick={makePositionEditable}
+                  onClick={makeFiscalEditable}
                 >
-                  Modificar posición
+                  Modificar fiscal
                 </button>
                 <button
                   className="btn btn-sm btn-outline-danger"
-                  onClick={removePosition}
+                  onClick={removeFiscal}
                 >
-                  Eliminar posición
+                  Eliminar fiscal
                 </button>
               </div>
             )}
           </div>
         </div>
         <hr />
-        {position && (
-          <PositionForm
+        {fiscal && (
+          <FiscalForm
             onSubmit={onSubmit}
             discardChanges={discardChanges}
-            position={position}
+            fiscal={fiscal}
             isReadonly={isReadonly}
             isSubmitting={isSubmitting}
             errors={hasErrors}
@@ -123,4 +131,4 @@ const ShowPosition = () => {
   );
 };
 
-export default ShowPosition;
+export default ShowFiscal;

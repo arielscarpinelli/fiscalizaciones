@@ -6,7 +6,7 @@ module.exports = (sequelize, DataTypes) => {
   class Fiscal extends Model {
     /**
      * Helper method for defining associations.
-     * This method is not a part of Sequelize lifecycle.
+     * This method is not a part of DataTypes lifecycle.
      * The `models/index` file will call this method automatically.
      */
     static associate(models) {
@@ -14,21 +14,45 @@ module.exports = (sequelize, DataTypes) => {
   }
   Fiscal.init(
     {
+      first_name: {
+        type: DataTypes.STRING,
+        allowNull: false,
+      },
+      last_name: {
+        type: DataTypes.STRING,
+        allowNull: false,
+      },
       dni: {
+        type: DataTypes.STRING,
+        allowNull: false,
+      },
+      email: {
         type: DataTypes.STRING,
         allowNull: false,
         unique: true,
       },
+      address: {
+        type: DataTypes.STRING,
+        allowNull: true,
+      },
+      lat_lon: {
+        type: DataTypes.GEOMETRY('POINT'),
+        allowNull: false,
+      },
+      phone: {
+        type: DataTypes.INTEGER,
+        allowNull: true,
+      },
       token: {
         type: DataTypes.STRING,
-        allowNull: false,
+        allowNull: true,
       },
       login_step: {
         type: DataTypes.ENUM(
           "MUST_VALIDATE_EMAIL",
           "EMAIL_VALIDATED",
           "MUST_VALIDATE_PHONE",
-          "READY_FOR_VOTE"
+          "READY"
         ),
         allowNull: false,
       },
@@ -36,26 +60,27 @@ module.exports = (sequelize, DataTypes) => {
         type: DataTypes.STRING,
         allowNull: false,
       },
-      idProvincia: {
-        type: DataTypes.STRING,
+      distrito: {
+        type: DataTypes.INTEGER,
         allowNull: true,
       },
-      idDepartamento: {
-        type: DataTypes.STRING,
+      seccion_electoral: {
+        type: DataTypes.INTEGER,
         allowNull: true,
       },
-      idMunicipio: {
-        type: DataTypes.STRING,
+      escuela: {
+        type: DataTypes.INTEGER,
         allowNull: true,
       },
-      idLocalidad: {
-        type: DataTypes.STRING,
+      mesa: {
+        type: DataTypes.INTEGER,
         allowNull: true,
       },
     },
     {
       sequelize,
       modelName: "Fiscal",
+      tableName: "Fiscales",
       timestamps: false,
     }
   );

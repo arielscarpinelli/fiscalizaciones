@@ -231,39 +231,46 @@ const postResults = async (req, res, next) => {
 
 const searchFiscales = async (req, res, next) => {
   try {
-    const { q } = await searchValidation.validateAsync(req.query);
 
-/*
-await queryInterface.addIndex("Fiscales", 'distrito');
-await queryInterface.addIndex("Fiscales", 'seccion_electoral');
-await queryInterface.addIndex("Fiscales", 'escuela');
-await queryInterface.addIndex("Fiscales", 'mesa');
+    let results;
 
-*/
-    const splittedTerm = q.split(" ");
+    if (req.query.q) {
 
-    const query = splittedTerm.map((q) => {
-      return {
-        [Op.or]: {
-          first_name: {
-            [Op.like]: `%${q}%`,
+      const { q } = await searchValidation.validateAsync(req.query);
+
+  /*
+  await queryInterface.addIndex("Fiscales", 'distrito');
+  await queryInterface.addIndex("Fiscales", 'seccion_electoral');
+  await queryInterface.addIndex("Fiscales", 'escuela');
+  await queryInterface.addIndex("Fiscales", 'mesa');
+
+  */
+      const splittedTerm = q.split(" ");
+
+      const query = splittedTerm.map((q) => {
+        return {
+          [Op.or]: {
+            first_name: {
+              [Op.like]: `%${q}%`,
+            },
+            last_name: {
+              [Op.like]: `%${q}%`,
+            },
+            dni: {
+              [Op.like]: `%${q}%`,
+            },
           },
-          last_name: {
-            [Op.like]: `%${q}%`,
-          },
-          dni: {
-            [Op.like]: `%${q}%`,
-          },
+        };
+      });
+
+      results = await Fiscal.findAll({
+        where: {
+          [Op.or]: query,
         },
-      };
-    });
-
-    const results = await Fiscal.findAll({
-      where: {
-        [Op.or]: query,
-      },
-    });
-
+      });
+    } else {
+      results = await Fiscal.findAll();
+    }
     res.json(results);
   } catch (error) {
     next(error);

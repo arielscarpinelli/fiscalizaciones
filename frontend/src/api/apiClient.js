@@ -24,7 +24,7 @@ const unauthenticatedError = () => {
 };
 
 const errorInterceptor = (error) => {
-  switch (error.response.status) {
+  switch ((error.response || {}).status) {
     case 401:
       if (error.response.data.code === "SESSION_EXPIRED") {
         return unauthenticatedError();

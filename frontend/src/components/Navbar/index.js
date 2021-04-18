@@ -34,14 +34,8 @@ const Navbar = () => {
       {isLogged && (
         <div className={`collapse navbar-collapse ${showNavbar ? "show" : ""}`}>
           <ul className="nav navbar-nav ml-auto align-items-center">
-            <Link className="nav-link" to="/sistema/candidatos">
-              Candidatos
-            </Link>
-            <Link className="nav-link" to="/sistema/posiciones">
-              Posiciones
-            </Link>
-            <Link className="nav-link" to="/sistema/votaciones">
-              Votaciones
+            <Link className="nav-link" to="/sistema/fiscales">
+              Fiscales
             </Link>
             {userData && userData.role !== "OPERATOR" && (
               <Link className="nav-link" to="/sistema/usuarios">
