@@ -1,6 +1,6 @@
-import React, { useEffect, useRef, useState } from "react";
+import React, { useEffect } from "react";
 import PropTypes from "prop-types";
-import { useForm, FormProvider } from "react-hook-form";
+import { useForm, useWatch, FormProvider } from "react-hook-form";
 import { joiResolver } from "@hookform/resolvers/joi";
 
 import { handleServersideValidationErrors } from "utils/forms";
@@ -9,7 +9,7 @@ import validation from "./validation";
 import TextField from "components/Forms/TextField";
 import SelectField from "components/Forms/SelectField";
 
-import { toast } from "react-toastify";
+import { distritos, getSeccionesByDistrito } from "utils/geo"
 
 const FiscalForm = ({
   onSubmit,
@@ -26,6 +26,13 @@ const FiscalForm = ({
     mode: "all",
   });
 
+  const distrito = useWatch({
+    control: form.control,
+    name: 'distrito',
+    defaultValue: distritos[0].value
+  })
+
+
   useEffect(() => {
     handleServersideValidationErrors(errors, form.setError);
   }, [errors, form.setError]);
@@ -36,8 +43,6 @@ const FiscalForm = ({
     form.reset(fiscal);
     discardChanges();
   };
-
-  const inputRef = useRef();
 
   return (
     <div className="card">
@@ -75,7 +80,7 @@ const FiscalForm = ({
                   readOnly={isReadonly}
                 />
               </div>
-            </div>  
+            </div>
             <div className="row">
               <div className="col-lg-12">
                 <TextField
@@ -94,22 +99,21 @@ const FiscalForm = ({
                   readOnly={isReadonly}
                 />
               </div>
-            </div>  
+            </div>
             <div className="row">
               <div className="col-6">
                 <SelectField
-                    name="distrito"
-                    label="Privincia / Distrito electoral"
-                    options={[
-                      { value: "2", text: "Buenos Aires" },
-                      { value: "1", text: "Capital Federal" },
-                    ]}
-                  />
+                  name="distrito"
+                  label="Privincia / Distrito electoral"
+                  options={distritos}
+                  readOnly={isReadonly}
+                />
               </div>
               <div className="col-6">
-                <TextField
+                <SelectField
                   name="seccion_electoral"
-                  label="Municipio / Sección electoral (poner dropdown)"
+                  label="Municipio / Sección electoral"
+                  options={getSeccionesByDistrito(distrito)}
                   readOnly={isReadonly}
                 />
               </div>
@@ -117,10 +121,10 @@ const FiscalForm = ({
             <div className="row">
               <div className="col-6">
                 <TextField
-                    name="escuela"
-                    label="Escuela asginada (opcional)"
-                    readOnly={isReadonly}
-                  />
+                  name="escuela"
+                  label="Escuela asginada (opcional)"
+                  readOnly={isReadonly}
+                />
               </div>
               <div className="col-6">
                 <TextField
@@ -130,7 +134,7 @@ const FiscalForm = ({
                 />
               </div>
             </div>
-            
+
 
             {!isReadonly && (
               <div className="d-flex justify-content-between flex-row-reverse">
@@ -167,7 +171,7 @@ FiscalForm.propTypes = {
 };
 
 FiscalForm.defaultProps = {
-  onSubmit: () => {},
+  onSubmit: () => { },
   fiscal: {},
   isReadonly: false,
   fromEdit: false,

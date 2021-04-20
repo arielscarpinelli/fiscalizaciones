@@ -1,0 +1,752 @@
+[
+  {
+    "distrito": 1,
+    "secc": 1,
+    "seccion": "COMUNA N°1"
+  },
+  {
+    "distrito": 1,
+    "secc": 2,
+    "seccion": "COMUNA N°2"
+  },
+  {
+    "distrito": 1,
+    "secc": 3,
+    "seccion": "COMUNA N°3"
+  },
+  {
+    "distrito": 1,
+    "secc": 4,
+    "seccion": "COMUNA N°4"
+  },
+  {
+    "distrito": 1,
+    "secc": 5,
+    "seccion": "COMUNA N°5"
+  },
+  {
+    "distrito": 1,
+    "secc": 6,
+    "seccion": "COMUNA N°6"
+  },
+  {
+    "distrito": 1,
+    "secc": 7,
+    "seccion": "COMUNA N°7"
+  },
+  {
+    "distrito": 1,
+    "secc": 8,
+    "seccion": "COMUNA N°8"
+  },
+  {
+    "distrito": 1,
+    "secc": 9,
+    "seccion": "COMUNA N°9"
+  },
+  {
+    "distrito": 1,
+    "secc": 10,
+    "seccion": "COMUNA N°10"
+  },
+  {
+    "distrito": 1,
+    "secc": 11,
+    "seccion": "COMUNA N°11"
+  },
+  {
+    "distrito": 1,
+    "secc": 12,
+    "seccion": "COMUNA N°12"
+  },
+  {
+    "distrito": 1,
+    "secc": 13,
+    "seccion": "COMUNA N°13"
+  },
+  {
+    "distrito": 1,
+    "secc": 14,
+    "seccion": "COMUNA N°14"
+  },
+  {
+    "distrito": 1,
+    "secc": 15,
+    "seccion": "COMUNA N°15"
+  },
+  {
+    "distrito": 2,
+    "secc": 1,
+    "seccion": "ADOLFO ALSINA"
+  },
+  {
+    "distrito": 2,
+    "secc": 2,
+    "seccion": "ALBERTI"
+  },
+  {
+    "distrito": 2,
+    "secc": 3,
+    "seccion": "ALMIRANTE BROWN"
+  },
+  {
+    "distrito": 2,
+    "secc": 4,
+    "seccion": "AVELLANEDA"
+  },
+  {
+    "distrito": 2,
+    "secc": 5,
+    "seccion": "AYACUCHO"
+  },
+  {
+    "distrito": 2,
+    "secc": 6,
+    "seccion": "AZUL"
+  },
+  {
+    "distrito": 2,
+    "secc": 7,
+    "seccion": "BAHIA BLANCA"
+  },
+  {
+    "distrito": 2,
+    "secc": 8,
+    "seccion": "BALCARCE"
+  },
+  {
+    "distrito": 2,
+    "secc": 9,
+    "seccion": "BARADERO"
+  },
+  {
+    "distrito": 2,
+    "secc": 10,
+    "seccion": "ARRECIFES"
+  },
+  {
+    "distrito": 2,
+    "secc": 11,
+    "seccion": "BERAZATEGUI"
+  },
+  {
+    "distrito": 2,
+    "secc": 12,
+    "seccion": "BERISSO"
+  },
+  {
+    "distrito": 2,
+    "secc": 13,
+    "seccion": "BOLIVAR"
+  },
+  {
+    "distrito": 2,
+    "secc": 14,
+    "seccion": "BRAGADO"
+  },
+  {
+    "distrito": 2,
+    "secc": 15,
+    "seccion": "BRANDSEN"
+  },
+  {
+    "distrito": 2,
+    "secc": 16,
+    "seccion": "CAMPANA"
+  },
+  {
+    "distrito": 2,
+    "secc": 17,
+    "seccion": "CA¥UELAS"
+  },
+  {
+    "distrito": 2,
+    "secc": 18,
+    "seccion": "CAPITAN SARMIENTO"
+  },
+  {
+    "distrito": 2,
+    "secc": 19,
+    "seccion": "CARLOS CASARES"
+  },
+  {
+    "distrito": 2,
+    "secc": 20,
+    "seccion": "CARLOS TEJEDOR"
+  },
+  {
+    "distrito": 2,
+    "secc": 21,
+    "seccion": "CARMEN DE ARECO"
+  },
+  {
+    "distrito": 2,
+    "secc": 22,
+    "seccion": "PATAGONES"
+  },
+  {
+    "distrito": 2,
+    "secc": 23,
+    "seccion": "CASTELLI"
+  },
+  {
+    "distrito": 2,
+    "secc": 24,
+    "seccion": "COLON"
+  },
+  {
+    "distrito": 2,
+    "secc": 25,
+    "seccion": "CORONEL DORREGO"
+  },
+  {
+    "distrito": 2,
+    "secc": 26,
+    "seccion": "CORONEL PRINGLES"
+  },
+  {
+    "distrito": 2,
+    "secc": 27,
+    "seccion": "CORONEL ROSALES"
+  },
+  {
+    "distrito": 2,
+    "secc": 28,
+    "seccion": "CORONEL SUAREZ"
+  },
+  {
+    "distrito": 2,
+    "secc": 29,
+    "seccion": "CHACABUCO"
+  },
+  {
+    "distrito": 2,
+    "secc": 30,
+    "seccion": "CHASCOMUS"
+  },
+  {
+    "distrito": 2,
+    "secc": 31,
+    "seccion": "CHIVILCOY"
+  },
+  {
+    "distrito": 2,
+    "secc": 32,
+    "seccion": "DAIREAUX"
+  },
+  {
+    "distrito": 2,
+    "secc": 33,
+    "seccion": "DOLORES"
+  },
+  {
+    "distrito": 2,
+    "secc": 34,
+    "seccion": "ENSENADA"
+  },
+  {
+    "distrito": 2,
+    "secc": 35,
+    "seccion": "ESCOBAR"
+  },
+  {
+    "distrito": 2,
+    "secc": 36,
+    "seccion": "ESTEBAN ECHEVERRIA"
+  },
+  {
+    "distrito": 2,
+    "secc": 37,
+    "seccion": "EXALTACION DE LA CRUZ"
+  },
+  {
+    "distrito": 2,
+    "secc": 38,
+    "seccion": "FLORENCIO VARELA"
+  },
+  {
+    "distrito": 2,
+    "secc": 39,
+    "seccion": "GENERAL ALVARADO"
+  },
+  {
+    "distrito": 2,
+    "secc": 40,
+    "seccion": "GENERAL ALVEAR"
+  },
+  {
+    "distrito": 2,
+    "secc": 41,
+    "seccion": "GENERAL ARENALES"
+  },
+  {
+    "distrito": 2,
+    "secc": 42,
+    "seccion": "GENERAL BELGRANO"
+  },
+  {
+    "distrito": 2,
+    "secc": 43,
+    "seccion": "GENERAL GUIDO"
+  },
+  {
+    "distrito": 2,
+    "secc": 44,
+    "seccion": "GENERAL LAMADRID"
+  },
+  {
+    "distrito": 2,
+    "secc": 45,
+    "seccion": "LAS HERAS"
+  },
+  {
+    "distrito": 2,
+    "secc": 46,
+    "seccion": "GENERAL LAVALLE"
+  },
+  {
+    "distrito": 2,
+    "secc": 47,
+    "seccion": "GENERAL MADARIAGA"
+  },
+  {
+    "distrito": 2,
+    "secc": 48,
+    "seccion": "GENERAL PAZ"
+  },
+  {
+    "distrito": 2,
+    "secc": 49,
+    "seccion": "GENERAL PINTO"
+  },
+  {
+    "distrito": 2,
+    "secc": 50,
+    "seccion": "GENERAL PUEYRREDON"
+  },
+  {
+    "distrito": 2,
+    "secc": 51,
+    "seccion": "GENERAL RODRIGUEZ"
+  },
+  {
+    "distrito": 2,
+    "secc": 52,
+    "seccion": "GENERAL SAN MARTIN"
+  },
+  {
+    "distrito": 2,
+    "secc": 53,
+    "seccion": "SAN MIGUEL"
+  },
+  {
+    "distrito": 2,
+    "secc": 54,
+    "seccion": "GENERAL VIAMONTE"
+  },
+  {
+    "distrito": 2,
+    "secc": 55,
+    "seccion": "GENERAL VILLEGAS"
+  },
+  {
+    "distrito": 2,
+    "secc": 56,
+    "seccion": "GONZALES CHAVES"
+  },
+  {
+    "distrito": 2,
+    "secc": 57,
+    "seccion": "GUAMINI"
+  },
+  {
+    "distrito": 2,
+    "secc": 58,
+    "seccion": "HIPOLITO YRIGOYEN"
+  },
+  {
+    "distrito": 2,
+    "secc": 59,
+    "seccion": "JUAREZ"
+  },
+  {
+    "distrito": 2,
+    "secc": 60,
+    "seccion": "JUNIN"
+  },
+  {
+    "distrito": 2,
+    "secc": 61,
+    "seccion": "MATANZA"
+  },
+  {
+    "distrito": 2,
+    "secc": 62,
+    "seccion": "LANUS"
+  },
+  {
+    "distrito": 2,
+    "secc": 63,
+    "seccion": "LA PLATA"
+  },
+  {
+    "distrito": 2,
+    "secc": 64,
+    "seccion": "LAPRIDA"
+  },
+  {
+    "distrito": 2,
+    "secc": 65,
+    "seccion": "LAS FLORES"
+  },
+  {
+    "distrito": 2,
+    "secc": 66,
+    "seccion": "LEANDRO N. ALEM"
+  },
+  {
+    "distrito": 2,
+    "secc": 67,
+    "seccion": "LINCOLN"
+  },
+  {
+    "distrito": 2,
+    "secc": 68,
+    "seccion": "LOBERIA"
+  },
+  {
+    "distrito": 2,
+    "secc": 69,
+    "seccion": "LOBOS"
+  },
+  {
+    "distrito": 2,
+    "secc": 70,
+    "seccion": "LOMAS DE ZAMORA"
+  },
+  {
+    "distrito": 2,
+    "secc": 71,
+    "seccion": "LUJAN"
+  },
+  {
+    "distrito": 2,
+    "secc": 72,
+    "seccion": "MAGDALENA"
+  },
+  {
+    "distrito": 2,
+    "secc": 73,
+    "seccion": "MAIPU"
+  },
+  {
+    "distrito": 2,
+    "secc": 74,
+    "seccion": "MAR CHIQUITA"
+  },
+  {
+    "distrito": 2,
+    "secc": 75,
+    "seccion": "MARCOS PAZ"
+  },
+  {
+    "distrito": 2,
+    "secc": 76,
+    "seccion": "MERCEDES"
+  },
+  {
+    "distrito": 2,
+    "secc": 77,
+    "seccion": "MERLO"
+  },
+  {
+    "distrito": 2,
+    "secc": 78,
+    "seccion": "MONTE"
+  },
+  {
+    "distrito": 2,
+    "secc": 79,
+    "seccion": "MORENO"
+  },
+  {
+    "distrito": 2,
+    "secc": 80,
+    "seccion": "MORON"
+  },
+  {
+    "distrito": 2,
+    "secc": 81,
+    "seccion": "NAVARRO"
+  },
+  {
+    "distrito": 2,
+    "secc": 82,
+    "seccion": "NECOCHEA"
+  },
+  {
+    "distrito": 2,
+    "secc": 83,
+    "seccion": "NUEVE DE JULIO"
+  },
+  {
+    "distrito": 2,
+    "secc": 84,
+    "seccion": "OLAVARRIA"
+  },
+  {
+    "distrito": 2,
+    "secc": 85,
+    "seccion": "PEHUAJO"
+  },
+  {
+    "distrito": 2,
+    "secc": 86,
+    "seccion": "PELLEGRINI"
+  },
+  {
+    "distrito": 2,
+    "secc": 87,
+    "seccion": "PERGAMINO"
+  },
+  {
+    "distrito": 2,
+    "secc": 88,
+    "seccion": "PILA"
+  },
+  {
+    "distrito": 2,
+    "secc": 89,
+    "seccion": "PILAR"
+  },
+  {
+    "distrito": 2,
+    "secc": 90,
+    "seccion": "PINAMAR"
+  },
+  {
+    "distrito": 2,
+    "secc": 91,
+    "seccion": "PUAN"
+  },
+  {
+    "distrito": 2,
+    "secc": 92,
+    "seccion": "QUILMES"
+  },
+  {
+    "distrito": 2,
+    "secc": 93,
+    "seccion": "RAMALLO"
+  },
+  {
+    "distrito": 2,
+    "secc": 94,
+    "seccion": "RAUCH"
+  },
+  {
+    "distrito": 2,
+    "secc": 95,
+    "seccion": "RIVADAVIA"
+  },
+  {
+    "distrito": 2,
+    "secc": 96,
+    "seccion": "ROJAS"
+  },
+  {
+    "distrito": 2,
+    "secc": 97,
+    "seccion": "ROQUE PEREZ"
+  },
+  {
+    "distrito": 2,
+    "secc": 98,
+    "seccion": "SAAVEDRA"
+  },
+  {
+    "distrito": 2,
+    "secc": 99,
+    "seccion": "SALADILLO"
+  },
+  {
+    "distrito": 2,
+    "secc": 100,
+    "seccion": "SALLIQUELO"
+  },
+  {
+    "distrito": 2,
+    "secc": 101,
+    "seccion": "SALTO"
+  },
+  {
+    "distrito": 2,
+    "secc": 102,
+    "seccion": "SAN ANDRES DE GILES"
+  },
+  {
+    "distrito": 2,
+    "secc": 103,
+    "seccion": "SAN ANTONIO DE ARECO"
+  },
+  {
+    "distrito": 2,
+    "secc": 104,
+    "seccion": "SAN CAYETANO"
+  },
+  {
+    "distrito": 2,
+    "secc": 105,
+    "seccion": "SAN FERNANDO"
+  },
+  {
+    "distrito": 2,
+    "secc": 106,
+    "seccion": "SAN ISIDRO"
+  },
+  {
+    "distrito": 2,
+    "secc": 107,
+    "seccion": "SAN NICOLAS"
+  },
+  {
+    "distrito": 2,
+    "secc": 108,
+    "seccion": "SAN PEDRO"
+  },
+  {
+    "distrito": 2,
+    "secc": 109,
+    "seccion": "SAN VICENTE"
+  },
+  {
+    "distrito": 2,
+    "secc": 110,
+    "seccion": "SUIPACHA"
+  },
+  {
+    "distrito": 2,
+    "secc": 111,
+    "seccion": "TANDIL"
+  },
+  {
+    "distrito": 2,
+    "secc": 112,
+    "seccion": "TAPALQUE"
+  },
+  {
+    "distrito": 2,
+    "secc": 113,
+    "seccion": "TIGRE"
+  },
+  {
+    "distrito": 2,
+    "secc": 114,
+    "seccion": "TORNQUIST"
+  },
+  {
+    "distrito": 2,
+    "secc": 115,
+    "seccion": "TRENQUE LAUQUEN"
+  },
+  {
+    "distrito": 2,
+    "secc": 116,
+    "seccion": "TORDILLO"
+  },
+  {
+    "distrito": 2,
+    "secc": 117,
+    "seccion": "TRES ARROYOS"
+  },
+  {
+    "distrito": 2,
+    "secc": 118,
+    "seccion": "TRES DE FEBRERO"
+  },
+  {
+    "distrito": 2,
+    "secc": 119,
+    "seccion": "LA COSTA"
+  },
+  {
+    "distrito": 2,
+    "secc": 120,
+    "seccion": "MONTE HERMOSO"
+  },
+  {
+    "distrito": 2,
+    "secc": 121,
+    "seccion": "VEINTICINCO DE MAYO"
+  },
+  {
+    "distrito": 2,
+    "secc": 122,
+    "seccion": "VICENTE LOPEZ"
+  },
+  {
+    "distrito": 2,
+    "secc": 123,
+    "seccion": "VILLA GESELL"
+  },
+  {
+    "distrito": 2,
+    "secc": 124,
+    "seccion": "VILLARINO"
+  },
+  {
+    "distrito": 2,
+    "secc": 125,
+    "seccion": "ZARATE"
+  },
+  {
+    "distrito": 2,
+    "secc": 126,
+    "seccion": "TRES LOMAS"
+  },
+  {
+    "distrito": 2,
+    "secc": 127,
+    "seccion": "F.AMEGHINO"
+  },
+  {
+    "distrito": 2,
+    "secc": 128,
+    "seccion": "PRESIDENTE PERON"
+  },
+  {
+    "distrito": 2,
+    "secc": 129,
+    "seccion": "J.C.PAZ"
+  },
+  {
+    "distrito": 2,
+    "secc": 130,
+    "seccion": "MALVINAS ARGENTINAS"
+  },
+  {
+    "distrito": 2,
+    "secc": 131,
+    "seccion": "PUNTA INDIO"
+  },
+  {
+    "distrito": 2,
+    "secc": 132,
+    "seccion": "EZEIZA"
+  },
+  {
+    "distrito": 2,
+    "secc": 133,
+    "seccion": "ITUZAINGO"
+  },
+  {
+    "distrito": 2,
+    "secc": 134,
+    "seccion": "HURLINGHAM"
+  },
+  {
+    "distrito": 2,
+    "secc": 135,
+    "seccion": "LEZAMA"
+  }
+]
