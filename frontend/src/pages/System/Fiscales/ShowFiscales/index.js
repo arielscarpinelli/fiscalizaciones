@@ -6,7 +6,7 @@ import Spinner from "components/Spinner";
 
 import { toast } from "react-toastify";
 import { getFiscales, deleteFiscal } from "api/modules/fiscales.api";
-import FiscalBasicPresentation from "components/Fiscales/BasicPresentation";
+import {  getSeccion } from "utils/geo"
 
 const ShowFiscales = () => {
   const [fiscales, setFiscales] = useState([]);
@@ -78,7 +78,8 @@ const ShowFiscales = () => {
                 <thead>
                   <tr>
                     <th scope="col">Apellido y nombre</th>
-                    <th scope="col">Tipo y Número de Documento</th>
+                    <th scope="col">DNI</th>
+                    <th scope="col">Municipio</th>
                     <th scope="col" style={{ width: 100 }}></th>
                   </tr>
                 </thead>
@@ -86,10 +87,13 @@ const ShowFiscales = () => {
                   {fiscales.map((fiscal) => (
                     <tr key={fiscal.id}>
                       <td>
-                        <FiscalBasicPresentation fiscal={fiscal} />
+                        {fiscal.last_name.toUpperCase()}, {fiscal.first_name}
                       </td>
                       <td>
-                        {fiscal.type_id} {fiscal.number_id}
+                        {fiscal.dni}
+                      </td>
+                      <td>
+                        {getSeccion(fiscal.distrito, fiscal.seccion)}
                       </td>
                       <td>
                         <div className="btn-group">
