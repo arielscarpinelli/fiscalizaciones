@@ -7,7 +7,6 @@ const sendCodeViaEmail = async (fiscal) => {
 
     const email = fiscal.email
 
-    fiscal.mustValidateEmail();
     fiscal.generateValidationCode();
 
     await fiscal.save();

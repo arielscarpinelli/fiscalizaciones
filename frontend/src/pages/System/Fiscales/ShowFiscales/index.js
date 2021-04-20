@@ -6,7 +6,7 @@ import Spinner from "components/Spinner";
 
 import { toast } from "react-toastify";
 import { getFiscales, deleteFiscal } from "api/modules/fiscales.api";
-import {  getSeccion } from "utils/geo"
+import {  getSeccionElectoral } from "utils/geo"
 
 const ShowFiscales = () => {
   const [fiscales, setFiscales] = useState([]);
@@ -93,7 +93,7 @@ const ShowFiscales = () => {
                         {fiscal.dni}
                       </td>
                       <td>
-                        {getSeccion(fiscal.distrito, fiscal.seccion)}
+                        {getSeccionElectoral(fiscal.distrito, fiscal.seccion_electoral).seccion}
                       </td>
                       <td>
                         <div className="btn-group">

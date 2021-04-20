@@ -27,45 +27,43 @@ const imageType = require("image-type");
 
 const UploadedFileIsNotAnImageException = require("../exceptions/FileExceptions/UploadedFileIsNotAnImageException");
 
+const loginValidation = Joi.object({
+  email: Joi.string().email({ tlds: { allow: false } }).required(),
+});
+
+
 const codeValidation = Joi.object({
   code: Joi.string().length(6).trim().required(),
+  email: Joi.string().email({ tlds: { allow: false } }).required(),
 });
 
 const validation = Joi.object({
   first_name: Joi.string().trim().required(),
   last_name: Joi.string().trim().required(),
-  type_id: Joi.string().trim().required(),
-  number_id: Joi.string().trim().required(),
-  resume: Joi.string().trim().required(),
-  expertise: Joi.string().trim().required(),
-  video_resume: Joi.string().uri().required(),
+  dni: Joi.number().required(),
+  email: Joi.string().email({ tlds: { allow: false } }).required(),
+  phone: Joi.number().empty('').optional(),
+  address: Joi.string().trim().optional(),
+  distrito: Joi.number().required(),
+  seccion_electoral: Joi.number().required(),
+  escuela: Joi.number().empty('').optional(),
+  mesa: Joi.number().empty('').optional()
 });
 
 const loginFiscal = async (req, res, next) => {
   try {
 
-    // TODO: login del fiscal
+    const { email } = await loginValidation.validateAsync(req.body);
 
-    /*
+    const fiscal = Fiscal.findByEmail(email);
 
-    const token = crypto.randomBytes(36).toString("hex");
-    const encryptedToken = encrypt(token);
-    const encodedToken = Buffer.from(encryptedToken).toString("base64");
+    if (!fiscal) {
+      throw new UnauthenticatedException();
+    }
 
-    const affiliate = new Affiliate({
-      dni: number_id,
-      token,
-    });
+    await sendCodeViaEmail(fiscal);
 
-    const { email } = await sendCodeViaEmail(affiliate);
-
-    res.json({
-      email,
-      token: encodedToken,
-    });
-
-    */
-
+    res.json();
 
   } catch (error) {
     next(error);
@@ -73,44 +71,34 @@ const loginFiscal = async (req, res, next) => {
 };
 
 const validateEmail = async (req, res, next) => {
-  const { affiliate } = req;
-
   try {
-    const { code } = await codeValidation.validateAsync(req.body);
+    const { code, email } = await codeValidation.validateAsync(req.body);
 
-    if (Number(code) !== Number(affiliate.code)) {
+    const fiscal = Fiscal.findByEmail(email);
+
+    if (!fiscal) {
+      throw new UnauthenticatedException();
+    }
+
+    if (Number(code) !== Number(fiscal.code)) {
       throw new InvalidValidationCodeException();
     }
 
-    await affiliate.ready();
+    const token = crypto.randomBytes(36).toString("hex");
+    const encryptedToken = encrypt(token);
+    const encodedToken = Buffer.from(encryptedToken).toString("base64");
+
+    fiscal.token = encodedToken;
+    await fiscal.save();
 
     res.json({
-      nextStep: affiliate.login_step,
+      token: encodedToken,
     });
   } catch (error) {
     next(error);
   }
 };
 
-const validatePhone = async (req, res, next) => {
-  const { affiliate } = req;
-
-  try {
-    const { code } = await codeValidation.validateAsync(req.body);
-
-    if (Number(code) !== Number(affiliate.code)) {
-      throw new InvalidValidationCodeException();
-    }
-
-    await affiliate.ready();
-
-    res.json({
-      nextStep: affiliate.login_step,
-    });
-  } catch (error) {
-    next(error);
-  }
-};
 
 /*
 const uploadPhoto = async (req, res, next) => {
@@ -351,6 +339,5 @@ module.exports = {
   searchFiscales,
   loginFiscal,
   validateEmail,
-  validatePhone,
   postResults,
 };

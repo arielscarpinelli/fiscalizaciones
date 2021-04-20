@@ -10,7 +10,7 @@ const authRoutes = require("./auth");
 
 router.get("/", (req, res) => {
   res.json({
-    message: "Bienvenido a la API del Sistema de Voto del Partido Unidos",
+    message: "Bienvenido a la API del Sistema de Fiscales de Republicanos Unidos",
   });
 });
 

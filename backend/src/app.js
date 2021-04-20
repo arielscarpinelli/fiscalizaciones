@@ -57,7 +57,7 @@ const run = async () => {
     const { User } = require("./models/index");
     if (await User.count() === 0) {
       await User.create({
-        email: 'admin@admin.com',
+        email: 'admin@republicanosunidos.com.ar',
         role: 'SUPERADMIN',
         password: '123456',
       });  

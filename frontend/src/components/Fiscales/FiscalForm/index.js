@@ -9,7 +9,7 @@ import validation from "./validation";
 import TextField from "components/Forms/TextField";
 import SelectField from "components/Forms/SelectField";
 
-import { distritos, getSeccionesByDistrito } from "utils/geo"
+import { distritos, getSeccionesElectoralesByDistrito } from "utils/geo"
 
 const FiscalForm = ({
   onSubmit,
@@ -113,7 +113,7 @@ const FiscalForm = ({
                 <SelectField
                   name="seccion_electoral"
                   label="Municipio / Sección electoral"
-                  options={getSeccionesByDistrito(distrito)}
+                  options={getSeccionesElectoralesByDistrito(distrito)}
                   readOnly={isReadonly}
                 />
               </div>

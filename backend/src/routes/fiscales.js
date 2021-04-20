@@ -12,7 +12,6 @@ const {
   getPhoto,
   loginFiscal,
   validateEmail,
-  validatePhone,
   postResults,
 } = require("../controllers/fiscales");
 
@@ -20,8 +19,7 @@ const authFiscal = require("../middlewares/authFiscal");
 const { isAuthenticated } = require("../middlewares");
 
 router.post("/login", loginFiscal);
-router.post("/validate-email", authFiscal, validateEmail);
-router.post("/validate-phone", authFiscal, validatePhone);
+router.post("/validate-email", validateEmail);
 
 router.post("/result", authFiscal, postResults);
 /*

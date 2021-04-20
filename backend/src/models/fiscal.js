@@ -11,6 +11,14 @@ module.exports = (sequelize, DataTypes) => {
      */
     static associate(models) {
     }
+
+    static async findByEmail(email) {
+      return await Fiscal.findOne({
+        where: {
+          email
+        },
+      });
+    }
   }
   Fiscal.init(
     {
@@ -38,6 +46,7 @@ module.exports = (sequelize, DataTypes) => {
       lat_lon: {
         type: DataTypes.GEOMETRY('POINT'),
         allowNull: false,
+        defaultValue: { type: 'Point', coordinates: [0, 0]}
       },
       phone: {
         type: DataTypes.INTEGER,
@@ -47,18 +56,9 @@ module.exports = (sequelize, DataTypes) => {
         type: DataTypes.STRING,
         allowNull: true,
       },
-      login_step: {
-        type: DataTypes.ENUM(
-          "MUST_VALIDATE_EMAIL",
-          "EMAIL_VALIDATED",
-          "MUST_VALIDATE_PHONE",
-          "READY"
-        ),
-        allowNull: false,
-      },
       code: {
         type: DataTypes.STRING,
-        allowNull: false,
+        allowNull: true,
       },
       distrito: {
         type: DataTypes.INTEGER,
@@ -85,29 +85,8 @@ module.exports = (sequelize, DataTypes) => {
     }
   );
 
-  Fiscal.prototype.generateValidationCode = function () {
+  Fiscal.prototype.generateValidationCode = async function () {
     this.code = randomIntBetweenInterval(100000, 999999);
-  };
-
-  Fiscal.prototype.mustValidateEmail = function () {
-    this.login_step = "MUST_VALIDATE_EMAIL";
-  };
-
-  Fiscal.prototype.emailWasValidated = function () {
-    this.login_step = "EMAIL_VALIDATED";
-  };
-
-  Fiscal.prototype.isReady = function () {
-    return this.login_step === "READY";
-  };
-
-  Fiscal.prototype.ready = async function () {
-    this.login_step = "READY";
-    await this.save();
-  };
-
-  Fiscal.prototype.mustValidatePhone = function () {
-    this.login_step = "MUST_VALIDATE_PHONE";
   };
 
   return Fiscal;

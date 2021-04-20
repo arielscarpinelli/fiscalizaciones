@@ -41,18 +41,9 @@ module.exports = {
         type: Sequelize.STRING,
         allowNull: true,
       },
-      login_step: {
-        type: Sequelize.ENUM(
-          "MUST_VALIDATE_EMAIL",
-          "EMAIL_VALIDATED",
-          "MUST_VALIDATE_PHONE",
-          "READY"
-        ),
-        allowNull: false,
-      },
       code: {
         type: Sequelize.STRING,
-        allowNull: false,
+        allowNull: true,
       },
       distrito: {
         type: Sequelize.INTEGER,

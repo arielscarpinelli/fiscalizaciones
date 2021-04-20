@@ -1,9 +1,9 @@
-const { Affiliate } = require("../models");
+const { Fiscal } = require("../models");
 const { decrypt } = require("../utils/security");
 const InvalidTokenException = require("../exceptions/InvalidTokenException");
 const UnauthenticatedException = require("../exceptions/UnauthenticatedException");
 
-async function authAffiliate(req, res, next) {
+async function authFiscal(req, res, next) {
   const { authorization } = req.headers;
 
   try {
@@ -20,17 +20,17 @@ async function authAffiliate(req, res, next) {
     const decodedToken = Buffer.from(token, "base64").toString();
     const decryptedToken = decrypt(decodedToken);
 
-    const affiliate = await Affiliate.findOne({
+    const fiscal = await Fiscal.findOne({
       where: {
         token: decryptedToken,
       },
     });
 
-    if (!affiliate) {
+    if (!fiscal) {
       throw new InvalidTokenException();
     }
 
-    req.affiliate = affiliate;
+    req.fiscal = fiscal;
 
     next();
   } catch (error) {
@@ -38,4 +38,4 @@ async function authAffiliate(req, res, next) {
   }
 }
 
-module.exports = authAffiliate;
+module.exports = authFiscal;
