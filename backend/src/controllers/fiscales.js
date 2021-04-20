@@ -57,11 +57,10 @@ const loginFiscal = async (req, res, next) => {
 
     const fiscal = Fiscal.findByEmail(email);
 
-    if (!fiscal) {
-      throw new UnauthenticatedException();
-    }
-
-    await sendCodeViaEmail(fiscal);
+    if (fiscal) {
+      await sendCodeViaEmail(fiscal);
+    }// Si el fiscal no existe, NO-OP. Esto es para no develar la base de direcciones de email
+    
 
     res.json();
 
