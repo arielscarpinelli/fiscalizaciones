@@ -8,7 +8,7 @@ import Spinner from "components/Spinner";
 import { getUsers, deleteUser } from "api/modules/users.api";
 import UserContext from "context/UserContext";
 
-const ShowUsers = () => {
+const ListUsers = () => {
   const history = useHistory();
   const [users, setUsers] = useState([]);
   const [isLoading, setLoading] = useState(false);
@@ -124,4 +124,4 @@ const ShowUsers = () => {
   );
 };
 
-export default ShowUsers;
+export default ListUsers;

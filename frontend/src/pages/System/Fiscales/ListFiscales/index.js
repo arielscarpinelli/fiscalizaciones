@@ -8,7 +8,7 @@ import { toast } from "react-toastify";
 import { getFiscales, deleteFiscal } from "api/modules/fiscales.api";
 import {  getSeccionElectoral } from "utils/geo"
 
-const ShowFiscales = () => {
+const ListFiscales = () => {
   const [fiscales, setFiscales] = useState([]);
   const [isLoading, setLoading] = useState(false);
 
@@ -124,4 +124,4 @@ const ShowFiscales = () => {
   );
 };
 
-export default ShowFiscales;
+export default ListFiscales;

@@ -3,7 +3,7 @@ import { Switch } from "react-router-dom";
 
 import PrivateRoute from "directives/PrivateRoute";
 
-import ShowFiscales from "pages/System/Fiscales/ShowFiscales";
+import ListFiscales from "pages/System/Fiscales/ListFiscales";
 import CreateFiscal from "pages/System/Fiscales/CreateFiscal";
 import ShowFiscal from "pages/System/Fiscales/ShowFiscal";
 
@@ -12,7 +12,7 @@ const FiscalesRoutes = ({ match: { path } }) => {
     <Switch>
       <PrivateRoute path={`${path}/crear`} component={CreateFiscal} exact />
       <PrivateRoute path={`${path}/:id`} component={ShowFiscal} exact />
-      <PrivateRoute path={`${path}`} component={ShowFiscales} exact />
+      <PrivateRoute path={`${path}`} component={ListFiscales} exact />
     </Switch>
   );
 };
