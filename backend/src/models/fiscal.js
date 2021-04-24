@@ -10,6 +10,10 @@ module.exports = (sequelize, DataTypes) => {
      * The `models/index` file will call this method automatically.
      */
     static associate(models) {
+        this.partido = this.belongsTo(models.Partido, {
+            foreignKey: 'partido',
+            as: 'partido_'
+        });
     }
 
     static async findByEmail(email) {

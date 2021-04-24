@@ -55,6 +55,7 @@ const ShowFiscal = () => {
         };
       });
       setIsReadonly(true);
+      setSubmitting(false);
       toast.info("El fiscal ha sido modificado exitosamente");
     } catch (error) {
       setSubmitting(false);

@@ -80,6 +80,7 @@ const ListFiscales = () => {
                     <th scope="col">Apellido y nombre</th>
                     <th scope="col">DNI</th>
                     <th scope="col">Municipio</th>
+                    <th scope="col">Partido</th>
                     <th scope="col" style={{ width: 100 }}></th>
                   </tr>
                 </thead>
@@ -94,6 +95,9 @@ const ListFiscales = () => {
                       </td>
                       <td>
                         {getSeccionElectoral(fiscal.distrito, fiscal.seccion_electoral).seccion}
+                      </td>
+                      <td>
+                        {fiscal.partido_ ? fiscal.partido_.name : fiscal.partido}
                       </td>
                       <td>
                         <div className="btn-group">

@@ -10,6 +10,7 @@ import TextField from "components/Forms/TextField";
 import SelectField from "components/Forms/SelectField";
 
 import { distritos, getSeccionesElectoralesByDistrito } from "utils/geo"
+import SelectPartidoField from "components/Partidos/SelectPartidoField";
 
 const FiscalForm = ({
   onSubmit,
@@ -116,6 +117,11 @@ const FiscalForm = ({
                   options={getSeccionesElectoralesByDistrito(distrito)}
                   readOnly={isReadonly}
                 />
+              </div>
+            </div>
+            <div className="row">
+              <div className="col-6">
+                <SelectPartidoField readOnly={isReadonly}/>
               </div>
             </div>
             <div className="row">

@@ -4,6 +4,7 @@ const { encrypt } = require("../utils/security");
 
 const {
   Fiscal,
+  Partido,
   sequelize,
 } = require("../models");
 
@@ -47,7 +48,8 @@ const validation = Joi.object({
   distrito: Joi.number().required(),
   seccion_electoral: Joi.number().required(),
   escuela: Joi.number().empty('').optional(),
-  mesa: Joi.number().empty('').optional()
+  mesa: Joi.number().empty('').optional(),
+  partido: Joi.number().required(),
 });
 
 const loginFiscal = async (req, res, next) => {
@@ -221,6 +223,13 @@ const searchFiscales = async (req, res, next) => {
 
     let results;
 
+    const baseOptions = {
+      include: {
+        model: Partido,
+        as: 'partido_'
+      },
+    }
+
     if (req.query.q) {
 
       const { q } = await searchValidation.validateAsync(req.query);
@@ -251,12 +260,14 @@ const searchFiscales = async (req, res, next) => {
       });
 
       results = await Fiscal.findAll({
+        ...baseOptions,
         where: {
           [Op.or]: query,
         },
       });
+
     } else {
-      results = await Fiscal.findAll();
+      results = await Fiscal.findAll(baseOptions);
     }
     res.json(results);
   } catch (error) {
@@ -274,7 +285,9 @@ const getFiscal = async (req, res, next) => {
       return next();
     }
 
-    res.json(fiscal);
+    const {code, token, ...cleanFiscal} = fiscal.toJSON();
+
+    res.json(cleanFiscal);
   } catch (error) {
     next(error);
   }

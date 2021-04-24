@@ -21,6 +21,7 @@ const CreateFiscal = () => {
       const response = await postFiscal(data);
       const fiscalId = response.data.id;
       toast.info("El fiscal ha sido creado exitosamente");
+      setSubmitting(false);
       history.push(`/sistema/fiscales/${fiscalId}`);
     } catch (error) {
       setSubmitting(false);
