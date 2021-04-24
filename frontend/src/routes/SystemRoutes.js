@@ -5,6 +5,7 @@ import PrivateRoute from "directives/PrivateRoute";
 import Home from "pages/System/Home";
 import FiscalesRoutes from "routes/System/FiscalesRoutes";
 import UsersRoutes from "routes/System/UsersRoutes";
+import PartidosRoutes from "routes/System/PartidosRoutes";
 
 const SystemRoutes = () => {
   return (
@@ -20,6 +21,10 @@ const SystemRoutes = () => {
             <PrivateRoute
               path={`${path}/usuarios`}
               component={UsersRoutes}
+            />
+            <PrivateRoute
+              path={`${path}/partidos`}
+              component={PartidosRoutes}
             />
             <PrivateRoute path={`${path}`} component={Home} exact />
           </Switch>

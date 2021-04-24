@@ -65,6 +65,14 @@ const run = async () => {
 
   }
 
+  const { Partido } = require("./models/index");
+  if (await Partido.count() === 0) {
+    await Partido.create({
+      id: 1,
+      name: 'Republicanos Unidos',
+    });
+  }
+
   return app;
 };
 

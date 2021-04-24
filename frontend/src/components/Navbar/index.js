@@ -42,6 +42,11 @@ const Navbar = () => {
                 Usuarios
               </Link>
             )}
+            {userData && userData.role !== "OPERATOR" && (
+            <Link className="nav-link" to="/sistema/partidos">
+              Partidos
+            </Link>
+            )}
             <div className="btn-group">
               <button
                 id="btn-usuario"

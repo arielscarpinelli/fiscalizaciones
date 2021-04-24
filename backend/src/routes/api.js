@@ -6,6 +6,7 @@ const { isAuthenticated } = require("../middlewares");
 
 const fiscalesRoutes = require("./fiscales");
 const usersRoutes = require("./users");
+const partidosRoutes = require("./partidos");
 const authRoutes = require("./auth");
 
 router.get("/", (req, res) => {
@@ -17,6 +18,8 @@ router.get("/", (req, res) => {
 router.use("/fiscales", fiscalesRoutes);
 
 router.use("/users", isAuthenticated, usersRoutes);
+
+router.use("/partidos", isAuthenticated, partidosRoutes);
 
 router.use("/auth", authRoutes);
 
