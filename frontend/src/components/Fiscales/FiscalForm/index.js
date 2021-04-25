@@ -1,16 +1,16 @@
-import React, { useEffect } from "react";
+import React, {useEffect} from "react";
 import PropTypes from "prop-types";
-import { useForm, useWatch, FormProvider } from "react-hook-form";
-import { joiResolver } from "@hookform/resolvers/joi";
+import {FormProvider, useForm, useWatch} from "react-hook-form";
+import {joiResolver} from "@hookform/resolvers/joi";
 
-import { handleServersideValidationErrors } from "utils/forms";
+import {handleServersideValidationErrors} from "utils/forms";
 
 import validation from "./validation";
 import TextField from "components/Forms/TextField";
-import SelectField from "components/Forms/SelectField";
 
-import { distritos, getSeccionesElectoralesByDistrito } from "utils/geo"
 import SelectPartidoField from "components/Partidos/SelectPartidoField";
+import SelectDistritoField from "components/Geo/SelectDistritoField";
+import SelectSeccionElectoralField from "components/Geo/SelectSeccionElectoralField";
 
 const FiscalForm = ({
   onSubmit,
@@ -30,7 +30,6 @@ const FiscalForm = ({
   const distrito = useWatch({
     control: form.control,
     name: 'distrito',
-    defaultValue: distritos[0].value
   })
 
 
@@ -103,20 +102,10 @@ const FiscalForm = ({
             </div>
             <div className="row">
               <div className="col-6">
-                <SelectField
-                  name="distrito"
-                  label="Privincia / Distrito electoral"
-                  options={distritos}
-                  readOnly={isReadonly}
-                />
+                <SelectDistritoField readOnly={isReadonly}/>
               </div>
               <div className="col-6">
-                <SelectField
-                  name="seccion_electoral"
-                  label="Municipio / Sección electoral"
-                  options={getSeccionesElectoralesByDistrito(distrito)}
-                  readOnly={isReadonly}
-                />
+                <SelectSeccionElectoralField distrito={distrito} readOnly={isReadonly}/>
               </div>
             </div>
             <div className="row">

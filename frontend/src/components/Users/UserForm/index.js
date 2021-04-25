@@ -42,9 +42,10 @@ const UserForm = ({
   const superAdminRoles = [
     {
       value: "OPERATOR",
-      text: "Operador",
+      text: "Operador de partido (puede crear fiscales)",
     },
-    { value: "ADMIN", text: "Administrador" },
+    { value: "ADMIN",
+      text: "Admin de partido (puede crear operadores)" },
     {
       value: "SUPERADMIN",
       text: "Super administrador",
@@ -84,6 +85,26 @@ const UserForm = ({
                   label="Rol"
                   readOnly={isReadonly}
                   options={availableRoles}
+                />
+              </div>
+            </div>
+            <div className="row">
+              <div className="col-lg-12">
+                <TextField
+                    name="email"
+                    label="Correo electrónico"
+                    readOnly={isReadonly}
+                    type="email"
+                />
+              </div>
+            </div>
+            <div className="row">
+              <div className="col-lg-12">
+                <SelectField
+                    name="role"
+                    label="Rol"
+                    readOnly={isReadonly}
+                    options={availableRoles}
                 />
               </div>
             </div>
