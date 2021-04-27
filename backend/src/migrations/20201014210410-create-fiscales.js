@@ -65,8 +65,7 @@ module.exports = {
     await queryInterface.addIndex("Fiscales", ['first_name']);
     await queryInterface.addIndex("Fiscales", ['last_name']);
     await queryInterface.addIndex("Fiscales", ['dni']);
-    await queryInterface.addIndex("Fiscales", ['distrito']);
-    await queryInterface.addIndex("Fiscales", ['seccion_electoral']);
+    await queryInterface.addIndex("Fiscales", ['distrito', 'seccion_electoral']);
     await queryInterface.addIndex("Fiscales", ['escuela']);
     await queryInterface.addIndex("Fiscales", ['mesa']);
     await queryInterface.addIndex("Fiscales", ['lat_lon']);  

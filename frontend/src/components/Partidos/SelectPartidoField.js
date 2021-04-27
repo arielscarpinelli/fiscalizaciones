@@ -7,7 +7,7 @@ import SelectField from "components/Forms/SelectField";
 
 const SelectPartidoField = ({ name, label, readOnly, ...rest }) => {
   const [values, setValues] = useState([]);
-  const [isLoading, setLoading] = useState(false);
+  const [loading, setLoading] = useState(false);
 
   const invokeFetch = () => {
     fetch();
@@ -17,7 +17,9 @@ const SelectPartidoField = ({ name, label, readOnly, ...rest }) => {
 
   const fetch = async () => {
     setValues([]);
-    setLoading(true);
+    // TODO: WTF: por que se validan los errores cuando pongo setLoading en true?
+    //setLoading(true);
+
     try {
       const { data } = await getPartidos();
       const list = data
@@ -42,7 +44,7 @@ const SelectPartidoField = ({ name, label, readOnly, ...rest }) => {
       label={label}
       readOnly={readOnly}
       options={values}
-      isLoading={isLoading}
+      isLoading={loading}
       {...rest}
     />
   );

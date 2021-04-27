@@ -13,7 +13,10 @@ module.exports = (sequelize, DataTypes) => {
      * The `models/index` file will call this method automatically.
      */
     static associate(models) {
-      // define association here
+      this.partido = this.belongsTo(models.Partido, {
+        foreignKey: 'partido',
+        as: 'partido_'
+      });
     }
   }
   User.init(
@@ -46,6 +49,14 @@ module.exports = (sequelize, DataTypes) => {
       },
       resetToken: {
         type: DataTypes.STRING,
+        allowNull: true,
+      },
+      distrito: {
+        type: DataTypes.INTEGER,
+        allowNull: true,
+      },
+      seccion_electoral: {
+        type: DataTypes.INTEGER,
         allowNull: true,
       },
     },

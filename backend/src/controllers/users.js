@@ -1,5 +1,5 @@
 const Joi = require("joi");
-const { User } = require("../models");
+const { Partido, User } = require("../models");
 const crypto = require("crypto");
 const welcomeUser = require("../helpers/UserHelpers/welcomeUser");
 const resetUserPassword = require("../helpers/UserHelpers/resetUserPassword");
@@ -12,6 +12,9 @@ const UserInvalidCredentialsException = require("../exceptions/UserExceptions/Us
 const validation = Joi.object({
   email: Joi.string().trim().email().required(),
   role: Joi.string().trim().valid("SUPERADMIN", "ADMIN", "OPERATOR").required(),
+  distrito: Joi.any(),
+  seccion_electoral: Joi.number(),
+  partido: Joi.number()
 });
 
 const resetPasswordValidation = Joi.object({
@@ -35,7 +38,12 @@ const getUsers = async (req, res, next) => {
       throw new AccessForbiddenException("listar usuarios");
     }
 
-    const users = await User.findAll();
+    const users = await User.findAll({
+      include: {
+        model: Partido,
+        as: 'partido_'
+      },
+    });
     res.json(users);
   } catch (error) {
     next(error);

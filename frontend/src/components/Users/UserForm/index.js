@@ -1,6 +1,6 @@
 import React, { useEffect, useContext } from "react";
 import PropTypes from "prop-types";
-import { useForm, FormProvider } from "react-hook-form";
+import {useForm, FormProvider, useWatch} from "react-hook-form";
 import { joiResolver } from "@hookform/resolvers/joi";
 
 import { handleServersideValidationErrors } from "utils/forms";
@@ -9,6 +9,9 @@ import validation from "./validation";
 import TextField from "components/Forms/TextField";
 import SelectField from "components/Forms/SelectField";
 import UserContext from "context/UserContext";
+import SelectPartidoField from "components/Partidos/SelectPartidoField";
+import SelectDistritoField from "components/Geo/SelectDistritoField";
+import SelectSeccionElectoralField from "components/Geo/SelectSeccionElectoralField";
 
 const UserForm = ({
   onSubmit,
@@ -45,7 +48,7 @@ const UserForm = ({
       text: "Operador de partido (puede crear fiscales)",
     },
     { value: "ADMIN",
-      text: "Admin de partido (puede crear operadores)" },
+      text: "Admin de partido (puede crear operadores y fiscales)" },
     {
       value: "SUPERADMIN",
       text: "Super administrador",
@@ -55,13 +58,18 @@ const UserForm = ({
   const adminRoles = [
     {
       value: "OPERATOR",
-      text: "Operador",
+      text: "Operador de partido",
     },
   ];
 
   const isSuperAdmin = role === "SUPERADMIN";
 
   const availableRoles = isSuperAdmin ? superAdminRoles : adminRoles;
+
+  const distrito = useWatch({
+    control: form.control,
+    name: 'distrito',
+  })
 
   return (
     <div className="card">
@@ -79,7 +87,7 @@ const UserForm = ({
               </div>
             </div>
             <div className="row">
-              <div className="col-lg-12">
+              <div className="col-lg-6">
                 <SelectField
                   name="role"
                   label="Rol"
@@ -87,25 +95,16 @@ const UserForm = ({
                   options={availableRoles}
                 />
               </div>
-            </div>
-            <div className="row">
-              <div className="col-lg-12">
-                <TextField
-                    name="email"
-                    label="Correo electrónico"
-                    readOnly={isReadonly}
-                    type="email"
-                />
+              <div className="col-lg-6">
+                <SelectPartidoField readOnly={isReadonly}/>
               </div>
             </div>
             <div className="row">
-              <div className="col-lg-12">
-                <SelectField
-                    name="role"
-                    label="Rol"
-                    readOnly={isReadonly}
-                    options={availableRoles}
-                />
+              <div className="col-6">
+                <SelectDistritoField readOnly={isReadonly} empty={"-- No restringir --"}/>
+              </div>
+              <div className="col-6">
+                {distrito && <SelectSeccionElectoralField distrito={distrito} readOnly={isReadonly}/>}
               </div>
             </div>
             {!isReadonly && (

@@ -7,6 +7,7 @@ import Spinner from "components/Spinner";
 
 import { getUsers, deleteUser } from "api/modules/users.api";
 import UserContext from "context/UserContext";
+import {getSeccionElectoral} from "utils/geo";
 
 const ListUsers = () => {
   const history = useHistory();
@@ -93,6 +94,8 @@ const ListUsers = () => {
                   <tr>
                     <th scope="col">Email</th>
                     <th scope="col">Rol</th>
+                    <th scope="col">Partido</th>
+                    <th scope="col">Municipio</th>
                     <th></th>
                   </tr>
                 </thead>
@@ -101,6 +104,8 @@ const ListUsers = () => {
                     <tr key={user.id}>
                       <td>{user.email}</td>
                       <td>{user.role}</td>
+                      <td>{(user.partido_ || {}).name}</td>
+                      <td>{(getSeccionElectoral(user.distrito, user.seccion_electoral) || {}).seccion}</td>
                       <td className="text-right">
                         {((isSuperAdmin && user.role !== "SUPERADMIN") ||
                           (isAdmin && user.role === "OPERATOR")) && (

@@ -4,14 +4,21 @@ import PropTypes from "prop-types";
 import {distritos} from "utils/geo"
 import SelectField from "components/Forms/SelectField";
 
-const SelectDistritoField = ({ name, label, readOnly, ...rest }) => {
+const SelectDistritoField = ({ name, label, readOnly, empty, ...rest }) => {
+
+  const options = empty
+      ? [{
+        text: empty,
+        value: ""
+      }, ...distritos]
+      : distritos;
 
   return (
     <SelectField
       name={name}
       label={label}
       readOnly={readOnly}
-      options={distritos}
+      options={options}
       {...rest}
     />
   );
