@@ -18,8 +18,8 @@ module.exports = {
         SMTP_PORT: 587,
         SMTP_SECURE: true,
         SMTP_PASSWORD: "",
-        URL_BACKOFFICE_FRONTEND:"https://backoffice-votacion.unidosargentina.org",
-        URL_VOTING_FRONTEND:"https://votacion.unidosargentina.org",
+        URL_BACKOFFICE_FRONTEND:"https://fiscalizacion.republicanosunidospba.com.ar",
+        SUPERADMIN_INITIAL_PASSWORD="123456"
       },
     },
   ],

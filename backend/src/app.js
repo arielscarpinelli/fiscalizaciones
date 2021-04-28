@@ -18,7 +18,9 @@ const {
 const apiRoutes = require("./routes/api");
 
 const ensureEmailSettingsWereProvided = require("./helpers/ensureEmailSettingsWereProvided");
-const ensureEmailsCanBeSended = require("./helpers/ensureEmailsCanBeSended");
+const ensureEmailsCanBeSent = require("./helpers/ensureEmailsCanBeSent");
+
+const { SUPERADMIN_INITIAL_PASSWORD } = require("./config");
 
 const run = async () => {
   console.log(
@@ -28,7 +30,7 @@ const run = async () => {
   );
 
   ensureEmailSettingsWereProvided();
-  await ensureEmailsCanBeSended();
+  // await ensureEmailsCanBeSent();
 
   const app = express();
 
@@ -53,17 +55,18 @@ const run = async () => {
   app.use(validationErrors);
   app.use(errorHandler);
 
-  if (process.env.NODE_ENV !== "production") {
-    const { User } = require("./models/index");
-    if (await User.count() === 0) {
-      await User.create({
-        email: 'admin@republicanosunidos.com.ar',
-        role: 'SUPERADMIN',
-        password: '123456',
-      });  
+  const { User } = require("./models/index");
+  if (await User.count() === 0) {
+    if(!SUPERADMIN_INITIAL_PASSWORD) {
+      throw new Error("No se puede crear el usuario superadmin inicial, falta establecer password");
     }
-
+    await User.create({
+      email: 'admin@republicanosunidospba.com.ar',
+      role: 'SUPERADMIN',
+      password: SUPERADMIN_INITIAL_PASSWORD,
+    });
   }
+
 
   const { Partido } = require("./models/index");
   if (await Partido.count() === 0) {

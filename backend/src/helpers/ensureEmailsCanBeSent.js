@@ -3,7 +3,7 @@ const sendTestMail = require("../mails/opt/testMail");
 
 const isProduction = process.env.NODE_ENV === "production";
 
-const ensureEmailsCanBeSended = async () => {
+const ensureEmailsCanBeSent = async () => {
   if (!isProduction) {
     console.log(
       `${chalk.yellow(
@@ -29,4 +29,4 @@ const ensureEmailsCanBeSended = async () => {
   }
 };
 
-module.exports = ensureEmailsCanBeSended;
+module.exports = ensureEmailsCanBeSent;

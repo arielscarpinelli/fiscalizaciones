@@ -35,7 +35,7 @@ const LoginForm = ({ onSubmit, isSubmitting, errors }) => {
     <div className="card">
       <div className="card-body">
         <span className="h4">
-          Ingresar al backoffice del sistema de votación
+          Ingresar al sistema de fiscalización
         </span>
         <hr></hr>
         <FormProvider {...form}>
