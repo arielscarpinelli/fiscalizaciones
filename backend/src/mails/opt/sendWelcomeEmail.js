@@ -5,7 +5,7 @@ const {
 } = require("../../config");
 
 const sendWelcomeEmail = (email, token) => {
-  const subject = "Acceso al Sistema de Votación | Unidos Argentina";
+  const subject = "Acceso al Sistema de Fiscales | Republicanos Unidos";
 
   const link = `${URL_BACKOFFICE_FRONTEND}/autenticacion/activar-cuenta?token=${token}`;
 

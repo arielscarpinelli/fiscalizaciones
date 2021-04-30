@@ -5,8 +5,7 @@ function UserInvalidCredentialsException() {
   this.statusCode = 401;
   this.isUnidosException = true;
   this.errors = {
-    email: "Revisá las credenciales ingresadas",
-    password: "Revisá las credenciales ingresadas",
+    password: "Revisá las credenciales ingresadas"
   };
 }
 

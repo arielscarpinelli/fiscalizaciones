@@ -1,4 +1,5 @@
 const Joi = require("joi");
+const { JoiPasswordComplexity } = require("joi-password");
 const { Partido, User } = require("../models");
 const crypto = require("crypto");
 const welcomeUser = require("../helpers/UserHelpers/welcomeUser");
@@ -18,7 +19,14 @@ const validation = Joi.object({
 });
 
 const resetPasswordValidation = Joi.object({
-  password: Joi.string().trim().required(),
+  password: JoiPasswordComplexity.string()
+      .trim()
+      .min(8)
+      .minOfSpecialCharacters(1)
+      .minOfLowercase(1)
+      .minOfUppercase(1)
+      .minOfNumeric(1)
+      .required(),
   confirmPassword: Joi.string().trim().required().equal(Joi.ref("password")),
   token: Joi.string().trim().required(),
 });
@@ -137,11 +145,10 @@ const forgotPassword = async (req, res, next) => {
       where: { email: data.email },
     });
 
-    if (!user) {
-      throw new UserInvalidCredentialsException();
+    // fail silently
+    if (user) {
+      await resetUserPassword(user);
     }
-
-    await resetUserPassword(user);
 
     res.json();
   } catch (error) {

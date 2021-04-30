@@ -1,3 +1,4 @@
+
 const Joi = require("joi");
 const crypto = require("crypto");
 const { encrypt } = require("../utils/security");
@@ -5,6 +6,7 @@ const { encrypt } = require("../utils/security");
 const {
   Fiscal,
   Partido,
+  User,
   sequelize,
 } = require("../models");
 
@@ -12,6 +14,7 @@ const { Op } = require("sequelize");
 
 const InvalidValidationCodeException = require("../exceptions/InvalidValidationCodeException");
 const UnauthenticatedException = require("../exceptions/UnauthenticatedException");
+const AccessForbiddenException = require("../exceptions/UserExceptions/AccessForbiddenException");
 
 const sendCodeViaEmail = require("../helpers/sendCodeViaEmail");
 
@@ -38,19 +41,33 @@ const codeValidation = Joi.object({
   email: Joi.string().email({ tlds: { allow: false } }).required(),
 });
 
-const validation = Joi.object({
-  first_name: Joi.string().trim().required(),
-  last_name: Joi.string().trim().required(),
-  dni: Joi.number().required(),
-  email: Joi.string().email({ tlds: { allow: false } }).required(),
-  phone: Joi.number().empty('').optional(),
-  address: Joi.string().trim().optional(),
-  distrito: Joi.number().required(),
-  seccion_electoral: Joi.number().required(),
-  escuela: Joi.number().empty('').optional(),
-  mesa: Joi.number().empty('').optional(),
-  partido: Joi.number().required(),
-});
+const validation = (user) => {
+  let schema = {
+    first_name: Joi.string().trim().required(),
+    last_name: Joi.string().trim().required(),
+    dni: Joi.number().required(),
+    email: Joi.string().email({tlds: {allow: false}}).required(),
+    phone: Joi.number().empty('').optional(),
+    address: Joi.string().trim().optional(),
+    distrito: Joi.number().required(),
+    seccion_electoral: Joi.number().required(),
+    escuela: Joi.number().empty('').optional(),
+    mesa: Joi.number().empty('').optional(),
+    partido: Joi.number().required(),
+  };
+  const partido = User.getPartido(user);
+  if (partido) {
+   schema.partido = schema.partido.equal(partido);
+  }
+  return Joi.object(schema);
+}
+
+const validatePartido = (user, fiscal) => {
+  const partido = User.getPartido(user);
+  if (partido && partido !== fiscal.partido) {
+    throw new AccessForbiddenException("fiscal de otro partido");
+  }
+}
 
 const loginFiscal = async (req, res, next) => {
   try {
@@ -230,45 +247,50 @@ const searchFiscales = async (req, res, next) => {
       },
     }
 
+    const queries = [];
+
     if (req.query.q) {
 
-      const { q } = await searchValidation.validateAsync(req.query);
+      const {q} = await searchValidation.validateAsync(req.query);
 
-  /*
-  await queryInterface.addIndex("Fiscales", 'distrito');
-  await queryInterface.addIndex("Fiscales", 'seccion_electoral');
-  await queryInterface.addIndex("Fiscales", 'escuela');
-  await queryInterface.addIndex("Fiscales", 'mesa');
-
-  */
-      const splittedTerm = q.split(" ");
-
-      const query = splittedTerm.map((q) => {
-        return {
-          [Op.or]: {
-            first_name: {
-              [Op.like]: `%${q}%`,
-            },
-            last_name: {
-              [Op.like]: `%${q}%`,
-            },
-            dni: {
-              [Op.like]: `%${q}%`,
-            },
+      queries.push({
+        [Op.or]: {
+          first_name: {
+            [Op.like]: `%${q}%`,
           },
-        };
-      });
-
-      results = await Fiscal.findAll({
-        ...baseOptions,
-        where: {
-          [Op.or]: query,
+          last_name: {
+            [Op.like]: `%${q}%`,
+          },
+          dni: {
+            [Op.like]: `%${q}%`,
+          },
         },
       });
-
-    } else {
-      results = await Fiscal.findAll(baseOptions);
     }
+    /*
+    await queryInterface.addIndex("Fiscales", 'distrito');
+    await queryInterface.addIndex("Fiscales", 'seccion_electoral');
+    await queryInterface.addIndex("Fiscales", 'escuela');
+    await queryInterface.addIndex("Fiscales", 'mesa');
+
+    */
+
+    const partido = User.getPartido(req.user) || req.query.partido;
+
+    if (partido) {
+      queries.push({
+        partido
+      })
+    }
+
+
+    results = await Fiscal.findAll({
+      ...baseOptions,
+      where: {
+        [Op.and]: queries,
+      },
+    });
+
     res.json(results);
   } catch (error) {
     next(error);
@@ -285,6 +307,8 @@ const getFiscal = async (req, res, next) => {
       return next();
     }
 
+    validatePartido(req.user, fiscal);
+
     const {code, token, ...cleanFiscal} = fiscal.toJSON();
 
     res.json(cleanFiscal);
@@ -295,7 +319,7 @@ const getFiscal = async (req, res, next) => {
 
 const postFiscal = async (req, res, next) => {
   try {
-    const data = await validation.validateAsync(req.body);
+    const data = await validation(req.user).validateAsync(req.body);
     const fiscal = await Fiscal.create(data);
     res.status(201).json(fiscal);
   } catch (error) {
@@ -307,12 +331,14 @@ const putFiscal = async (req, res, next) => {
   try {
     const { id } = req.params;
 
-    const data = await validation.validateAsync(req.body);
+    const data = await validation(req.user).validateAsync(req.body);
     const fiscal = await Fiscal.findByPk(id);
 
     if (!fiscal) {
       return next();
     }
+
+    validatePartido(req.user, fiscal);
 
     await Fiscal.update(data, {
       where: {

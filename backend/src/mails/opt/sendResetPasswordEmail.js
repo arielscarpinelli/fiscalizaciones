@@ -6,7 +6,7 @@ const {
 
 const sendResetPasswordEmail = (email, token) => {
   const subject =
-    "Restablece tu acceso al Sistema de Votación | Unidos Argentina";
+    "Restablece tu acceso al Sistema de Fiscalización | Republicanos Unidos";
 
   const link = `${URL_BACKOFFICE_FRONTEND}/autenticacion/restablecer-clave?token=${token}`;
 

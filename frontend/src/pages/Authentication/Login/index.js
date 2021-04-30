@@ -3,7 +3,8 @@ import { useHistory } from "react-router-dom";
 import { login } from "api/modules/users.api";
 
 import UserContext from "context/UserContext";
-import LoginForm from "components/Authentication/Login/LoginForm";
+import LoginForm from "components/Authentication/LoginForm";
+import {toast} from "react-toastify";
 
 const Login = () => {
   const history = useHistory();
@@ -24,7 +25,11 @@ const Login = () => {
       history.push("/sistema");
     } catch (error) {
       setSubmitting(false);
-      setErrors(error.response.data.errors);
+      if (error && error.response && error.response.data && error.response.data.errors) {
+        setErrors(error.response.data.errors);
+      } else {
+        toast.error(error.response.data.message || "error al ingresar");
+      }
     }
   };
 

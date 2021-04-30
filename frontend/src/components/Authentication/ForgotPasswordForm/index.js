@@ -6,7 +6,7 @@ import { joiResolver } from "@hookform/resolvers/joi";
 import { handleServersideValidationErrors } from "utils/forms";
 import validation from "./validation";
 import TextField from "components/Forms/TextField";
-const ActivateAccountForm = ({ onSubmit, isSubmitting, errors }) => {
+const ForgotPasswordForm = ({ onSubmit, isSubmitting, errors }) => {
   const form = useForm({
     resolver: joiResolver(validation),
     defaultValues: {},
@@ -29,16 +29,9 @@ const ActivateAccountForm = ({ onSubmit, isSubmitting, errors }) => {
         <FormProvider {...form}>
           <form onSubmit={form.handleSubmit(onSubmit)}>
             <TextField
-              name="password"
-              type="password"
-              label="Contraseña"
-              placeholder="Ingresá tu contraseña"
-            />
-            <TextField
-              name="confirmPassword"
-              type="password"
-              label="Confirmación de tu contraseña"
-              placeholder="Confirmá tu contraseña"
+                name="email"
+                label="Email"
+                placeholder="Ingresá tu email"
             />
             <div className="d-flex justify-content-between flex-row-reverse">
               <button
@@ -56,10 +49,10 @@ const ActivateAccountForm = ({ onSubmit, isSubmitting, errors }) => {
   );
 };
 
-ActivateAccountForm.propTypes = {
+ForgotPasswordForm.propTypes = {
   onSubmit: PropTypes.func.isRequired,
   isSubmitting: PropTypes.bool.isRequired,
   errors: PropTypes.object.isRequired,
 };
 
-export default ActivateAccountForm;
+export default ForgotPasswordForm;

@@ -1,12 +1,10 @@
 import Joi from "joi";
 
 const validation = Joi.object({
-  password: Joi.string().trim().min(8).required(),
-  confirmPassword: Joi.string()
-    .trim()
-    .min(8)
-    .required()
-    .equal(Joi.ref("password")),
+  email: Joi.string()
+      .trim()
+      .email({ tlds: { allow: false } })
+      .required()
 });
 
 export default validation;

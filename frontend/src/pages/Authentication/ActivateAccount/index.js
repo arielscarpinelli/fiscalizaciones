@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { useHistory, useLocation } from "react-router-dom";
 import { resetPassword } from "api/modules/users.api";
 
-import ActivateAccountForm from "components/Authentication/ActivateAccount/ActivateAccountForm";
+import ActivateAccountForm from "components/Authentication/ActivateAccountForm";
 import { toast } from "react-toastify";
 
 const ActivateAccount = () => {

@@ -12,6 +12,8 @@ import SelectPartidoField from "components/Partidos/SelectPartidoField";
 import SelectDistritoField from "components/Geo/SelectDistritoField";
 import SelectSeccionElectoralField from "components/Geo/SelectSeccionElectoralField";
 
+import {DISTRITO_DEFAULT} from "utils/geo";
+
 const FiscalForm = ({
   onSubmit,
   discardChanges,
@@ -24,7 +26,7 @@ const FiscalForm = ({
   const form = useForm({
     resolver: joiResolver(validation),
     defaultValues: fiscal || {},
-    mode: "all",
+    mode: "onSubmit",
   });
 
   const distrito = useWatch({
@@ -105,7 +107,7 @@ const FiscalForm = ({
                 <SelectDistritoField readOnly={isReadonly}/>
               </div>
               <div className="col-6">
-                <SelectSeccionElectoralField distrito={distrito} readOnly={isReadonly}/>
+                <SelectSeccionElectoralField distrito={distrito || DISTRITO_DEFAULT} readOnly={isReadonly}/>
               </div>
             </div>
             <div className="row">

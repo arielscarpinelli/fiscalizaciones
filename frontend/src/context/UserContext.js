@@ -67,4 +67,9 @@ export const UserProvider = ({ children }) => {
   );
 };
 
+export function getUserPartido(userData) {
+  return (userData.role === "OPERATOR" ||  userData.role === "ADMIN")
+      && userData.partido;
+}
+
 export default UserContext;

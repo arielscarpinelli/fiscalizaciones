@@ -1,9 +1,9 @@
-import React, { useContext, useEffect } from "react";
+import React, {useContext, useEffect} from "react";
 import PropTypes from "prop-types";
-import { useForm, FormProvider } from "react-hook-form";
-import { joiResolver } from "@hookform/resolvers/joi";
+import {FormProvider, useForm} from "react-hook-form";
+import {joiResolver} from "@hookform/resolvers/joi";
 
-import { handleServersideValidationErrors } from "utils/forms";
+import {handleServersideValidationErrors} from "utils/forms";
 import validation from "./validation";
 import TextField from "components/Forms/TextField";
 import UserContext from "context/UserContext";
@@ -53,12 +53,13 @@ const LoginForm = ({ onSubmit, isSubmitting, errors }) => {
             />
             <div className="d-flex justify-content-between flex-row-reverse">
               <button
-                className="btn btn-unidos btn-unidos-primary"
-                type="submit"
-                disabled={hasErrors || isSubmitting}
+                  className="btn btn-unidos btn-unidos-primary"
+                  type="submit"
+                  disabled={hasErrors || isSubmitting}
               >
                 Iniciar sesión
               </button>
+              <a href="olvide-clave">Olvidé mi contraseña</a>
             </div>
           </form>
         </FormProvider>

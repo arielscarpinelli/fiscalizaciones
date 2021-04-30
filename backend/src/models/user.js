@@ -18,6 +18,8 @@ module.exports = (sequelize, DataTypes) => {
         as: 'partido_'
       });
     }
+
+    static getPartido = (user) => (user.role === "ADMIN" || user.role === "SUPERADMIN") && user.partido;
   }
   User.init(
     {
@@ -108,6 +110,9 @@ module.exports = (sequelize, DataTypes) => {
       email: this.email,
       role: this.role,
       token: this.generateJWT(),
+      distrito: this.distrito,
+      seccion_electoral: this.seccion_electoral,
+      partido: this.partido,
     };
   };
 

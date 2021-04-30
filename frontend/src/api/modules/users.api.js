@@ -1,6 +1,7 @@
 import apiClient from "api/apiClient";
 
 export const login = (data) => apiClient.post("auth/login", data);
+export const forgotPassword = (data) => apiClient.post("auth/forgot-password", data);
 export const resetPassword = (data) => apiClient.post("auth/reset-password", data);
 
 

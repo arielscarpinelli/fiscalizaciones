@@ -1,13 +1,17 @@
-import React, { useState, useEffect } from "react";
+import React, {useState, useEffect, useContext} from "react";
 import PropTypes from "prop-types";
 
 import { getPartidos } from "api/modules/partidos.api";
 import { toast } from "react-toastify";
+
 import SelectField from "components/Forms/SelectField";
+import UserContext, { getUserPartido } from "context/UserContext";
 
 const SelectPartidoField = ({ name, label, readOnly, ...rest }) => {
   const [values, setValues] = useState([]);
   const [loading, setLoading] = useState(false);
+
+  const { userData } = useContext(UserContext);
 
   const invokeFetch = () => {
     fetch();
@@ -17,8 +21,7 @@ const SelectPartidoField = ({ name, label, readOnly, ...rest }) => {
 
   const fetch = async () => {
     setValues([]);
-    // TODO: WTF: por que se validan los errores cuando pongo setLoading en true?
-    //setLoading(true);
+    setLoading(true);
 
     try {
       const { data } = await getPartidos();
@@ -38,12 +41,14 @@ const SelectPartidoField = ({ name, label, readOnly, ...rest }) => {
     }
   };
 
+  const restrictedValues = values.filter(p => readOnly || !getUserPartido(userData) || (p.value === getUserPartido(userData)));
+
   return (
     <SelectField
       name={name}
       label={label}
       readOnly={readOnly}
-      options={values}
+      options={restrictedValues}
       isLoading={loading}
       {...rest}
     />
