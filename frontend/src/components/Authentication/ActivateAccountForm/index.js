@@ -23,7 +23,7 @@ const ActivateAccountForm = ({ onSubmit, isSubmitting, errors }) => {
     <div className="card">
       <div className="card-body">
         <span className="h4">
-          Restablecé tu contraseña del Sistema de Votación
+          Restablecer contraseña
         </span>
         <hr></hr>
         <FormProvider {...form}>
