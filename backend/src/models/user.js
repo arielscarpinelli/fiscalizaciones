@@ -19,7 +19,9 @@ module.exports = (sequelize, DataTypes) => {
       });
     }
 
-    static getPartido = (user) => (user.role === "ADMIN" || user.role === "SUPERADMIN") && user.partido;
+    static getPartido(user) {
+      return (user.role === "ADMIN" || user.role === "SUPERADMIN") && user.partido;
+    }
   }
   User.init(
     {
