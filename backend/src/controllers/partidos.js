@@ -9,7 +9,7 @@ const validation = Joi.object({
 
 const getPartidos = async (req, res, next) => {
   try {
-    if (req.user.role === "OPERATOR") {
+    if (req.user.role !== "SUPERADMIN") {
       throw new AccessForbiddenException("listar partidos");
     }
 
@@ -24,7 +24,7 @@ const getPartido = async (req, res, next) => {
   try {
     const { id } = req.params;
 
-    if (req.user.role === "OPERATOR") {
+    if (req.user.role !== "SUPERADMIN") {
       throw new AccessForbiddenException("listar partidos");
     }
 
@@ -40,7 +40,7 @@ const getPartido = async (req, res, next) => {
 
 const postPartido = async (req, res, next) => {
   try {
-    if (req.user.role !== "ADMIN" && req.user.role !== "SUPERADMIN") {
+    if (req.user.role !== "SUPERADMIN") {
       throw new AccessForbiddenException("crear partidos");
     }
 
@@ -56,7 +56,7 @@ const postPartido = async (req, res, next) => {
 
 const putPartido = async (req, res, next) => {
   try {
-    if (req.user.role !== "ADMIN" && req.user.role !== "SUPERADMIN") {
+    if (req.user.role !== "SUPERADMIN") {
       throw new AccessForbiddenException("crear partidos");
     }
 
@@ -83,7 +83,7 @@ const putPartido = async (req, res, next) => {
 
 const deletePartido = async (req, res, next) => {
   try {
-    if (req.user.role !== "ADMIN" && req.user.role !== "SUPERADMIN") {
+    if (req.user.role !== "SUPERADMIN") {
       throw new AccessForbiddenException("eliminar partidos");
     }
 

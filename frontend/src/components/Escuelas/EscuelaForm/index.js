@@ -7,38 +7,29 @@ import {handleServersideValidationErrors} from "utils/forms";
 
 import validation from "./validation";
 import TextField from "components/Forms/TextField";
-
-import SelectPartidoField from "components/Partidos/SelectPartidoField";
 import SelectDistritoField from "components/Geo/SelectDistritoField";
 import SelectSeccionElectoralField from "components/Geo/SelectSeccionElectoralField";
-
 import {DISTRITO_DEFAULT} from "utils/geo";
-import SelectEscuelaField from "components/Escuelas/SelectEscuelaField";
-import SelectMesaField from "components/Mesas/SelectMesaField";
+import SelectPartidoField from "components/Partidos/SelectPartidoField";
 
-const FiscalForm = ({
+const EscuelaForm = ({
   onSubmit,
   discardChanges,
-  fiscal,
+  escuela,
   isReadonly,
   isSubmitting,
   errors,
-  fromEdit,
 }) => {
+
   const form = useForm({
     resolver: joiResolver(validation),
-    defaultValues: fiscal || {},
-    mode: "onSubmit",
+    defaultValues: escuela || {},
+    mode: "all",
   });
 
   const distrito = useWatch({
     control: form.control,
     name: 'distrito',
-  })
-
-  const escuela = useWatch({
-    control: form.control,
-    name: 'escuela',
   })
 
   useEffect(() => {
@@ -48,7 +39,7 @@ const FiscalForm = ({
   const hasErrors = Object.keys(form.errors).length !== 0;
 
   const handleReset = () => {
-    form.reset(fiscal);
+    form.reset(escuela);
     discardChanges();
   };
 
@@ -58,33 +49,18 @@ const FiscalForm = ({
         <FormProvider {...form}>
           <form onSubmit={form.handleSubmit(onSubmit)}>
             <div className="row">
-              <div className="col-lg-6">
+              <div className="col-lg-3">
                 <TextField
-                  name="first_name"
+                    name="codigo"
+                    label="Codigo"
+                    type="number"
+                    readOnly={isReadonly}
+                />
+              </div>
+              <div className="col-lg-9">
+                <TextField
+                  name="nombre"
                   label="Nombre"
-                  readOnly={isReadonly}
-                />
-              </div>
-              <div className="col-lg-6">
-                <TextField
-                  name="last_name"
-                  label="Apellido"
-                  readOnly={isReadonly}
-                />
-              </div>
-            </div>
-            <div className="row">
-              <div className="col-lg-6">
-                <TextField
-                  name="dni"
-                  label="Número de Documento"
-                  readOnly={isReadonly}
-                />
-              </div>
-              <div className="col-lg-6">
-                <TextField
-                  name="phone"
-                  label="Teléfono Celular"
                   readOnly={isReadonly}
                 />
               </div>
@@ -92,19 +68,9 @@ const FiscalForm = ({
             <div className="row">
               <div className="col-lg-12">
                 <TextField
-                  name="email"
-                  label="Email"
-                  type="email"
-                  readOnly={isReadonly}
-                />
-              </div>
-            </div>
-            <div className="row">
-              <div className="col-12">
-                <TextField
-                  name="address"
-                  label="Direccion"
-                  readOnly={isReadonly}
+                    name="direccion"
+                    label="Direccion"
+                    readOnly={isReadonly}
                 />
               </div>
             </div>
@@ -120,24 +86,14 @@ const FiscalForm = ({
               <div className="col-6">
                 <SelectPartidoField readOnly={isReadonly}/>
               </div>
-            </div>
-            <div className="row">
               <div className="col-6">
-                <SelectEscuelaField
-                  label="Escuela asginada (opcional)"
-                  readOnly={isReadonly}
-                />
-              </div>
-              <div className="col-6">
-                <SelectMesaField
-                  label="Mesa asignada (opcional)"
-                  escuela={escuela}
-                  readOnly={isReadonly}
+                <TextField
+                    name="circuito"
+                    label="Circuito (opcional)"
+                    readOnly={isReadonly}
                 />
               </div>
             </div>
-
-
             {!isReadonly && (
               <div className="d-flex justify-content-between flex-row-reverse">
                 <button
@@ -162,21 +118,21 @@ const FiscalForm = ({
   );
 };
 
-FiscalForm.propTypes = {
+EscuelaForm.propTypes = {
   onSubmit: PropTypes.func,
   discardChanges: PropTypes.func.isRequired,
-  fiscal: PropTypes.object,
+  escuela: PropTypes.object,
   isReadonly: PropTypes.bool,
   fromEdit: PropTypes.bool,
   isSubmitting: PropTypes.bool.isRequired,
   errors: PropTypes.object.isRequired,
 };
 
-FiscalForm.defaultProps = {
-  onSubmit: () => { },
-  fiscal: {},
+EscuelaForm.defaultProps = {
+  onSubmit: () => {},
+  escuela: {},
   isReadonly: false,
   fromEdit: false,
 };
 
-export default FiscalForm;
+export default EscuelaForm;

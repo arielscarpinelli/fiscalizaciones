@@ -42,10 +42,20 @@ const Navbar = () => {
                 Usuarios
               </Link>
             )}
-            {userData && userData.role !== "OPERATOR" && (
+            {userData && userData.role === "SUPERADMIN" && (
             <Link className="nav-link" to="/sistema/partidos">
               Partidos
             </Link>
+            )}
+            {userData && userData.role === "SUPERADMIN" && (
+                <Link className="nav-link" to="/sistema/escuelas">
+                  Escuelas
+                </Link>
+            )}
+            {userData && userData.role === "SUPERADMIN" && (
+                <Link className="nav-link" to="/sistema/mesas">
+                  Mesas
+                </Link>
             )}
             <div className="btn-group">
               <button

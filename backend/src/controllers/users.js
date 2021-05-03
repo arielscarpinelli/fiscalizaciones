@@ -51,6 +51,8 @@ const getUsers = async (req, res, next) => {
         model: Partido,
         as: 'partido_'
       },
+      limit: 50,
+      offset: req.page,
     });
     res.json(users);
   } catch (error) {

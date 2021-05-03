@@ -28,7 +28,7 @@ const Login = () => {
       if (error && error.response && error.response.data && error.response.data.errors) {
         setErrors(error.response.data.errors);
       } else {
-        toast.error(error.response.data.message || "error al ingresar");
+        toast.error((error && error.response && error.response.data && error.response.data.message) || "error al ingresar");
       }
     }
   };

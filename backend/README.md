@@ -13,3 +13,28 @@
       3) CONFIGURAR LOS VALORES EN AMBOS ARCHIVOS
       4) Correr migraciones `cd src && NODE_ENV=production npx sequelize-cli db:migrate`
       5) Ejecutar `npm run prod`.
+      
+      
+      
+# Crear base de escuelas desde padron
+
+Los codigos de escuela son unicos por distrito
+
+```
+insert into Escuelas (codigo, nombre, direccion, distrito, seccion_electoral, circuito, partido, lat_lon)
+select distinct codigo, local as nombre, direccion, distrito, secc as seccion_electoral, circu as circuito, 1 as partido, ST_GeomFromText('POINT(0 0)') as lat_lon
+from Padron_2017
+where distrito in (1, 2)
+```
+
+Los codigos de mesa son unicos por distrito y seccion electoral
+
+```
+insert into Mesas (escuela, codigo, electores_femeninos, electores_masculinos)
+select e.id as escuela, mesa, Fem, Masc
+from Padron_2017 p
+inner join Escuelas e on p.distrito = e.distrito and e.codigo = p.codigo and p.secc = e.seccion_electoral
+where p.distrito in (1, 2);
+
+```
+      

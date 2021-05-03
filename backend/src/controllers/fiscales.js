@@ -245,6 +245,8 @@ const searchFiscales = async (req, res, next) => {
         model: Partido,
         as: 'partido_'
       },
+      limit: 50,
+      offset: req.page,
     }
 
     const queries = [];

@@ -6,6 +6,8 @@ import Home from "pages/System/Home";
 import FiscalesRoutes from "routes/System/FiscalesRoutes";
 import UsersRoutes from "routes/System/UsersRoutes";
 import PartidosRoutes from "routes/System/PartidosRoutes";
+import EscuelasRoutes from "routes/System/EscuelasRoutes";
+import MesasRoutes from "routes/System/MesasRoutes";
 
 const SystemRoutes = () => {
   return (
@@ -26,6 +28,14 @@ const SystemRoutes = () => {
               path={`${path}/partidos`}
               component={PartidosRoutes}
             />
+              <PrivateRoute
+                  path={`${path}/escuelas`}
+                  component={EscuelasRoutes}
+              />
+              <PrivateRoute
+                  path={`${path}/mesas`}
+                  component={MesasRoutes}
+              />
             <PrivateRoute path={`${path}`} component={Home} exact />
           </Switch>
         );

@@ -7,7 +7,7 @@ import ListPartidos from "pages/System/Partidos/ListPartidos";
 import CreatePartido from "pages/System/Partidos/CreatePartido";
 import ShowPartido from "pages/System/Partidos/ShowPartido";
 
-const FiscalesRoutes = ({ match: { path } }) => {
+const PartidosRoutes = ({ match: { path } }) => {
   return (
     <Switch>
       <PrivateRoute path={`${path}/crear`} component={CreatePartido} exact />
@@ -17,4 +17,4 @@ const FiscalesRoutes = ({ match: { path } }) => {
   );
 };
 
-export default FiscalesRoutes;
+export default PartidosRoutes;
