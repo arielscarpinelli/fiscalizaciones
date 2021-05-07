@@ -1,5 +1,7 @@
 const Joi = require("joi");
 const { Escuela, Partido } = require("../models");
+const { Op } = require("sequelize");
+
 
 const AccessForbiddenException = require("../exceptions/UserExceptions/AccessForbiddenException");
 
@@ -19,6 +21,19 @@ const getEscuelas = async (req, res, next) => {
       throw new AccessForbiddenException("listar escuelas");
     }
 
+    const queries = [];
+
+    if (req.query.q) {
+      queries.push({
+        [Op.or]: {
+          nombre: {
+            [Op.like]: `%${req.query.q}%`,
+          },
+          codigo: req.query.q
+        }
+      });
+    }
+
     const escuelas = await Escuela.findAll({
       include: {
         model: Partido,
@@ -26,6 +41,9 @@ const getEscuelas = async (req, res, next) => {
       },
       limit: 50,
       offset: req.page,
+      where: {
+        [Op.and]: queries,
+      },
     });
     res.json(escuelas);
   } catch (error) {

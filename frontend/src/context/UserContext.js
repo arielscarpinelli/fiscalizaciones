@@ -31,26 +31,29 @@ export const UserProvider = ({ children }) => {
     setUserData(user);
   };
 
-  const getTokenFromLocalStorage = () => {
+  const recoverTokenFromLocalStorage = async () => {
     const token = localStorage.getItem("token");
     const data = localStorage.getItem("userData");
     if (!token || token === "null") {
       setAuth(null, null);
       setIsLogged(false);
     } else {
-      setIsLogged(true);
-      const user = JSON.parse(data);
-      setAuth(token, user);
-      tokenStillValid();
+      try {
+        await checkToken();
+        setIsLogged(true);
+        const user = JSON.parse(data);
+        setAuth(token, user);
+      } catch (e) {
+        logout();
+      }
     }
     setValidated(true);
   };
 
-  const tokenStillValid = async () => {
-    await checkToken();
+  let tryRecoverTokenFromLocalStorage = () => {
+    recoverTokenFromLocalStorage()
   };
-
-  useEffect(getTokenFromLocalStorage, []);
+  useEffect(tryRecoverTokenFromLocalStorage, []);
 
   return (
     <UserContext.Provider

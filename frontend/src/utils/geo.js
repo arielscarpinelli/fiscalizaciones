@@ -20,8 +20,8 @@ export const getSeccionesElectoralesByDistrito = (distrito) => seccionesByDistri
 export const getSeccionElectoral = (distrito, id) => seccionesById[distrito + "-" + id];
 
 export const distritos = [
-    { value: 2, text: "Buenos Aires" },
-    { value: 1, text: "Capital Federal" },
+    { value: 2, text: "PBA" },
+    { value: 1, text: "CABA" },
 ];
 
 export const DISTRITO_DEFAULT = 2;
