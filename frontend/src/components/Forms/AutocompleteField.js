@@ -3,12 +3,14 @@ import PropTypes from "prop-types";
 import {Controller, useFormContext} from "react-hook-form";
 import AsyncSelect from "react-select/async";
 import Spinner from "components/Spinner";
+import debounce from "debounce-promise";
 
 const AutocompleteField = ({
                                name,
                                label,
                                readOnly,
                                loadByValue,
+                               loadOptions,
                                ...rest
                            }) => {
     const {getValues, errors} = useFormContext();
@@ -29,9 +31,11 @@ const AutocompleteField = ({
         }
     }
 
-    useEffect(() => {
+    let invokeLoadDefaultValue = () => {
         loadDefaultValue();
-    }, [])
+    };
+
+    useEffect(invokeLoadDefaultValue, [])
 
     return (
         <div className="form-group">
@@ -40,13 +44,14 @@ const AutocompleteField = ({
                 name={name}
                 render={({onChange, onBlur}) => defaultValue ? <AsyncSelect
                         name={name}
-                        onChange={option => onChange(option.value)}
+                        onChange={option => onChange(option && option.value)}
                         onBlur={onBlur}
                         className={`${error ? "is-invalid" : ""}`}
                         isDisabled={readOnly}
                         cacheOptions
                         defaultOptions={[defaultValue]}
                         defaultValue={defaultValue}
+                        loadOptions={debounce(loadOptions, 250)}
                         {...rest}
                     /> : <Spinner/>
                 }/>

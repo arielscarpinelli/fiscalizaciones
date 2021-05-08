@@ -1,5 +1,5 @@
 const Joi = require("joi");
-const { Escuela, Partido } = require("../models");
+const { Escuela, Partido, User } = require("../models");
 const { Op } = require("sequelize");
 
 
@@ -17,11 +17,33 @@ const validation = Joi.object({
 
 const getEscuelas = async (req, res, next) => {
   try {
-    if (req.user.role !== "SUPERADMIN") {
-      throw new AccessForbiddenException("listar escuelas");
-    }
 
     const queries = [];
+
+    const partido = User.getPartido(req.user) || req.query.partido;
+
+    if (partido) {
+      queries.push({
+        partido
+      })
+    }
+
+    const distrito = User.getDistrito(req.user) || req.query.distrito;
+
+    if (distrito) {
+      queries.push({
+        distrito
+      })
+    }
+
+    const seccion_electoral = User.getSeccionElectoral(req.user) || req.query.seccion;
+
+    if (seccion_electoral) {
+      queries.push({
+        seccion_electoral
+      })
+    }
+
 
     if (req.query.q) {
       queries.push({
@@ -55,11 +77,12 @@ const getEscuela = async (req, res, next) => {
   try {
     const { id } = req.params;
 
-    if (req.user.role !== "SUPERADMIN") {
-      throw new AccessForbiddenException("listar escuelas");
-    }
-
-    const escuela = await Escuela.findByPk(id);
+    const escuela = await Escuela.findByPk(id, {
+      include: {
+        model: Partido,
+        as: 'partido_'
+      }
+    });
     if (!escuela) {
       return next();
     }

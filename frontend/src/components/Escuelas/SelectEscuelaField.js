@@ -1,14 +1,11 @@
-import React, {useContext} from "react";
+import React from "react";
 import PropTypes from "prop-types";
 
-import UserContext from "context/UserContext";
 import {getSeccionElectoral} from "utils/geo";
 import {getEscuela, searchEscuelas} from "api/modules/escuelas.api";
 import AutocompleteField from "components/Forms/AutocompleteField";
 
-const SelectEscuelaField = ({...rest}) => {
-
-        const {userData} = useContext(UserContext);
+const SelectEscuelaField = ({partido, ...rest}) => {
 
         const formatOption = escuela => {
             return {
@@ -18,8 +15,7 @@ const SelectEscuelaField = ({...rest}) => {
         };
 
         const loadOptions = async (inputValue) => {
-            // TODO aplicar filtro por distrito/seccion electoral del usuario si tiene.
-            let {data} = await searchEscuelas(inputValue);
+            let {data} = await searchEscuelas(inputValue, partido);
             return data.map(formatOption)
         };
 

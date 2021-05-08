@@ -3,6 +3,7 @@ import { Link, useHistory } from "react-router-dom";
 import PartidoForm from "components/Partidos/PartidoForm";
 import { postPartido } from "api/modules/partidos.api";
 import { toast } from "react-toastify";
+import {handleFormSubmitError} from "utils/forms";
 
 const CreatePartido = () => {
   const history = useHistory();
@@ -25,12 +26,7 @@ const CreatePartido = () => {
       history.push(`/sistema/partidos/${partidoId}`);
     } catch (error) {
       setSubmitting(false);
-      if (error.isAxiosError && error.response.status === 422) {
-        toast.warn("Alguno de los datos ingresados son inválidos");
-        setErrors(error.response.data.errors);
-      } else {
-        toast.error("Ha ocurrido un error al crear el partido");
-      }
+      handleFormSubmitError(error, setErrors)
     }
   };
 

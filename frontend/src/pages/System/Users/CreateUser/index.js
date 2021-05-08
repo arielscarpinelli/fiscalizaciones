@@ -5,6 +5,7 @@ import { toast } from "react-toastify";
 import UserForm from "components/Users/UserForm";
 import { postUser } from "api/modules/users.api";
 import UserContext from "context/UserContext";
+import {handleFormSubmitError} from "utils/forms";
 
 const CreateUser = () => {
   const history = useHistory();
@@ -39,16 +40,7 @@ const CreateUser = () => {
       history.push(`/sistema/usuarios`);
     } catch (error) {
       setSubmitting(false);
-      if (error.isAxiosError && error.response.status === 422) {
-        toast.warn("Alguno de los datos ingresados son inválidos");
-        setErrors(error.response.data.errors);
-      } else {
-        toast.error(
-          error.response.data.message ||
-            "Ha ocurrido un error al crear el usuario"
-        );
-        console.error(error.response.data);
-      }
+      handleFormSubmitError(error, setErrors)
     }
   };
 

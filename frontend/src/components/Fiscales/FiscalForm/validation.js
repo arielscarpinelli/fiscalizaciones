@@ -10,7 +10,7 @@ const validation = Joi.object({
   address: Joi.string().trim().optional(),
   distrito: Joi.number().required(),
   seccion_electoral: Joi.number().required(),
-  escuela: Joi.number().empty('').optional(),
+  escuela: Joi.number().empty(null).optional(),
   mesa: Joi.number().empty('').optional(),
   partido: Joi.number().required(),
   lat_lon: Joi.object()

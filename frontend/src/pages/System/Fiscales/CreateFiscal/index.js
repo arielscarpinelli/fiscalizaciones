@@ -3,6 +3,7 @@ import { Link, useHistory } from "react-router-dom";
 import FiscalForm from "components/Fiscales/FiscalForm";
 import { postFiscal } from "api/modules/fiscales.api";
 import { toast } from "react-toastify";
+import {handleFormSubmitError} from "utils/forms";
 
 const CreateFiscal = () => {
   const history = useHistory();
@@ -25,12 +26,7 @@ const CreateFiscal = () => {
       history.push(`/sistema/fiscales/${fiscalId}`);
     } catch (error) {
       setSubmitting(false);
-      if (error.isAxiosError && error.response.status === 422) {
-        toast.warn("Alguno de los datos ingresados son inválidos");
-        setErrors(error.response.data.errors);
-      } else {
-        toast.error("Ha ocurrido un error al crear el fiscal");
-      }
+      handleFormSubmitError(error, setErrors)
     }
   };
 

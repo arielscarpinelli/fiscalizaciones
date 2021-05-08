@@ -31,14 +31,14 @@ const ActivateAccountForm = ({ onSubmit, isSubmitting, errors }) => {
             <TextField
               name="password"
               type="password"
-              label="Contraseña"
+              label="Nueva Contraseña"
               placeholder="Ingresá tu contraseña"
             />
             <TextField
               name="confirmPassword"
               type="password"
               label="Confirmación de tu contraseña"
-              placeholder="Confirmá tu contraseña"
+              placeholder="Confirmá tu nueva contraseña"
             />
             <div className="d-flex justify-content-between flex-row-reverse">
               <button

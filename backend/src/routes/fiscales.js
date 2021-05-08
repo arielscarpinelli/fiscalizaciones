@@ -8,29 +8,12 @@ const {
   postFiscal,
   putFiscal,
   deleteFiscal,
-  uploadPhoto,
-  getPhoto,
-  loginFiscal,
-  validateEmail,
-  postResults,
 } = require("../controllers/fiscales");
 
-const authFiscal = require("../middlewares/authFiscal");
-const { isAuthenticated } = require("../middlewares");
-
-router.post("/login", loginFiscal);
-router.post("/validate-email", validateEmail);
-
-router.post("/result", authFiscal, postResults);
-/*
-router.get("/:id/photo", getPhoto);
-router.put("/:id/photo", isAuthenticated, uploadPhoto);
-*/
-
-router.get("/", isAuthenticated, searchFiscales);
-router.get("/:id", isAuthenticated, getFiscal);
-router.post("/", isAuthenticated, postFiscal);
-router.put("/:id", isAuthenticated, putFiscal);
-router.delete("/:id", isAuthenticated, deleteFiscal);
+router.get("/", searchFiscales);
+router.get("/:id", getFiscal);
+router.post("/", postFiscal);
+router.put("/:id", putFiscal);
+router.delete("/:id", deleteFiscal);
 
 module.exports = router;

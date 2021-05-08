@@ -6,7 +6,7 @@ const validation = Joi.object({
   direccion: Joi.string().trim().required(),
   distrito: Joi.number().required(),
   seccion_electoral: Joi.number().required(),
-  circuito: Joi.string().trim(),
+  circuito: Joi.string().empty("").trim(),
   partido: Joi.number().required(),
   id: Joi.number(),
   lat_lon: Joi.object()

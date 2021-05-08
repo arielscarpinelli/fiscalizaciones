@@ -14,9 +14,6 @@ const validation = Joi.object({
 
 const getMesas = async (req, res, next) => {
   try {
-    if (req.user.role !== "SUPERADMIN") {
-      throw new AccessForbiddenException("listar mesas");
-    }
 
     const queries = [];
 

@@ -9,6 +9,7 @@ import {
   deleteFiscal,
 } from "api/modules/fiscales.api";
 import { toast } from "react-toastify";
+import {handleFormSubmitError} from "utils/forms";
 
 const ShowFiscal = () => {
   const { id } = useParams();
@@ -59,12 +60,7 @@ const ShowFiscal = () => {
       toast.info("El fiscal ha sido modificado exitosamente");
     } catch (error) {
       setSubmitting(false);
-      if (error.isAxiosError && error.response.status === 422) {
-        toast.warn("Alguno de los datos ingresados son inválidos");
-        setErrors(error.response.data.errors);
-      } else {
-        toast.error("Ha ocurrido un error al modificar el fiscal");
-      }
+      handleFormSubmitError(error, setErrors)
     }
   };
 

@@ -1,7 +1,9 @@
 const Joi = require("joi");
 const { JoiPasswordComplexity } = require("joi-password");
 const { Partido, User } = require("../models");
+const { Op } = require("sequelize");
 const crypto = require("crypto");
+
 const welcomeUser = require("../helpers/UserHelpers/welcomeUser");
 const resetUserPassword = require("../helpers/UserHelpers/resetUserPassword");
 
@@ -46,10 +48,23 @@ const getUsers = async (req, res, next) => {
       throw new AccessForbiddenException("listar usuarios");
     }
 
+    const queries = [];
+
+    const partido = User.getPartido(req.user) || req.query.partido;
+
+    if (partido) {
+      queries.push({
+        partido
+      })
+    }
+
     const users = await User.findAll({
       include: {
         model: Partido,
         as: 'partido_'
+      },
+      where: {
+        [Op.and]: queries,
       },
       limit: 50,
       offset: req.page,

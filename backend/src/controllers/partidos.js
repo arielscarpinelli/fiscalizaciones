@@ -9,10 +9,6 @@ const validation = Joi.object({
 
 const getPartidos = async (req, res, next) => {
   try {
-    if (req.user.role !== "SUPERADMIN") {
-      throw new AccessForbiddenException("listar partidos");
-    }
-
     const partidos = await Partido.findAll();
     res.json(partidos);
   } catch (error) {
@@ -23,10 +19,6 @@ const getPartidos = async (req, res, next) => {
 const getPartido = async (req, res, next) => {
   try {
     const { id } = req.params;
-
-    if (req.user.role !== "SUPERADMIN") {
-      throw new AccessForbiddenException("listar partidos");
-    }
 
     const partido = await Partido.findByPk(id);
     if (!partido) {

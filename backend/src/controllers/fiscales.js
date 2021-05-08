@@ -1,47 +1,21 @@
 
 const Joi = require("joi");
-const crypto = require("crypto");
-const { encrypt } = require("../utils/security");
 
 const {
   Fiscal,
   Partido,
   User,
-  sequelize,
+  Escuela,
 } = require("../models");
 
 const { Op } = require("sequelize");
 
-const InvalidValidationCodeException = require("../exceptions/InvalidValidationCodeException");
-const UnauthenticatedException = require("../exceptions/UnauthenticatedException");
 const AccessForbiddenException = require("../exceptions/UserExceptions/AccessForbiddenException");
-
-const sendCodeViaEmail = require("../helpers/sendCodeViaEmail");
-
-const fs = require("fs");
-const path = require("path");
-
-const imagesPath = path.join(__dirname, "../../public/images");
-const uploadPath = path.join(__dirname, "../../public/profiles");
 
 const searchValidation = require("../utils/searchValidation");
 
-const readChunk = require("read-chunk");
-const imageType = require("image-type");
 
-const UploadedFileIsNotAnImageException = require("../exceptions/FileExceptions/UploadedFileIsNotAnImageException");
-
-const loginValidation = Joi.object({
-  email: Joi.string().email({ tlds: { allow: false } }).required(),
-});
-
-
-const codeValidation = Joi.object({
-  code: Joi.string().length(6).trim().required(),
-  email: Joi.string().email({ tlds: { allow: false } }).required(),
-});
-
-const validation = (user) => {
+const validation = (user, payload) => {
   let schema = {
     first_name: Joi.string().trim().required(),
     last_name: Joi.string().trim().required(),
@@ -51,14 +25,37 @@ const validation = (user) => {
     address: Joi.string().trim().optional(),
     distrito: Joi.number().required(),
     seccion_electoral: Joi.number().required(),
-    escuela: Joi.number().empty('').optional(),
+    partido: Joi.number().required().custom((partido) => {
+      // Si es un admin de partido, solo puede crear/editar fiscales de ese partido
+      const userPartido = User.getPartido(user);
+      if (userPartido !== partido) {
+        throw new Error("solo puede crear fiscales de su partido");
+      }
+      return partido;
+    }),
+    escuela: Joi.number().empty('').optional().external(async (escuela) => {
+      // Si tiene escuela:
+      // - que la escuela sea del mismo partido que tiene el fiscal (esto ya valida que sea del mismo partido que del admin)
+      // - que la escuela sea del mismo distrito y/o seccion del usuario si aplica
+      if (escuela) {
+        let model = await Escuela.findByPk(escuela);
+        if (model.partido !== payload.partido) {
+          throw new Error("Escuela asignada a otro partido");
+        }
+        const distrito = User.getDistrito(user);
+        const seccion = User.getSeccionElectoral(user);
+
+        if ((model.distrito !== distrito) || (seccion && (model.seccion_electoral !== seccion))) {
+          throw new Error("Escuela de otro distrito o sección electoral");
+        }
+      }
+    }),
     mesa: Joi.number().empty('').optional(),
-    partido: Joi.number().required(),
   };
-  const partido = User.getPartido(user);
-  if (partido) {
-   schema.partido = schema.partido.equal(partido);
-  }
+
+
+  // Si tiene mesa, que la mesa sea de la escuela elegida (eso lo fuerza la UI pero...)
+
   return Joi.object(schema);
 }
 
@@ -69,171 +66,19 @@ const validatePartido = (user, fiscal) => {
   }
 }
 
-const loginFiscal = async (req, res, next) => {
-  try {
+const validateGeo = async (user, fiscal) => {
+  const distrito = User.getDistrito(user);
+  const seccion = User.getSeccionElectoral(user);
 
-    const { email } = await loginValidation.validateAsync(req.body);
-
-    const fiscal = Fiscal.findByEmail(email);
-
-    if (fiscal) {
-      await sendCodeViaEmail(fiscal);
-    }// Si el fiscal no existe, NO-OP. Esto es para no develar la base de direcciones de email
-    
-
-    res.json();
-
-  } catch (error) {
-    next(error);
-  }
-};
-
-const validateEmail = async (req, res, next) => {
-  try {
-    const { code, email } = await codeValidation.validateAsync(req.body);
-
-    const fiscal = Fiscal.findByEmail(email);
-
-    if (!fiscal) {
-      throw new UnauthenticatedException();
-    }
-
-    if (Number(code) !== Number(fiscal.code)) {
-      throw new InvalidValidationCodeException();
-    }
-
-    const token = crypto.randomBytes(36).toString("hex");
-    const encryptedToken = encrypt(token);
-    const encodedToken = Buffer.from(encryptedToken).toString("base64");
-
-    fiscal.token = encodedToken;
-    await fiscal.save();
-
-    res.json({
-      token: encodedToken,
-    });
-  } catch (error) {
-    next(error);
-  }
-};
-
-
-/*
-const uploadPhoto = async (req, res, next) => {
-  try {
-    if (!req.files || !req.files.photo) {
-      throw new Error("No file uploaded");
-    }
-
-    const { id } = req.params;
-
-    const fiscal = await Fiscal.findByPk(id);
-
-    if (!fiscal) {
-      return next();
-    }
-
-    const photo = req.files.photo;
-    const filename = `${photo.md5}_${photo.name}`;
-    photo.mv(`${uploadPath}/${filename}`);
-
-    const buffer = await readChunk(`${uploadPath}/${filename}`, 0, 12);
-    const imageData = imageType(buffer);
-    const validMimes = ["image/png", "image/png", "image/jpeg"];
-
-    // If the uploaded file type is not valid, delete it.
-    if (!imageData || !validMimes.includes(imageData.mime)) {
-      fs.unlinkSync(`${uploadPath}/${filename}`);
-      throw new UploadedFileIsNotAnImageException();
-    }
-
-    // Delete old fiscal's photo if it exists.
-    if (fiscal.photo) {
-      fs.unlinkSync(`${uploadPath}/${fiscal.photo}`);
-    }
-
-    fiscal.photo = filename;
-    await fiscal.save();
-
-    res.json();
-  } catch (error) {
-    next(error);
-  }
-};
-
-const getPhoto = async (req, res, next) => {
-  try {
-    const { id } = req.params;
-
-    const fiscal = await Fiscal.findByPk(id);
-
-    if (!fiscal) {
-      return next();
-    }
-
-    const rootPath = fiscal.photo ? uploadPath : imagesPath;
-    const photo = fiscal.photo || "noavatar.jpg";
-
-    const options = {
-      root: rootPath,
-      dotfiles: "deny",
-      headers: {
-        "x-timestamp": Date.now(),
-        "x-sent": true,
-        "Content-Type": "image/jpg",
-      },
-    };
-
-    res.sendFile(photo, options);
-  } catch (error) {
-    next(error);
-  }
-};
-*/
-const postResults = async (req, res, next) => {
-  try {
-
-    // TODO
-
-    /*
-
-
-    const { affiliate } = req;
-
-    if (!affiliate.isReady()) {
-      throw new UnauthenticatedException();
-    }
-
-    const { votingId, votes } = await votesValidation.validateAsync(req.body);
-
-    const { emittedVotes, hash } = await processVotes(
-      votingId,
-      affiliate,
-      votes
-    );
-
-    // #002 Implementar transaccion al votar, si hay un error, marca como que voté, y el hash no existe.
-    await sequelize.transaction(async (t) => {
-      if (emittedVotes.length !== 0) {
-        await Vote.bulkCreate(emittedVotes);
+  if (fiscal.escuela && distrito) {
+    const escuela = await Escuela.findByPk(fiscal.escuela);
+    if (escuela) {
+      if ((escuela.distrito !== distrito) || (seccion && (escuela.seccion_electoral !== seccion))) {
+        throw new AccessForbiddenException("fiscal asignado a escuela de otro distrito o sección electoral");
       }
-
-      await AffiliateVote.create({
-        VotingId: votingId,
-        dni: affiliate.dni,
-      });
-    });
-
-    res.json({
-      hash,
-    });
-
-    */
-  } catch (error) {
-    next(error);
+    }
   }
-};
-
+}
 
 const searchFiscales = async (req, res, next) => {
   try {
@@ -269,13 +114,6 @@ const searchFiscales = async (req, res, next) => {
         },
       });
     }
-    /*
-    await queryInterface.addIndex("Fiscales", 'distrito');
-    await queryInterface.addIndex("Fiscales", 'seccion_electoral');
-    await queryInterface.addIndex("Fiscales", 'escuela');
-    await queryInterface.addIndex("Fiscales", 'mesa');
-
-    */
 
     const partido = User.getPartido(req.user) || req.query.partido;
 
@@ -285,6 +123,37 @@ const searchFiscales = async (req, res, next) => {
       })
     }
 
+    const distrito = req.query.distrito;
+
+    if (distrito) {
+      queries.push({
+        distrito
+      })
+    }
+
+    const seccion_electoral = req.query.seccion;
+
+    if (seccion_electoral) {
+      queries.push({
+        seccion: seccion_electoral
+      })
+    }
+
+    const escuela = req.query.escuela;
+
+    if (escuela) {
+      queries.push({
+        seccion: seccion_electoral
+      })
+    }
+
+    const mesa = req.query.mesa;
+
+    if (mesa) {
+      queries.push({
+        mesa: mesa
+      })
+    }
 
     results = await Fiscal.findAll({
       ...baseOptions,
@@ -321,7 +190,7 @@ const getFiscal = async (req, res, next) => {
 
 const postFiscal = async (req, res, next) => {
   try {
-    const data = await validation(req.user).validateAsync(req.body);
+    const data = await validation(req.user, req.body).validateAsync(req.body);
     const fiscal = await Fiscal.create(data);
     res.status(201).json(fiscal);
   } catch (error) {
@@ -333,7 +202,7 @@ const putFiscal = async (req, res, next) => {
   try {
     const { id } = req.params;
 
-    const data = await validation(req.user).validateAsync(req.body);
+    const data = await validation(req.user, req.body).validateAsync(req.body);
     const fiscal = await Fiscal.findByPk(id);
 
     if (!fiscal) {
@@ -341,6 +210,7 @@ const putFiscal = async (req, res, next) => {
     }
 
     validatePartido(req.user, fiscal);
+    await validateGeo(req.user, fiscal);
 
     await Fiscal.update(data, {
       where: {
@@ -369,15 +239,10 @@ const deleteFiscal = async (req, res, next) => {
 };
 
 
-
-
 module.exports = {
   getFiscal,
   postFiscal,
   putFiscal,
   deleteFiscal,
   searchFiscales,
-  loginFiscal,
-  validateEmail,
-  postResults,
 };

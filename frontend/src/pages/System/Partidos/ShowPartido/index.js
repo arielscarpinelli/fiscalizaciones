@@ -9,6 +9,7 @@ import {
   deletePartido,
 } from "api/modules/partidos.api";
 import { toast } from "react-toastify";
+import {handleFormSubmitError} from "utils/forms";
 
 const ShowPartido = () => {
   const { id } = useParams();
@@ -58,13 +59,7 @@ const ShowPartido = () => {
       setSubmitting(false);
       toast.info("El partido ha sido modificado exitosamente");
     } catch (error) {
-      setSubmitting(false);
-      if (error.isAxiosError && error.response.status === 422) {
-        toast.warn("Alguno de los datos ingresados son inválidos");
-        setErrors(error.response.data.errors);
-      } else {
-        toast.error("Ha ocurrido un error al modificar el partido");
-      }
+      handleFormSubmitError(error, setErrors)
     }
   };
 

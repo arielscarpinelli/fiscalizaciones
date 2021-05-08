@@ -3,6 +3,7 @@ import { Link, useHistory } from "react-router-dom";
 import MesaForm from "components/Mesas/MesaForm";
 import { postMesa } from "api/modules/mesas.api";
 import { toast } from "react-toastify";
+import {handleFormSubmitError} from "utils/forms";
 
 const CreateMesa = () => {
   const history = useHistory();
@@ -25,12 +26,7 @@ const CreateMesa = () => {
       history.push(`/sistema/mesas/${mesaId}`);
     } catch (error) {
       setSubmitting(false);
-      if (error.isAxiosError && error.response.status === 422) {
-        toast.warn("Alguno de los datos ingresados son inválidos");
-        setErrors(error.response.data.errors);
-      } else {
-        toast.error("Ha ocurrido un error al crear la mesa");
-      }
+      handleFormSubmitError(error, setErrors)
     }
   };
 

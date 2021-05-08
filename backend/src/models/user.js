@@ -20,7 +20,15 @@ module.exports = (sequelize, DataTypes) => {
     }
 
     static getPartido(user) {
-      return (user.role === "ADMIN" || user.role === "SUPERADMIN") && user.partido;
+      return (user.role !== "SUPERADMIN") && user.partido;
+    }
+
+    static getDistrito(user) {
+      return (user.role === "OPERATOR") && user.distrito;
+    }
+
+    static getSeccionElectoral(user) {
+      return (user.role === "OPERATOR") && user.seccion_electoral;
     }
   }
   User.init(

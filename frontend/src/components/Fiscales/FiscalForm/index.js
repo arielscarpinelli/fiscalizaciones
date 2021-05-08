@@ -41,6 +41,11 @@ const FiscalForm = ({
     name: 'escuela',
   })
 
+  const partido = useWatch({
+    control: form.control,
+    name: 'partido',
+  })
+
   useEffect(() => {
     handleServersideValidationErrors(errors, form.setError);
   }, [errors, form.setError]);
@@ -109,26 +114,26 @@ const FiscalForm = ({
               </div>
             </div>
             <div className="row">
-              <div className="col-6">
+              <div className="col-3">
                 <SelectDistritoField readOnly={isReadonly}/>
               </div>
               <div className="col-6">
                 <SelectSeccionElectoralField distrito={distrito || DISTRITO_DEFAULT} readOnly={isReadonly}/>
               </div>
-            </div>
-            <div className="row">
-              <div className="col-6">
+              <div className="col-3">
                 <SelectPartidoField readOnly={isReadonly}/>
               </div>
             </div>
             <div className="row">
-              <div className="col-6">
+              <div className="col-9">
                 <SelectEscuelaField
                   label="Escuela asginada (opcional)"
                   readOnly={isReadonly}
+                  partido={partido}
+                  isClearable={true}
                 />
               </div>
-              <div className="col-6">
+              <div className="col-3">
                 <SelectMesaField
                   label="Mesa asignada (opcional)"
                   escuela={escuela}
