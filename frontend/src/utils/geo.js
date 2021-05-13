@@ -24,4 +24,13 @@ export const distritos = [
     { value: 1, text: "CABA" },
 ];
 
+const distritosById = distritos
+    .reduce((acc, s) => {
+        acc[s.value] = s;
+        return acc;
+    }, {});
+
+
+export const getDistrito = (distrito) => (distritosById[Number(distrito)] || {}).text;
+
 export const DISTRITO_DEFAULT = 2;

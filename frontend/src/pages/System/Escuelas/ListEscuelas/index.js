@@ -1,26 +1,27 @@
 /* eslint-disable no-restricted-globals */
 import React, { useEffect, useState } from "react";
-import { Link } from "react-router-dom";
+import {Link} from "react-router-dom";
 
 import Spinner from "components/Spinner";
 
 import { toast } from "react-toastify";
 import { getEscuelas, deleteEscuela } from "api/modules/escuelas.api";
-import {distritos, getSeccionElectoral} from "utils/geo";
+import {getDistrito, getSeccionElectoral} from "utils/geo";
+import Pager from "components/Pager";
+import {useQuery} from "utils/router";
 
 const ListEscuelas = () => {
+  const {page} = useQuery();
+
   const [escuelas, setEscuelas] = useState([]);
   const [isLoading, setLoading] = useState(false);
 
-  useEffect(() => {
-    fetchEscuelas();
-  }, []);
-
   const fetchEscuelas = async () => {
     setLoading(true);
-    setEscuelas([]);
     try {
-      const response = await getEscuelas();
+      const response = await getEscuelas({
+        page
+      });
       setEscuelas(response.data);
     } catch (error) {
       toast.error("Ha ocurrido un error al obtener las escuelas");
@@ -28,6 +29,12 @@ const ListEscuelas = () => {
       setLoading(false);
     }
   };
+
+  const doFetch = () => {
+    fetchEscuelas();
+  };
+
+  useEffect(doFetch, [page]);
 
   const removeEscuela = async (escuela) => {
     if (
@@ -68,11 +75,14 @@ const ListEscuelas = () => {
           </div>
         </div>
         <hr />
-        {isLoading ? (
-          <Spinner />
-        ) : (
           <div className="card">
-            <div className="card-header">Listado de escuelas</div>
+            <div className="card-header d-flex align-items-center">
+              Listado de escuelas
+              <Pager data={escuelas}/>
+            </div>
+            {isLoading ? (
+                <Spinner />
+            ) : (
             <div className="table-responsive">
               <table className="table table-flush align-items-center">
                 <thead>
@@ -94,7 +104,7 @@ const ListEscuelas = () => {
                         {escuela.id}
                       </td>
                       <td>
-                        {distritos[escuela.distrito].text}
+                        {getDistrito(escuela.distrito)}
                       </td>
                       <td>
                         {getSeccionElectoral(escuela.distrito, escuela.seccion_electoral).seccion}
@@ -133,8 +143,11 @@ const ListEscuelas = () => {
                 </tbody>
               </table>
             </div>
+            )}
+              <div className="card-footer d-flex align-items-center">
+                  <Pager data={escuelas}/>
+              </div>
           </div>
-        )}
       </div>
     </div>
   );

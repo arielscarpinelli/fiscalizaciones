@@ -8,11 +8,14 @@ import Spinner from "components/Spinner";
 import { getUsers, deleteUser } from "api/modules/users.api";
 import UserContext from "context/UserContext";
 import {getSeccionElectoral} from "utils/geo";
+import Pager from "components/Pager";
+import {useQuery} from "utils/router";
 
 const ListUsers = () => {
   const history = useHistory();
   const [users, setUsers] = useState([]);
   const [isLoading, setLoading] = useState(false);
+  const {page} = useQuery();
 
   const {
     userData: { role },
@@ -31,9 +34,11 @@ const ListUsers = () => {
 
   useEffect(rejectIfUserIsOperator, []);
 
-  useEffect(() => {
+  const doFetch = () => {
     fetchUsers();
-  }, []);
+  };
+
+  useEffect(doFetch, [page]);
 
   const fetchUsers = async () => {
     setLoading(true);
@@ -83,11 +88,14 @@ const ListUsers = () => {
           </div>
         </div>
         <hr />
-        {isLoading ? (
-          <Spinner />
-        ) : (
           <div className="card">
-            <div className="card-header">Listado de usuarios</div>
+            <div className="card-header d-flex align-items-center ">
+              Listado de usuarios
+              <Pager data={users}/>
+            </div>
+            {isLoading ? (
+                <Spinner />
+            ) : (
             <div className="table-responsive">
               <table className="table table-flush align-items-center">
                 <thead>
@@ -122,8 +130,11 @@ const ListUsers = () => {
                 </tbody>
               </table>
             </div>
+            )}
+            <div className="card-footer d-flex align-items-center ">
+              <Pager data={users}/>
+            </div>
           </div>
-        )}
       </div>
     </div>
   );

@@ -30,7 +30,7 @@ const getMesas = async (req, res, next) => {
         [Op.and]: queries,
       },
       limit: 50,
-      offset: req.page,
+      offset: req.query.page ? Number(req.query.page) * 50 : undefined,
     });
     res.json(mesas);
   } catch (error) {

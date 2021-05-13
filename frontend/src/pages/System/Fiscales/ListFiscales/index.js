@@ -7,20 +7,27 @@ import Spinner from "components/Spinner";
 import { toast } from "react-toastify";
 import { getFiscales, deleteFiscal } from "api/modules/fiscales.api";
 import {  getSeccionElectoral } from "utils/geo"
+import Pager from "components/Pager";
+import {useQuery} from "utils/router";
 
 const ListFiscales = () => {
   const [fiscales, setFiscales] = useState([]);
   const [isLoading, setLoading] = useState(false);
 
-  useEffect(() => {
+  const {page} = useQuery();
+
+  let doFetch = () => {
     fetchFiscales();
-  }, []);
+  };
+
+  useEffect(doFetch, [page]);
 
   const fetchFiscales = async () => {
     setLoading(true);
-    setFiscales([]);
     try {
-      const response = await getFiscales();
+      const response = await getFiscales({
+        page
+      });
       setFiscales(response.data);
     } catch (error) {
       toast.error("Ha ocurrido un error al obtener los fiscales");
@@ -68,11 +75,14 @@ const ListFiscales = () => {
           </div>
         </div>
         <hr />
-        {isLoading ? (
-          <Spinner />
-        ) : (
           <div className="card">
-            <div className="card-header">Listado de fiscales</div>
+            <div className="card-header d-flex align-items-center ">
+              Listado de fiscales
+              <Pager data={fiscales}/>
+            </div>
+            {isLoading ? (
+                <Spinner />
+            ) : (
             <div className="table-responsive">
               <table className="table table-flush align-items-center">
                 <thead>
@@ -121,8 +131,11 @@ const ListFiscales = () => {
                 </tbody>
               </table>
             </div>
+            )}
+            <div className="card-footer d-flex align-items-center">
+              <Pager data={fiscales}/>
+            </div>
           </div>
-        )}
       </div>
     </div>
   );

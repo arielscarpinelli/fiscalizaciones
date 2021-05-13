@@ -1,6 +1,7 @@
 import apiClient from "api/apiClient";
 
-export const getMesas = (escuela) => apiClient.get("mesas", { params: { escuela }});
+export const getMesasByEscuela = (escuela) => apiClient.get("mesas", { params: { escuela }});
+export const listMesas = (params) => apiClient.get("mesas", { params});
 export const postMesa = (data) => apiClient.post(`mesas`, data);
 export const getMesa = (id) => apiClient.get(`mesas/${id}`);
 export const putMesa = (id, data) =>

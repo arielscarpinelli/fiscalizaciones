@@ -1,6 +1,6 @@
 import apiClient from "api/apiClient";
 
-export const getFiscales = () => apiClient.get("fiscales");
+export const getFiscales = (params) => apiClient.get("fiscales", { params });
 export const postFiscal = (data) => apiClient.post(`fiscales`, data);
 export const getFiscal = (id) => apiClient.get(`fiscales/${id}`);
 export const putFiscal = (id, data) =>

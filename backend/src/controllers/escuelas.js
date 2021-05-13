@@ -62,7 +62,7 @@ const getEscuelas = async (req, res, next) => {
         as: 'partido_'
       },
       limit: 50,
-      offset: req.page,
+      offset: req.query.page ? Number(req.query.page) * 50 : undefined,
       where: {
         [Op.and]: queries,
       },

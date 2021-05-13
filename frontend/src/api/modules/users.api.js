@@ -7,7 +7,7 @@ export const resetPassword = (data) => apiClient.post("auth/reset-password", dat
 
 export const checkToken = () => apiClient.post("users/check-token-validity");
 
-export const getUsers = () => apiClient.get("users");
+export const getUsers = (params) => apiClient.get("users", { params });
 export const postUser = (data) => apiClient.post(`users`, data);
 export const getUser = (id) => apiClient.get(`users/${id}`);
 export const deleteUser = (id) => apiClient.delete(`users/${id}`);

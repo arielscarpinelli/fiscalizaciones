@@ -1,7 +1,7 @@
 import React, {useState, useEffect} from "react";
 import PropTypes from "prop-types";
 
-import { getMesas } from "api/modules/mesas.api";
+import { getMesasByEscuela } from "api/modules/mesas.api";
 import { toast } from "react-toastify";
 
 import SelectField from "components/Forms/SelectField";
@@ -26,7 +26,7 @@ const SelectMesaField = ({ name, label, readOnly, escuela, optional, ...rest }) 
     setLoading(true);
 
     try {
-      const { data } = await getMesas(escuela);
+      const { data } = await getMesasByEscuela(escuela);
       const list = data
         .map((item) => {
           return {

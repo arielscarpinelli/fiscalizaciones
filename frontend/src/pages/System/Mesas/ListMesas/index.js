@@ -1,25 +1,32 @@
 /* eslint-disable no-restricted-globals */
-import React, { useEffect, useState } from "react";
-import { Link } from "react-router-dom";
+import React, {useEffect, useState} from "react";
+import {Link} from "react-router-dom";
 
 import Spinner from "components/Spinner";
 
-import { toast } from "react-toastify";
-import { getMesas, deleteMesa } from "api/modules/mesas.api";
+import {toast} from "react-toastify";
+import {listMesas, deleteMesa} from "api/modules/mesas.api";
+import Pager from "components/Pager";
+import {useQuery} from "utils/router";
 
 const ListMesas = () => {
   const [mesas, setMesas] = useState([]);
   const [isLoading, setLoading] = useState(false);
 
-  useEffect(() => {
+  const {page} = useQuery();
+
+  const doFetch = () => {
     fetchMesas();
-  }, []);
+  };
+
+  useEffect(doFetch, [page]);
 
   const fetchMesas = async () => {
     setLoading(true);
-    setMesas([]);
     try {
-      const response = await getMesas();
+      const response = await listMesas({
+        page
+      });
       setMesas(response.data);
     } catch (error) {
       toast.error("Ha ocurrido un error al obtener las mesas");
@@ -67,11 +74,14 @@ const ListMesas = () => {
           </div>
         </div>
         <hr />
-        {isLoading ? (
-          <Spinner />
-        ) : (
           <div className="card">
-            <div className="card-header">Listado de mesas</div>
+            <div className="card-header d-flex align-items-center">
+              Listado de mesas
+              <Pager data={mesas}/>
+            </div>
+            {isLoading ? (
+                <Spinner />
+            ) : (
             <div className="table-responsive">
               <table className="table table-flush align-items-center">
                 <thead>
@@ -112,8 +122,11 @@ const ListMesas = () => {
                 </tbody>
               </table>
             </div>
+            )}
+            <div className="card-footer d-flex align-items-center">
+              <Pager data={mesas}/>
+            </div>
           </div>
-        )}
       </div>
     </div>
   );
