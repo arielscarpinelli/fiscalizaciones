@@ -91,6 +91,8 @@ const ListFiscales = () => {
                     <th scope="col">DNI</th>
                     <th scope="col">Municipio</th>
                     <th scope="col">Partido</th>
+                    <th scope="col">Escuela</th>
+                    <th scope="col">Mesa</th>
                     <th scope="col" style={{ width: 100 }}></th>
                   </tr>
                 </thead>
@@ -108,6 +110,12 @@ const ListFiscales = () => {
                       </td>
                       <td>
                         {fiscal.partido_ ? fiscal.partido_.name : fiscal.partido}
+                      </td>
+                      <td>
+                        {fiscal.escuela_ ? (fiscal.escuela_.codigo + " - " + fiscal.escuela_.nombre) : null}
+                      </td>
+                      <td>
+                        {fiscal.mesa_ ? fiscal.mesa_.codigo : null}
                       </td>
                       <td>
                         <div className="btn-group">

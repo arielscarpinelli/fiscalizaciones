@@ -6,12 +6,12 @@ const validation = Joi.object({
   last_name: Joi.string().trim().required(),
   dni: Joi.number().required(),
   email: Joi.string().email({ tlds: { allow: false } }).required(),
-  phone: Joi.number().empty('').optional(),
-  address: Joi.string().trim().optional(),
+  phone: Joi.number().empty('').optional().default(null),
+  address: Joi.string().trim().optional().default(null),
   distrito: Joi.number().required(),
   seccion_electoral: Joi.number().required(),
-  escuela: Joi.number().empty(null).optional(),
-  mesa: Joi.number().empty('').optional(),
+  escuela: Joi.number().allow(null).optional().default(null),
+  mesa: Joi.number().allow(null).empty('').optional().default(null),
   partido: Joi.number().required(),
   lat_lon: Joi.object()
 });

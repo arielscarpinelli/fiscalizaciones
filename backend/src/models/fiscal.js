@@ -14,6 +14,14 @@ module.exports = (sequelize, DataTypes) => {
             foreignKey: 'partido',
             as: 'partido_'
         });
+        this.escuela = this.belongsTo(models.Escuela, {
+            foreignKey: 'escuela',
+            as: 'escuela_'
+        });
+        this.escuela = this.belongsTo(models.Mesa, {
+            foreignKey: 'mesa',
+            as: 'mesa_'
+        });
     }
 
     static async findByEmail(email) {

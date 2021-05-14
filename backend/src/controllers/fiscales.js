@@ -6,6 +6,7 @@ const {
   Partido,
   User,
   Escuela,
+  Mesa,
 } = require("../models");
 
 const { Op } = require("sequelize");
@@ -33,7 +34,7 @@ const validation = (user, payload) => {
       }
       return partido;
     }),
-    escuela: Joi.number().empty('').optional().external(async (escuela) => {
+    escuela: Joi.number().allow(null).optional().external(async (escuela) => {
       // Si tiene escuela:
       // - que la escuela sea del mismo partido que tiene el fiscal (esto ya valida que sea del mismo partido que del admin)
       // - que la escuela sea del mismo distrito y/o seccion del usuario si aplica
@@ -50,7 +51,7 @@ const validation = (user, payload) => {
         }
       }
     }),
-    mesa: Joi.number().empty('').optional(),
+    mesa: Joi.number().allow(null).optional(),
   };
 
 
@@ -86,10 +87,16 @@ const searchFiscales = async (req, res, next) => {
     let results;
 
     const baseOptions = {
-      include: {
+      include: [{
         model: Partido,
         as: 'partido_'
-      },
+      }, {
+        model: Escuela,
+        as: 'escuela_'
+      }, {
+        model: Mesa,
+        as: 'mesa_'
+      }],
       limit: 50,
       offset: req.query.page ? Number(req.query.page) * 50 : undefined,
     }
