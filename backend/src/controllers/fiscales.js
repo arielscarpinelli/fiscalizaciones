@@ -28,7 +28,7 @@ const validation = (user, payload) => {
     partido: Joi.number().required().custom((partido) => {
       // Si es un admin de partido, solo puede crear/editar fiscales de ese partido
       const userPartido = User.getPartido(user);
-      if (userPartido !== partido) {
+      if (userPartido && (userPartido !== partido)) {
         throw new Error("solo puede crear fiscales de su partido");
       }
       return partido;
@@ -45,7 +45,7 @@ const validation = (user, payload) => {
         const distrito = User.getDistrito(user);
         const seccion = User.getSeccionElectoral(user);
 
-        if ((model.distrito !== distrito) || (seccion && (model.seccion_electoral !== seccion))) {
+        if ((distrito && (model.distrito !== distrito)) || (seccion && (model.seccion_electoral !== seccion))) {
           throw new Error("Escuela de otro distrito o sección electoral");
         }
       }
