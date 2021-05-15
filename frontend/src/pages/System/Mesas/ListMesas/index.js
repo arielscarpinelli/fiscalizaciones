@@ -1,6 +1,6 @@
 /* eslint-disable no-restricted-globals */
 import React, {useEffect, useState} from "react";
-import {Link} from "react-router-dom";
+import {Link, useHistory} from "react-router-dom";
 
 import Spinner from "components/Spinner";
 
@@ -8,24 +8,29 @@ import {toast} from "react-toastify";
 import {listMesas, deleteMesa} from "api/modules/mesas.api";
 import Pager from "components/Pager";
 import {useQuery} from "utils/router";
+import SelectEscuelaField from "components/Escuelas/SelectEscuelaField";
+import {SearchContext} from "utils/forms";
 
 const ListMesas = () => {
   const [mesas, setMesas] = useState([]);
   const [isLoading, setLoading] = useState(false);
 
-  const {page} = useQuery();
+  const history = useHistory();
+
+  const {page, escuela} = useQuery();
 
   const doFetch = () => {
     fetchMesas();
   };
 
-  useEffect(doFetch, [page]);
+  useEffect(doFetch, [page, escuela]);
 
   const fetchMesas = async () => {
     setLoading(true);
     try {
       const response = await listMesas({
-        page
+        page,
+        escuela
       });
       setMesas(response.data);
     } catch (error) {
@@ -76,7 +81,13 @@ const ListMesas = () => {
         <hr />
           <div className="card">
             <div className="card-header d-flex align-items-center">
-              Listado de mesas
+              <SearchContext>
+                <SelectEscuelaField
+                    name="escuela"
+                    className={"flex-grow-1 mr-3"}
+                    placeholder={"Filtrar escuela"}
+                    isClearable={true}/>
+              </SearchContext>
               <Pager data={mesas}/>
             </div>
             {isLoading ? (

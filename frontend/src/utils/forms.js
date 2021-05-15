@@ -1,4 +1,7 @@
+import React from "react";
 import {toast} from "react-toastify";
+import {useHistory, useLocation} from "react-router-dom";
+import {useQuery} from "utils/router";
 
 export const handleServersideValidationErrors = (errors, setError) => {
   if (!errors || Object.keys(errors).length === 0) {
@@ -21,4 +24,33 @@ export const handleFormSubmitError = (error, setErrors) =>{
   } else {
     toast.error((error && error.response && error.response.data && error.response.data.message) || "Ha ocurrido un error");
   }
+}
+
+export const SearchContext = ({children}) => {
+
+  const history = useHistory();
+  const location = useLocation();
+  const params = useQuery();
+
+  const onChange = (field) => (value) => {
+    const params = new URLSearchParams(location.search);
+    if (value) {
+      params.set(field, value)
+    } else {
+      params.delete(field);
+    }
+    params.delete("page");
+    history.push({
+      ...location,
+      search: params.toString()
+    });
+  }
+
+  return React.Children.map(children, (child, index) => {
+    return React.cloneElement(child, {
+      onChange: onChange(child.props.name),
+      defaultValue: params[child.props.name]
+    });
+  });
+
 }

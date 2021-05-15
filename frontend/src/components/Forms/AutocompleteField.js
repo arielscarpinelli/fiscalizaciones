@@ -11,21 +11,24 @@ const AutocompleteField = ({
                                readOnly,
                                loadByValue,
                                loadOptions,
+                               onChange,
+                               onBlur,
+                               defaultValue,
                                ...rest
                            }) => {
-    const {getValues, errors} = useFormContext();
+    const {getValues, errors} = useFormContext() || {};
 
-    const error = errors[name] ? errors[name].message : null;
+    const error = errors && errors[name] ? errors[name].message : null;
 
-    const [defaultValue, setDefaultValue] = useState();
+    const [loadedDefaultValue, setLoadedDefaultValue] = useState();
 
     const loadDefaultValue = async () => {
-        const value = getValues(name);
+        const value = defaultValue ? defaultValue : getValues ? getValues(name) : undefined;
         if (value) {
             const fullValue = await loadByValue(value);
-            setDefaultValue(fullValue);
+            setLoadedDefaultValue(fullValue);
         } else {
-            setDefaultValue({
+            setLoadedDefaultValue({
                 dummy: true
             })
         }
@@ -37,27 +40,28 @@ const AutocompleteField = ({
 
     useEffect(invokeLoadDefaultValue, [])
 
-    return (
-        <div className="form-group">
+    const render = ({onChange, onBlur}) => loadedDefaultValue ? <AsyncSelect
+        name={name}
+        placeholder={label}
+        onChange={option => onChange(option && option.value)}
+        onBlur={onBlur}
+        className={`${error ? "is-invalid" : ""}`}
+        isDisabled={readOnly}
+        cacheOptions
+        defaultOptions={!loadedDefaultValue.dummy ? [loadedDefaultValue] : true}
+        defaultValue={!loadedDefaultValue.dummy ? loadedDefaultValue : undefined}
+        loadOptions={debounce(loadOptions, 250)}
+        {...rest}
+    /> : <Spinner/>;
+
+    return !onChange ?
+        (<div className="form-group">
             <label htmlFor={name}>{label}</label>
             <Controller
                 name={name}
-                render={({onChange, onBlur}) => defaultValue ? <AsyncSelect
-                        name={name}
-                        onChange={option => onChange(option && option.value)}
-                        onBlur={onBlur}
-                        className={`${error ? "is-invalid" : ""}`}
-                        isDisabled={readOnly}
-                        cacheOptions
-                        defaultOptions={[defaultValue]}
-                        defaultValue={defaultValue}
-                        loadOptions={debounce(loadOptions, 250)}
-                        {...rest}
-                    /> : <Spinner/>
-                }/>
+                render={render}/>
             {error && <small className="text-danger">{error}</small>}
-        </div>
-    );
+        </div>) : render({onChange, onBlur})
 };
 
 AutocompleteField.propTypes = {
