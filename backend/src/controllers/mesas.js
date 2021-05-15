@@ -21,6 +21,10 @@ const getMesas = async (req, res, next) => {
       queries.push({escuela: req.query.escuela});
     }
 
+    if (req.query.codigo) {
+      queries.push({codigo: req.query.codigo});
+    }
+
     const mesas = await Mesa.findAll({
       include: {
         model: Escuela,

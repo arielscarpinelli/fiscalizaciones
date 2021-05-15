@@ -2,7 +2,7 @@ import React from "react";
 import {useQuery} from "utils/router";
 import {Link} from "react-router-dom";
 
-const Pager = ({data}) => {
+const Pager = ({data, className}) => {
     const {page} = useQuery();
 
     const searchForPage = (currentSearch, delta) => {
@@ -13,7 +13,7 @@ const Pager = ({data}) => {
 
     const pageNumber = page && Number(page);
     return (
-        <div className="ml-auto btn-group">
+        <div className={className || "float-right btn-group"}>
             {pageNumber ?
                 <Link
                     className="btn btn-sm btn-outline-primary"
@@ -21,10 +21,9 @@ const Pager = ({data}) => {
                 >
                     &lt; Anterior
                 </Link> : null}
-            {pageNumber ?
-                <span className="btn-sm">
-                    Página {pageNumber + 1}
-                </span> : null}
+            <span className="btn-sm">
+                Página {(pageNumber || 0) + 1}
+            </span>
             {data.length >= 50 ?
                 <Link
                     className="btn btn-sm btn-outline-primary"

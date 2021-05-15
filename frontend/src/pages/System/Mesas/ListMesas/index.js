@@ -17,20 +17,21 @@ const ListMesas = () => {
 
   const history = useHistory();
 
-  const {page, escuela} = useQuery();
+  const {page, escuela, codigo} = useQuery();
 
   const doFetch = () => {
     fetchMesas();
   };
 
-  useEffect(doFetch, [page, escuela]);
+  useEffect(doFetch, [page, escuela, codigo]);
 
   const fetchMesas = async () => {
     setLoading(true);
     try {
       const response = await listMesas({
         page,
-        escuela
+        escuela,
+        codigo
       });
       setMesas(response.data);
     } catch (error) {
@@ -63,6 +64,7 @@ const ListMesas = () => {
           <div>
             <span className="h2 m-0">Mesas</span>
           </div>
+          <Pager data={mesas}/>
           <div className="btn-group">
             <button
               className="btn btn-sm btn-outline-secondary"
@@ -79,27 +81,33 @@ const ListMesas = () => {
           </div>
         </div>
         <hr />
-          <div className="card">
-            <div className="card-header d-flex align-items-center">
-              <SearchContext>
-                <SelectEscuelaField
-                    name="escuela"
-                    className={"flex-grow-1 mr-3"}
-                    placeholder={"Filtrar escuela"}
-                    isClearable={true}/>
-              </SearchContext>
-              <Pager data={mesas}/>
-            </div>
             {isLoading ? (
                 <Spinner />
             ) : (
-            <div className="table-responsive">
+            <div className="table-responsive card">
               <table className="table table-flush align-items-center">
-                <thead>
+                <thead className="card-header">
                   <tr>
-                    <th scope="col">Escuela</th>
-                    <th scope="col">Numero</th>
-                    <th scope="col" style={{ width: 100 }}></th>
+                    <th scope="col">
+                      Escuela
+                      <SearchContext>
+                        <SelectEscuelaField
+                            name="escuela"
+                            className="flex-grow-1 mr-3"
+                            placeholder="Filtrar escuela"
+                            isClearable={true}/>
+                      </SearchContext>
+                    </th>
+                    <th scope="col">Numero
+                      <SearchContext>
+                        <input
+                            className="form-control"
+                            name="codigo"
+                            placeholder="Filtrar numero"
+                        />
+                      </SearchContext>
+                    </th>
+                    <th scope="col" style={{width: 100}}/>
                   </tr>
                 </thead>
                 <tbody>
@@ -131,13 +139,12 @@ const ListMesas = () => {
                     </tr>
                   ))}
                 </tbody>
+                <tfoot className="card-footer">
+                  <tr><td colSpan={3}><Pager data={mesas}/></td></tr>
+                </tfoot>
               </table>
             </div>
             )}
-            <div className="card-footer d-flex align-items-center">
-              <Pager data={mesas}/>
-            </div>
-          </div>
       </div>
     </div>
   );

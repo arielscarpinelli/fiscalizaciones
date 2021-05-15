@@ -32,7 +32,8 @@ export const SearchContext = ({children}) => {
   const location = useLocation();
   const params = useQuery();
 
-  const onChange = (field) => (value) => {
+  const onChange = (field) => (valueOrEvent) => {
+    const value = valueOrEvent && valueOrEvent.target ? valueOrEvent.target.value : valueOrEvent;
     const params = new URLSearchParams(location.search);
     if (value) {
       params.set(field, value)
@@ -47,8 +48,9 @@ export const SearchContext = ({children}) => {
   }
 
   return React.Children.map(children, (child, index) => {
+    const event = child.type === "input" ?  "onBlur": "onChange";
     return React.cloneElement(child, {
-      onChange: onChange(child.props.name),
+      [event]: onChange(child.props.name),
       defaultValue: params[child.props.name]
     });
   });
