@@ -18,7 +18,7 @@ module.exports = (sequelize, DataTypes) => {
             foreignKey: 'escuela',
             as: 'escuela_'
         });
-        this.escuela = this.belongsTo(models.Mesa, {
+        this.mesa = this.belongsTo(models.Mesa, {
             foreignKey: 'mesa',
             as: 'mesa_'
         });
@@ -91,7 +91,10 @@ module.exports = (sequelize, DataTypes) => {
     },
     {
       sequelize,
-      modelName: "Fiscal",
+      name: {
+          singular: "Fiscal",
+          plural: "Fiscales",
+      },
       tableName: "Fiscales",
       timestamps: false,
     }

@@ -9,24 +9,37 @@ import { getFiscales, deleteFiscal } from "api/modules/fiscales.api";
 import {  getSeccionElectoral } from "utils/geo"
 import Pager from "components/Pager";
 import {useQuery} from "utils/router";
+import {SearchContext} from "utils/forms";
+import SelectEscuelaField from "components/Escuelas/SelectEscuelaField";
 
 const ListFiscales = () => {
   const [fiscales, setFiscales] = useState([]);
   const [isLoading, setLoading] = useState(false);
 
-  const {page} = useQuery();
+  const {page, distrito, seccion, partido, q, escuela, mesa} = useQuery();
 
   let doFetch = () => {
     fetchFiscales();
   };
 
-  useEffect(doFetch, [page]);
+  useEffect(doFetch, [page, distrito,
+    seccion,
+    partido,
+    q,
+    escuela,
+    mesa]);
 
   const fetchFiscales = async () => {
     setLoading(true);
     try {
       const response = await getFiscales({
-        page
+        page,
+        distrito,
+        seccion,
+        partido,
+        q,
+        escuela,
+        mesa
       });
       setFiscales(response.data);
     } catch (error) {
@@ -54,7 +67,7 @@ const ListFiscales = () => {
 
   return (
     <div className="row">
-      <div className="col-lg-10 col-xl-8 mx-auto">
+      <div className="col-12 mx-auto">
         <div className="d-flex align-items-center justify-content-between">
           <div>
             <span className="h2 m-0">Fiscales</span>
@@ -77,7 +90,13 @@ const ListFiscales = () => {
         <hr />
           <div className="card">
             <div className="card-header d-flex align-items-center ">
-              Listado de fiscales
+              <SearchContext>
+                <SelectEscuelaField
+                    name="escuela"
+                    className={"flex-grow-1 mr-3"}
+                    placeholder={"Filtrar escuela"}
+                    isClearable={true}/>
+              </SearchContext>
               <Pager data={fiscales}/>
             </div>
             {isLoading ? (

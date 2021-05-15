@@ -13,6 +13,12 @@ module.exports = (sequelize, DataTypes) => {
         foreignKey: 'partido',
         as: 'partido_'
       });
+      this.fiscales = this.hasMany(models.Fiscal, {
+        foreignKey: 'escuela',
+      });
+      this.mesas = this.hasMany(models.Mesa, {
+          foreignKey: 'escuela',
+      });
     }
 
   }

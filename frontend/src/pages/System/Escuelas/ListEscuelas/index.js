@@ -11,7 +11,7 @@ import Pager from "components/Pager";
 import {useQuery} from "utils/router";
 
 const ListEscuelas = () => {
-  const {page} = useQuery();
+  const {page, distrito, seccion, partido, q} = useQuery();
 
   const [escuelas, setEscuelas] = useState([]);
   const [isLoading, setLoading] = useState(false);
@@ -20,7 +20,11 @@ const ListEscuelas = () => {
     setLoading(true);
     try {
       const response = await getEscuelas({
-        page
+        page,
+        distrito,
+        seccion,
+        partido,
+        q
       });
       setEscuelas(response.data);
     } catch (error) {
@@ -54,7 +58,7 @@ const ListEscuelas = () => {
 
   return (
     <div className="row">
-      <div className="col-lg-10 col-xl-8 mx-auto">
+      <div className="col-12 mx-auto">
         <div className="d-flex align-items-center justify-content-between">
           <div>
             <span className="h2 m-0">Escuelas</span>
@@ -87,22 +91,20 @@ const ListEscuelas = () => {
               <table className="table table-flush align-items-center">
                 <thead>
                   <tr>
-                    <th scope="col">Id</th>
                     <th scope="col">Distrito</th>
                     <th scope="col">Municipio</th>
-                    <th scope="col">Código Padrón</th>
+                    <th scope="col">Código</th>
                     <th scope="col">Nombre</th>
                     <th scope="col">Direccion</th>
                     <th scope="col">Partido</th>
+                    <th scope="col">Fiscales</th>
+                    <th scope="col">Mesas</th>
                     <th scope="col" style={{ width: 100 }}></th>
                   </tr>
                 </thead>
                 <tbody>
                   {escuelas.map((escuela) => (
                     <tr key={escuela.id}>
-                      <td>
-                        {escuela.id}
-                      </td>
                       <td>
                         {getDistrito(escuela.distrito)}
                       </td>
@@ -120,6 +122,12 @@ const ListEscuelas = () => {
                       </td>
                       <td>
                         {escuela.partido_ ? escuela.partido_.name : escuela.partido}
+                      </td>
+                      <td>
+                        {escuela.fiscales_count}
+                      </td>
+                      <td>
+                        {escuela.mesas_count}
                       </td>
                       <td>
                         <div className="btn-group">

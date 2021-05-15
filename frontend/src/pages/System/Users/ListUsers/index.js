@@ -7,7 +7,7 @@ import Spinner from "components/Spinner";
 
 import { getUsers, deleteUser } from "api/modules/users.api";
 import UserContext from "context/UserContext";
-import {getSeccionElectoral} from "utils/geo";
+import {getDistrito, getSeccionElectoral} from "utils/geo";
 import Pager from "components/Pager";
 import {useQuery} from "utils/router";
 
@@ -103,6 +103,7 @@ const ListUsers = () => {
                     <th scope="col">Email</th>
                     <th scope="col">Rol</th>
                     <th scope="col">Partido</th>
+                    <th scope="col">Distrito</th>
                     <th scope="col">Municipio</th>
                     <th></th>
                   </tr>
@@ -113,6 +114,7 @@ const ListUsers = () => {
                       <td>{user.email}</td>
                       <td>{user.role}</td>
                       <td>{(user.partido_ || {}).name}</td>
+                      <td>{getDistrito(user.distrito)}</td>
                       <td>{(getSeccionElectoral(user.distrito, user.seccion_electoral) || {}).seccion}</td>
                       <td className="text-right">
                         {((isSuperAdmin && user.role !== "SUPERADMIN") ||

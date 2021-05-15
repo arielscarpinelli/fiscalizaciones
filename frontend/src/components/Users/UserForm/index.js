@@ -104,7 +104,7 @@ const UserForm = ({
                 <SelectDistritoField readOnly={isReadonly} empty={"-- No restringir --"}/>
               </div>
               <div className="col-6">
-                {distrito && <SelectSeccionElectoralField distrito={distrito} readOnly={isReadonly}/>}
+                {distrito && <SelectSeccionElectoralField distrito={distrito} readOnly={isReadonly} empty={"-- No restringir --"}/>}
               </div>
             </div>
             {!isReadonly && (

@@ -4,14 +4,23 @@ import PropTypes from "prop-types";
 import {getSeccionesElectoralesByDistrito} from "utils/geo"
 import SelectField from "components/Forms/SelectField";
 
-const SelectSeccionElectoralField = ({ name, label, readOnly, distrito, ...rest }) => {
+const SelectSeccionElectoralField = ({ name, label, readOnly, distrito, empty, ...rest }) => {
+
+  const secciones = getSeccionesElectoralesByDistrito(distrito);
+
+  const options = empty
+      ? [{
+        text: empty,
+        value: ""
+      }, ...secciones]
+      : secciones;
 
   return (
     <SelectField
       name={name}
       label={label}
       readOnly={readOnly}
-      options={getSeccionesElectoralesByDistrito(distrito)}
+      options={options}
       {...rest}
     />
   );

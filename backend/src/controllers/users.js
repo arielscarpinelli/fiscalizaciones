@@ -12,13 +12,37 @@ const InvalidResetTokenException = require("../exceptions/UserExceptions/Invalid
 const UserEmailAlreadyExistsException = require("../exceptions/UserExceptions/UserEmailAlreadyExistsException");
 const UserInvalidCredentialsException = require("../exceptions/UserExceptions/UserInvalidCredentialsException");
 
-const validation = Joi.object({
-  email: Joi.string().trim().email().required(),
-  role: Joi.string().trim().valid("SUPERADMIN", "ADMIN", "OPERATOR").required(),
-  distrito: Joi.any(),
-  seccion_electoral: Joi.number(),
-  partido: Joi.number()
-});
+const validation = (reqUser) => {
+  const userDistrito = User.getDistrito(reqUser);
+  const userSeccion = User.getSeccionElectoral(reqUser);
+
+  return Joi.object({
+    email: Joi.string().trim().email().required(),
+    role: Joi.string().trim().valid("SUPERADMIN", "ADMIN", "OPERATOR").required(),
+    distrito: !userDistrito ? Joi.number().allow(null).optional() : Joi.number().required().custom((distrito) => {
+      // Si es un admin de distrito, solo puede crear/editar usuarios de ese distrito
+      if (userDistrito !== distrito) {
+        throw new Error("solo puede crear usuarios de su distrito");
+      }
+      return distrito;
+    }),
+    seccion_electoral: !userSeccion ? Joi.number().allow(null).optional() : Joi.number().required().custom((seccion) => {
+      // Si es un admin de municipio, solo puede crear/editar usuarios de ese municipio
+      if (userSeccion !== seccion) {
+        throw new Error("solo puede crear usuarios de su municipio");
+      }
+      return seccion;
+    }),
+    partido: Joi.number().required().custom((partido) => {
+      // Si es un admin de partido, solo puede crear/editar users de ese partido
+      const userPartido = User.getPartido(reqUser);
+      if (userPartido && (userPartido !== partido)) {
+        throw new Error("solo puede crear usuarios de su partido");
+      }
+      return partido;
+    }),
+  });
+}
 
 const resetPasswordValidation = Joi.object({
   password: JoiPasswordComplexity.string()
@@ -48,15 +72,7 @@ const getUsers = async (req, res, next) => {
       throw new AccessForbiddenException("listar usuarios");
     }
 
-    const queries = [];
-
-    const partido = User.getPartido(req.user) || req.query.partido;
-
-    if (partido) {
-      queries.push({
-        partido
-      })
-    }
+    const queries = User.applyPrivilegesToQuery(req);
 
     const users = await User.findAll({
       include: {
@@ -99,7 +115,7 @@ const postUser = async (req, res, next) => {
       throw new AccessForbiddenException("crear usuarios");
     }
 
-    const data = await validation.validateAsync(req.body);
+    const data = await validation(req.user).validateAsync(req.body);
 
     const userExists = await User.findOne({
       where: { email: data.email },

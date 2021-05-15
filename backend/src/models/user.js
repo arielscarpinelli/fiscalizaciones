@@ -24,13 +24,46 @@ module.exports = (sequelize, DataTypes) => {
     }
 
     static getDistrito(user) {
-      return (user.role === "OPERATOR") && user.distrito;
+      return (user.role !== "SUPERADMIN") && user.distrito;
     }
 
     static getSeccionElectoral(user) {
-      return (user.role === "OPERATOR") && user.seccion_electoral;
+      return (user.role !== "SUPERADMIN") && user.seccion_electoral;
     }
+
+    static applyPrivilegesToQuery(req) {
+
+      const queries = [];
+
+      const partido = User.getPartido(req.user) || req.query.partido;
+
+      if (partido) {
+        queries.push({
+          partido
+        })
+      }
+
+      const distrito = User.getDistrito(req.user) || req.query.distrito;
+
+      if (distrito) {
+        queries.push({
+          distrito
+        })
+      }
+
+      const seccion_electoral = User.getSeccionElectoral(req.user) || req.query.seccion;
+
+      if (seccion_electoral) {
+        queries.push({
+          seccion_electoral
+        })
+      }
+
+      return queries;
+    }
+
   }
+
   User.init(
     {
       email: {

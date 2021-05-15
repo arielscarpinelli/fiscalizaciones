@@ -24,8 +24,22 @@ const validation = (user, payload) => {
     email: Joi.string().email({tlds: {allow: false}}).required(),
     phone: Joi.number().empty('').optional(),
     address: Joi.string().trim().optional(),
-    distrito: Joi.number().required(),
-    seccion_electoral: Joi.number().required(),
+    distrito: Joi.number().required().custom((distrito) => {
+      // Si es un admin de distrito, solo puede crear/editar fiscales de ese distrito
+      const userDistrito = User.getDistrito(user);
+      if (userDistrito && (userDistrito !== distrito)) {
+        throw new Error("solo puede crear fiscales de su distrito");
+      }
+      return distrito;
+    }),
+    seccion_electoral: Joi.number().required().custom((seccion) => {
+      // Si es un admin de municipio, solo puede crear/editar fiscales de ese municipio
+      const userSeccion = User.getSeccionElectoral(user);
+      if (userSeccion && (userSeccion !== seccion)) {
+        throw new Error("solo puede crear fiscales de su municipio");
+      }
+      return seccion;
+    }),
     partido: Joi.number().required().custom((partido) => {
       // Si es un admin de partido, solo puede crear/editar fiscales de ese partido
       const userPartido = User.getPartido(user);
@@ -39,15 +53,19 @@ const validation = (user, payload) => {
       // - que la escuela sea del mismo partido que tiene el fiscal (esto ya valida que sea del mismo partido que del admin)
       // - que la escuela sea del mismo distrito y/o seccion del usuario si aplica
       if (escuela) {
-        let model = await Escuela.findByPk(escuela);
+        const model = await Escuela.findByPk(escuela);
         if (model.partido !== payload.partido) {
           throw new Error("Escuela asignada a otro partido");
         }
-        const distrito = User.getDistrito(user);
-        const seccion = User.getSeccionElectoral(user);
 
-        if ((distrito && (model.distrito !== distrito)) || (seccion && (model.seccion_electoral !== seccion))) {
-          throw new Error("Escuela de otro distrito o sección electoral");
+        const distrito = User.getDistrito(user);
+        if (distrito && (model.distrito !== distrito)) {
+          throw new Error("Escuela de otro distrito");
+        }
+
+        const seccion = User.getSeccionElectoral(user);
+        if (seccion && (model.seccion_electoral !== seccion)) {
+          throw new Error("Escuela de otra sección electoral");
         }
       }
     }),
@@ -69,7 +87,14 @@ const validatePartido = (user, fiscal) => {
 
 const validateGeo = async (user, fiscal) => {
   const distrito = User.getDistrito(user);
+  if (distrito && fiscal.distrito !== distrito) {
+    throw new AccessForbiddenException("fiscal de otro distrito");
+  }
+
   const seccion = User.getSeccionElectoral(user);
+  if (seccion && fiscal.seccion_electoral !== seccion) {
+    throw new AccessForbiddenException("fiscal de otra sección electoral");
+  }
 
   if (fiscal.escuela && distrito) {
     const escuela = await Escuela.findByPk(fiscal.escuela);
@@ -101,7 +126,7 @@ const searchFiscales = async (req, res, next) => {
       offset: req.query.page ? Number(req.query.page) * 50 : undefined,
     }
 
-    const queries = [];
+    const queries = User.applyPrivilegesToQuery(req);
 
     if (req.query.q) {
 
@@ -122,35 +147,11 @@ const searchFiscales = async (req, res, next) => {
       });
     }
 
-    const partido = User.getPartido(req.user) || req.query.partido;
-
-    if (partido) {
-      queries.push({
-        partido
-      })
-    }
-
-    const distrito = req.query.distrito;
-
-    if (distrito) {
-      queries.push({
-        distrito
-      })
-    }
-
-    const seccion_electoral = req.query.seccion;
-
-    if (seccion_electoral) {
-      queries.push({
-        seccion: seccion_electoral
-      })
-    }
-
     const escuela = req.query.escuela;
 
     if (escuela) {
       queries.push({
-        seccion: seccion_electoral
+        escuela
       })
     }
 

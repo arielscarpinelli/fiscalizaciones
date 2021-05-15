@@ -72,7 +72,7 @@ const run = async () => {
   if (await Partido.count() === 0) {
     await Partido.create({
       id: 1,
-      name: 'Republicanos Unidos',
+      name: 'RU',
     });
   }
 

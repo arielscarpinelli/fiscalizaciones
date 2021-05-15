@@ -9,12 +9,12 @@ main
     app.listen(port, () => {
       console.log(
         `${chalk.green(
-          "[SISTEMA-VOTO-BACKEND]"
+          "[FISCALES]"
         )} Disponible en: http://localhost:${port} `
       );
     });
   })
   .catch((error) => {
-    console.error(`${chalk.red("[SISTEMA-VOTO-BACKEND]")} ${error.message}`);
+    console.error(`${chalk.red("[FISCALES]")} ${error.message}`);
     process.exit(1);
   });

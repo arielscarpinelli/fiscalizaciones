@@ -10,8 +10,8 @@ const validation = Joi.object({
     .valid("SUPERADMIN", "ADMIN", "OPERATOR")
     .required(),
   partido: Joi.number(),
-  distrito: Joi.any(),
-  seccion_electoral: Joi.number()
+  distrito: Joi.number().empty('').allow(null),
+  seccion_electoral: Joi.number().empty('')
 });
 
 export default validation;
