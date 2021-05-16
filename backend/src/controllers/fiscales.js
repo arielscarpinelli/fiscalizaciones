@@ -140,11 +140,15 @@ const searchFiscales = async (req, res, next) => {
           last_name: {
             [Op.like]: `%${q}%`,
           },
-          dni: {
-            [Op.like]: `%${q}%`,
-          },
         },
       });
+    }
+
+    const dni = req.query.dni;
+    if (dni) {
+      queries.push({
+        dni
+      })
     }
 
     const escuela = req.query.escuela;

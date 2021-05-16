@@ -6,6 +6,7 @@ import Spinner from "components/Spinner";
 
 import { toast } from "react-toastify";
 import { getPartidos, deletePartido } from "api/modules/partidos.api";
+import Pager from "components/Pager";
 
 const ListPartidos = () => {
   const [partidos, setPartidos] = useState([]);
@@ -51,6 +52,7 @@ const ListPartidos = () => {
           <div>
             <span className="h2 m-0">Partidos</span>
           </div>
+          <Pager data={partidos}/>
           <div className="btn-group">
             <button
               className="btn btn-sm btn-outline-secondary"
@@ -67,21 +69,16 @@ const ListPartidos = () => {
           </div>
         </div>
         <hr />
-        {isLoading ? (
-          <Spinner />
-        ) : (
-          <div className="card">
-            <div className="card-header">Listado de partidos</div>
-            <div className="table-responsive">
+            <div className="table-responsive card">
               <table className="table table-flush align-items-center">
-                <thead>
+                <thead className="card-header">
                   <tr>
                     <th scope="col">Nombre</th>
                     <th scope="col" style={{ width: 100 }}></th>
                   </tr>
                 </thead>
                 <tbody>
-                  {partidos.map((partido) => (
+                  {isLoading ? <tr><td><Spinner/></td></tr> : partidos.map((partido) => (
                     <tr key={partido.id}>
                       <td>
                         {partido.name}
@@ -106,10 +103,11 @@ const ListPartidos = () => {
                     </tr>
                   ))}
                 </tbody>
+                <tfoot className="card-footer">
+                  <tr><td colSpan={2}><Pager data={partidos}/></td></tr>
+                </tfoot>
               </table>
             </div>
-          </div>
-        )}
       </div>
     </div>
   );

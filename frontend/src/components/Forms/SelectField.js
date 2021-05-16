@@ -10,15 +10,24 @@ const SelectField = ({
   options,
   readOnly,
   isLoading,
+  empty,
   ...rest
 }) => {
-  const { register, errors } = useFormContext();
+  const { register, errors } = useFormContext() || {};
 
-  const error = errors[name] ? errors[name].message : null;
+  const error = errors && errors[name] ? errors[name].message : null;
+
+  const optionsWithEmpty = empty
+      ? [{
+        text: empty,
+        value: ""
+      }, ...options]
+      : options;
+
 
   return (
     <div className="form-group">
-      <label htmlFor={name}>{label}</label>
+      {label ? <label htmlFor={name}>{label}</label> : null}
       {isLoading ? (
         <Spinner />
       ) : (
@@ -33,7 +42,7 @@ const SelectField = ({
             disabled={readOnly}
             {...rest}
           >
-            {options.map((option) => (
+            {optionsWithEmpty.map((option) => (
               <option key={option.value} value={option.value}>
                 {option.text}
               </option>

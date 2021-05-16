@@ -54,14 +54,14 @@ const AutocompleteField = ({
         {...rest}
     /> : <Spinner/>;
 
-    return !onChange ?
-        (<div className="form-group">
+    return (
+        <div className="form-group">
             <label htmlFor={name}>{label}</label>
-            <Controller
-                name={name}
-                render={render}/>
+            {!onChange ?
+                <Controller name={name} render={render}/> :
+                render({onChange, onBlur})}
             {error && <small className="text-danger">{error}</small>}
-        </div>) : render({onChange, onBlur})
+        </div>)
 };
 
 AutocompleteField.propTypes = {

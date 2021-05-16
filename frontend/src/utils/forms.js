@@ -2,6 +2,7 @@ import React from "react";
 import {toast} from "react-toastify";
 import {useHistory, useLocation} from "react-router-dom";
 import {useQuery} from "utils/router";
+import TextField from "components/Forms/TextField";
 
 export const handleServersideValidationErrors = (errors, setError) => {
   if (!errors || Object.keys(errors).length === 0) {
@@ -47,11 +48,21 @@ export const SearchContext = ({children}) => {
     });
   }
 
+  const onKeyDown = (e) => {
+    if (e.keyCode === 13) {
+      e.target.blur();
+    }
+  }
+
   return React.Children.map(children, (child, index) => {
-    const event = child.type === "input" ?  "onBlur": "onChange";
+    if (!child) {
+      return;
+    }
+    const isInput = child.type === "input" || child.type === TextField;
     return React.cloneElement(child, {
-      [event]: onChange(child.props.name),
-      defaultValue: params[child.props.name]
+      [isInput ? "onBlur": "onChange"]: onChange(child.props.name),
+      defaultValue: params[child.props.name],
+      [isInput ? "onKeyDown" : undefined]: onKeyDown
     });
   });
 

@@ -9,9 +9,15 @@ import { getEscuelas, deleteEscuela } from "api/modules/escuelas.api";
 import {getDistrito, getSeccionElectoral} from "utils/geo";
 import Pager from "components/Pager";
 import {useQuery} from "utils/router";
+import {SearchContext} from "utils/forms";
+import TextField from "components/Forms/TextField";
+import SelectDistritoField from "components/Geo/SelectDistritoField";
+import SelectSeccionElectoralField from "components/Geo/SelectSeccionElectoralField";
+import SelectPartidoField from "components/Partidos/SelectPartidoField";
+import SelectField from "components/Forms/SelectField";
 
 const ListEscuelas = () => {
-  const {page, distrito, seccion, partido, q} = useQuery();
+  const {page, distrito, seccion, partido, q, codigo, direccion, fiscales} = useQuery();
 
   const [escuelas, setEscuelas] = useState([]);
   const [isLoading, setLoading] = useState(false);
@@ -24,7 +30,10 @@ const ListEscuelas = () => {
         distrito,
         seccion,
         partido,
-        q
+        q,
+        direccion,
+        codigo,
+        fiscales
       });
       setEscuelas(response.data);
     } catch (error) {
@@ -38,7 +47,7 @@ const ListEscuelas = () => {
     fetchEscuelas();
   };
 
-  useEffect(doFetch, [page]);
+  useEffect(doFetch, [page, distrito, seccion, partido, q, codigo, direccion, fiscales]);
 
   const removeEscuela = async (escuela) => {
     if (
@@ -56,6 +65,25 @@ const ListEscuelas = () => {
     }
   };
 
+  const fiscalesFilterOptions = [
+    {
+      text: "0",
+      value: "=0"
+    }, {
+      text: "> 0",
+      value: ">0"
+    }, {
+      text: "< 30% mesas",
+      value: "<0.3*mesas_count"
+    }, {
+      text: "< 50% mesas",
+      value: "<0.5*mesas_count"
+    }, {
+      text: "< 100% mesas",
+      value: "<mesas_count"
+    }
+  ]
+
   return (
     <div className="row">
       <div className="col-12 mx-auto">
@@ -63,6 +91,7 @@ const ListEscuelas = () => {
           <div>
             <span className="h2 m-0">Escuelas</span>
           </div>
+          <Pager data={escuelas}/>
           <div className="btn-group">
             <button
               className="btn btn-sm btn-outline-secondary"
@@ -79,37 +108,70 @@ const ListEscuelas = () => {
           </div>
         </div>
         <hr />
-          <div className="card">
-            <div className="card-header d-flex align-items-center">
-              Listado de escuelas
-              <Pager data={escuelas}/>
-            </div>
-            {isLoading ? (
-                <Spinner />
-            ) : (
-            <div className="table-responsive">
+            <div className="table-responsive card">
               <table className="table table-flush align-items-center">
-                <thead>
+                <thead className="card-header">
                   <tr>
-                    <th scope="col">Distrito</th>
-                    <th scope="col">Municipio</th>
-                    <th scope="col">Código</th>
-                    <th scope="col">Nombre</th>
-                    <th scope="col">Direccion</th>
-                    <th scope="col">Partido</th>
-                    <th scope="col">Fiscales</th>
+                    <th scope="col">
+                      <label>Municipio</label>
+                      <div className="form-inline">
+                        <SearchContext>
+                          <SelectDistritoField name="distrito" empty={"Filtrar"} label=""/>
+                          {distrito ? <SelectSeccionElectoralField name="seccion" distrito={distrito} empty={"Todos"} label="" style={{width: 170}}/> : null}
+                        </SearchContext>
+                      </div>
+                    </th>
+                    <th scope="col" style={{width: 100}}>
+                      <SearchContext>
+                        <TextField
+                            label="Código"
+                            name="codigo"
+                            placeholder="Filtrar"
+                        />
+                      </SearchContext>
+                    </th>
+                    <th scope="col">
+                      <SearchContext>
+                        <TextField
+                            label="Nombre"
+                            name="q"
+                            placeholder="Filtrar"
+                        />
+                      </SearchContext>
+                    </th>
+                    <th scope="col">
+                      <SearchContext>
+                        <TextField
+                            label="Dirección"
+                            name="direccion"
+                            placeholder="Filtrar"
+                        />
+                      </SearchContext>
+                    </th>
+                    <th scope="col" style={{width: 120}}>
+                      <SearchContext>
+                        <SelectPartidoField name="partido" empty={"Filtrar"} label="Partido"/>
+                      </SearchContext>
+                    </th>
+                    <th scope="col" style={{width: 120}}>
+                      <SearchContext>
+                        <SelectField
+                            name="fiscales"
+                            label="Fiscales"
+                            empty="Filtrar"
+                            options={fiscalesFilterOptions}
+                        />
+                      </SearchContext>
+                    </th>
                     <th scope="col">Mesas</th>
                     <th scope="col" style={{ width: 100 }}></th>
                   </tr>
                 </thead>
                 <tbody>
-                  {escuelas.map((escuela) => (
+                  {isLoading ? <tr><td><Spinner/></td></tr> : escuelas.map((escuela) => (
                     <tr key={escuela.id}>
                       <td>
-                        {getDistrito(escuela.distrito)}
-                      </td>
-                      <td>
-                        {getSeccionElectoral(escuela.distrito, escuela.seccion_electoral).seccion}
+                        {getDistrito(escuela.distrito) + " - " + getSeccionElectoral(escuela.distrito, escuela.seccion_electoral).seccion}
                       </td>
                       <td>
                         {escuela.codigo}
@@ -149,13 +211,11 @@ const ListEscuelas = () => {
                     </tr>
                   ))}
                 </tbody>
+                <tfoot className="card-footer">
+                  <tr><td colSpan={8}><Pager data={escuelas}/></td></tr>
+                </tfoot>
               </table>
             </div>
-            )}
-              <div className="card-footer d-flex align-items-center">
-                  <Pager data={escuelas}/>
-              </div>
-          </div>
       </div>
     </div>
   );

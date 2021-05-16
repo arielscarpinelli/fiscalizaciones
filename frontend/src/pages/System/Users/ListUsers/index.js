@@ -18,7 +18,7 @@ const ListUsers = () => {
   const {page} = useQuery();
 
   const {
-    userData: { role },
+    userData: { email, role },
   } = useContext(UserContext);
 
   const isSuperAdmin = role === "SUPERADMIN";
@@ -72,6 +72,7 @@ const ListUsers = () => {
           <div>
             <span className="h2 m-0">Usuarios</span>
           </div>
+          <Pager data={users}/>
           <div className="btn-group">
             <button
               className="btn btn-sm btn-outline-secondary"
@@ -88,17 +89,9 @@ const ListUsers = () => {
           </div>
         </div>
         <hr />
-          <div className="card">
-            <div className="card-header d-flex align-items-center ">
-              Listado de usuarios
-              <Pager data={users}/>
-            </div>
-            {isLoading ? (
-                <Spinner />
-            ) : (
-            <div className="table-responsive">
+            <div className="table-responsive card">
               <table className="table table-flush align-items-center">
-                <thead>
+                <thead className="card-header">
                   <tr>
                     <th scope="col">Email</th>
                     <th scope="col">Rol</th>
@@ -109,7 +102,7 @@ const ListUsers = () => {
                   </tr>
                 </thead>
                 <tbody>
-                  {users.map((user) => (
+                  {isLoading ? <tr><td><Spinner/></td></tr> : users.map((user) => (
                     <tr key={user.id}>
                       <td>{user.email}</td>
                       <td>{user.role}</td>
@@ -117,7 +110,7 @@ const ListUsers = () => {
                       <td>{getDistrito(user.distrito)}</td>
                       <td>{(getSeccionElectoral(user.distrito, user.seccion_electoral) || {}).seccion}</td>
                       <td className="text-right">
-                        {((isSuperAdmin && user.role !== "SUPERADMIN") ||
+                        {((isSuperAdmin && user.email !== email) ||
                           (isAdmin && user.role === "OPERATOR")) && (
                           <button
                             className="btn btn-sm btn-outline-danger"
@@ -130,13 +123,11 @@ const ListUsers = () => {
                     </tr>
                   ))}
                 </tbody>
+                <tfoot className="card-footer">
+                  <tr><td colSpan={6}><Pager data={users}/></td></tr>
+                </tfoot>
               </table>
             </div>
-            )}
-            <div className="card-footer d-flex align-items-center ">
-              <Pager data={users}/>
-            </div>
-          </div>
       </div>
     </div>
   );

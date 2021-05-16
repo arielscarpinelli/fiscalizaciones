@@ -10,6 +10,7 @@ import Pager from "components/Pager";
 import {useQuery} from "utils/router";
 import SelectEscuelaField from "components/Escuelas/SelectEscuelaField";
 import {SearchContext} from "utils/forms";
+import TextField from "components/Forms/TextField";
 
 const ListMesas = () => {
   const [mesas, setMesas] = useState([]);
@@ -81,29 +82,25 @@ const ListMesas = () => {
           </div>
         </div>
         <hr />
-            {isLoading ? (
-                <Spinner />
-            ) : (
             <div className="table-responsive card">
               <table className="table table-flush align-items-center">
                 <thead className="card-header">
                   <tr>
                     <th scope="col">
-                      Escuela
                       <SearchContext>
                         <SelectEscuelaField
                             name="escuela"
                             className="flex-grow-1 mr-3"
-                            placeholder="Filtrar escuela"
+                            placeholder="Filtrar"
                             isClearable={true}/>
                       </SearchContext>
                     </th>
-                    <th scope="col">Numero
+                    <th scope="col">
                       <SearchContext>
-                        <input
-                            className="form-control"
+                        <TextField
+                            label="Numero"
                             name="codigo"
-                            placeholder="Filtrar numero"
+                            placeholder="Filtrar"
                         />
                       </SearchContext>
                     </th>
@@ -111,7 +108,7 @@ const ListMesas = () => {
                   </tr>
                 </thead>
                 <tbody>
-                  {mesas.map((mesa) => (
+                  {isLoading ? <tr><td><Spinner/></td></tr> : mesas.map((mesa) => (
                     <tr key={mesa.id}>
                       <td>
                         {mesa.escuela_.nombre}
@@ -144,7 +141,6 @@ const ListMesas = () => {
                 </tfoot>
               </table>
             </div>
-            )}
       </div>
     </div>
   );

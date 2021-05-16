@@ -1,6 +1,6 @@
 const Joi = require("joi");
 const { Escuela, Partido, User, Fiscal, Mesa } = require("../models");
-const { Op, fn, col } = require("sequelize");
+const { Op, fn, col, literal } = require("sequelize");
 
 
 const AccessForbiddenException = require("../exceptions/UserExceptions/AccessForbiddenException");
@@ -18,42 +18,40 @@ const validation = Joi.object({
 const getEscuelas = async (req, res, next) => {
   try {
 
-    const queries = [];
-
-    const partido = User.getPartido(req.user) || req.query.partido;
-
-    if (partido) {
-      queries.push({
-        partido
-      })
-    }
-
-    const distrito = User.getDistrito(req.user) || req.query.distrito;
-
-    if (distrito) {
-      queries.push({
-        distrito
-      })
-    }
-
-    const seccion_electoral = User.getSeccionElectoral(req.user) || req.query.seccion;
-
-    if (seccion_electoral) {
-      queries.push({
-        seccion_electoral
-      })
-    }
-
+    const queries = User.applyPrivilegesToQuery(req);
 
     if (req.query.q) {
       queries.push({
-        [Op.or]: {
-          nombre: {
-            [Op.like]: `%${req.query.q}%`,
-          },
-          codigo: req.query.q
-        }
+        nombre: {
+          [Op.like]: `%${req.query.q}%`,
+        },
       });
+    }
+
+    if (req.query.direccion) {
+      queries.push({
+        direccion: {
+          [Op.like]: `%${req.query.direccion}%`,
+        },
+      });
+    }
+
+    if (req.query.codigo) {
+      queries.push({
+        codigo: req.query.codigo
+      });
+    }
+
+    if (req.query.partido) {
+      queries.push({
+        partido: req.query.partido
+      });
+    }
+
+    let having;
+
+    if (req.query.fiscales) {
+      having = literal('fiscales_count ' + req.query.fiscales)
     }
 
     const escuelas = await Escuela.findAll({
@@ -79,7 +77,8 @@ const getEscuelas = async (req, res, next) => {
         [Op.and]: queries,
       },
       group: ['Escuela.id'],
-      subQuery: false
+      subQuery: false,
+      having
     });
     res.json(escuelas);
   } catch (error) {

@@ -13,30 +13,30 @@ const UserEmailAlreadyExistsException = require("../exceptions/UserExceptions/Us
 const UserInvalidCredentialsException = require("../exceptions/UserExceptions/UserInvalidCredentialsException");
 
 const validation = (reqUser) => {
-  const userDistrito = User.getDistrito(reqUser);
-  const userSeccion = User.getSeccionElectoral(reqUser);
+  const adminDistrito = User.getDistrito(reqUser);
+  const adminSeccion = User.getSeccionElectoral(reqUser);
 
   return Joi.object({
     email: Joi.string().trim().email().required(),
     role: Joi.string().trim().valid("SUPERADMIN", "ADMIN", "OPERATOR").required(),
-    distrito: !userDistrito ? Joi.number().allow(null).optional() : Joi.number().required().custom((distrito) => {
+    distrito: !adminDistrito ? Joi.number().allow(null).optional() : Joi.number().required().custom((distrito) => {
       // Si es un admin de distrito, solo puede crear/editar usuarios de ese distrito
-      if (userDistrito !== distrito) {
+      if (adminDistrito !== distrito) {
         throw new Error("solo puede crear usuarios de su distrito");
       }
       return distrito;
     }),
-    seccion_electoral: !userSeccion ? Joi.number().allow(null).optional() : Joi.number().required().custom((seccion) => {
+    seccion_electoral: !adminSeccion ? Joi.number().allow(null).optional() : Joi.number().required().custom((seccion) => {
       // Si es un admin de municipio, solo puede crear/editar usuarios de ese municipio
-      if (userSeccion !== seccion) {
+      if (adminSeccion !== seccion) {
         throw new Error("solo puede crear usuarios de su municipio");
       }
       return seccion;
     }),
     partido: Joi.number().required().custom((partido) => {
       // Si es un admin de partido, solo puede crear/editar users de ese partido
-      const userPartido = User.getPartido(reqUser);
-      if (userPartido && (userPartido !== partido)) {
+      const adminPartido = User.getPartido(reqUser);
+      if (adminPartido && (adminPartido !== partido)) {
         throw new Error("solo puede crear usuarios de su partido");
       }
       return partido;
@@ -154,12 +154,32 @@ const deleteUser = async (req, res, next) => {
       return next();
     }
 
-    if (user.role === "SUPERADMIN") {
-      throw new AccessForbiddenException("eliminar a otro superadmin");
+    if (user.id === req.user.id) {
+      throw new AccessForbiddenException("eliminarse a si mismo");
+    }
+
+    if (user.role === "SUPERADMIN" && !isSuperAdmin) {
+      throw new AccessForbiddenException("eliminar a superadmin");
     }
 
     if (isAdmin && user.role === "ADMIN") {
       throw new AccessForbiddenException("eliminar a otro admin");
+    }
+
+    const adminDistrito = User.getDistrito(req.user);
+
+    if (adminDistrito && adminDistrito !== user.distrito) {
+      throw new AccessForbiddenException("eliminar usuarios de su distrito");
+    }
+
+    const adminSeccion = User.getSeccionElectoral(req.user);
+    if (adminSeccion && adminSeccion !== user.seccion_electoral) {
+      throw new AccessForbiddenException("eliminar usuarios de su municipio");
+    }
+
+    const adminPartido = User.getPartido(req.user);
+    if (adminPartido && (adminPartido !== user.partido)) {
+      throw new Error("eliminar usuarios de su partido");
     }
 
     await user.destroy();

@@ -8,6 +8,17 @@
     }
   }
 
+  thead.card-header {
+    td, th {
+      border-top: 0;
+      border-bottom: 0;
+    }
+
+    .form-group {
+      margin-bottom: 0;
+    }
+  }
+
   .table-flush {
     td,
     th {

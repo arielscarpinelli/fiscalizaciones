@@ -1,4 +1,15 @@
-import secciones from "assets/json/secciones.json";
+import seccionesRaw from "assets/json/secciones.json";
+
+const secciones = seccionesRaw.sort((a, b) => {
+    if (a.seccion > b.seccion) {
+        return 1;
+    }
+    if (a.seccion < b.seccion) {
+        return -1;
+    }
+    // a must be equal to b
+    return 0;
+});
 
 const seccionesByDistrito = secciones
     .reduce((acc, s) => {
@@ -15,7 +26,7 @@ const seccionesById = secciones
         return acc;
     }, {});
 
-export const getSeccionesElectoralesByDistrito = (distrito) => seccionesByDistrito[Number(distrito)];
+export const getSeccionesElectoralesByDistrito = (distrito) => seccionesByDistrito[Number(distrito)] || [];
 
 export const getSeccionElectoral = (distrito, id) => seccionesById[distrito + "-" + id];
 

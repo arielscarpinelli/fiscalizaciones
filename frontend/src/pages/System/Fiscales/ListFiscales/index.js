@@ -11,12 +11,16 @@ import Pager from "components/Pager";
 import {useQuery} from "utils/router";
 import {SearchContext} from "utils/forms";
 import SelectEscuelaField from "components/Escuelas/SelectEscuelaField";
+import SelectDistritoField from "components/Geo/SelectDistritoField";
+import SelectSeccionElectoralField from "components/Geo/SelectSeccionElectoralField";
+import TextField from "components/Forms/TextField";
+import SelectPartidoField from "components/Partidos/SelectPartidoField";
 
 const ListFiscales = () => {
   const [fiscales, setFiscales] = useState([]);
   const [isLoading, setLoading] = useState(false);
 
-  const {page, distrito, seccion, partido, q, escuela, mesa} = useQuery();
+  const {page, distrito, seccion, partido, q, escuela, mesa, dni} = useQuery();
 
   let doFetch = () => {
     fetchFiscales();
@@ -26,6 +30,7 @@ const ListFiscales = () => {
     seccion,
     partido,
     q,
+    dni,
     escuela,
     mesa]);
 
@@ -37,6 +42,7 @@ const ListFiscales = () => {
         distrito,
         seccion,
         partido,
+        dni,
         q,
         escuela,
         mesa
@@ -72,6 +78,7 @@ const ListFiscales = () => {
           <div>
             <span className="h2 m-0">Fiscales</span>
           </div>
+          <Pager data={fiscales}/>
           <div className="btn-group">
             <button
               className="btn btn-sm btn-outline-secondary"
@@ -88,35 +95,57 @@ const ListFiscales = () => {
           </div>
         </div>
         <hr />
-          <div className="card">
-            <div className="card-header d-flex align-items-center ">
-              <SearchContext>
-                <SelectEscuelaField
-                    name="escuela"
-                    className={"flex-grow-1 mr-3"}
-                    placeholder={"Filtrar escuela"}
-                    isClearable={true}/>
-              </SearchContext>
-              <Pager data={fiscales}/>
-            </div>
-            {isLoading ? (
-                <Spinner />
-            ) : (
-            <div className="table-responsive">
+            <div className="table-responsive card">
               <table className="table table-flush align-items-center">
-                <thead>
+                <thead className="card-header">
                   <tr>
-                    <th scope="col">Apellido y nombre</th>
-                    <th scope="col">DNI</th>
-                    <th scope="col">Municipio</th>
-                    <th scope="col">Partido</th>
-                    <th scope="col">Escuela</th>
+                    <th scope="col">
+                      <SearchContext>
+                      <TextField
+                          label="Apellido y nombre"
+                          name="q"
+                          placeholder="Filtrar"
+                      />
+                    </SearchContext>
+                      </th>
+                    <th scope="col" style={{width: 120}}>
+                      <SearchContext>
+                        <TextField
+                            label="DNI"
+                            name="dni"
+                            placeholder="Filtrar"
+                        />
+                      </SearchContext>
+                    </th>
+                    <th scope="col">
+                      <label>Municipio</label>
+                      <div className="form-inline">
+                        <SearchContext>
+                          <SelectDistritoField name="distrito" empty={"Filtrar"} label=""/>
+                          {distrito ? <SelectSeccionElectoralField name="seccion" distrito={distrito} empty={"Todos"} label=""/> : null}
+                        </SearchContext>
+                      </div>
+                    </th>
+                    <th scope="col" style={{width: 120}}>
+                      <SearchContext>
+                        <SelectPartidoField name="partido" empty={"Filtrar"} label="Partido"/>
+                      </SearchContext>
+                    </th>
+                    <th scope="col">
+                      <SearchContext>
+                        <SelectEscuelaField
+                            name="escuela"
+                            className={"flex-grow-1 mr-3"}
+                            placeholder={"Filtrar"}
+                            isClearable={true}/>
+                      </SearchContext>
+                    </th>
                     <th scope="col">Mesa</th>
                     <th scope="col" style={{ width: 100 }}></th>
                   </tr>
                 </thead>
                 <tbody>
-                  {fiscales.map((fiscal) => (
+                  {isLoading ? <tr><td><Spinner/></td></tr> : fiscales.map((fiscal) => (
                     <tr key={fiscal.id}>
                       <td>
                         {fiscal.last_name.toUpperCase()}, {fiscal.first_name}
@@ -156,13 +185,11 @@ const ListFiscales = () => {
                     </tr>
                   ))}
                 </tbody>
+                <tfoot className="card-footer">
+                  <tr><td colSpan={7}><Pager data={fiscales}/></td></tr>
+                </tfoot>
               </table>
             </div>
-            )}
-            <div className="card-footer d-flex align-items-center">
-              <Pager data={fiscales}/>
-            </div>
-          </div>
       </div>
     </div>
   );

@@ -3,9 +3,9 @@ import PropTypes from "prop-types";
 import { useFormContext } from "react-hook-form";
 
 const TextField = ({ name, label, readOnly, ...rest }) => {
-  const { register, errors } = useFormContext();
+  const { register, errors } = useFormContext() || {};
 
-  const error = errors[name] ? errors[name].message : null;
+  const error = errors && errors[name] ? errors[name].message : null;
 
   return (
     <>
