@@ -57,27 +57,19 @@ const getEscuelas = async (req, res, next) => {
     const escuelas = await Escuela.findAll({
       attributes: {
         include: [
-          [fn('COUNT', fn('DISTINCT', col('Fiscales.id'))), 'fiscales_count'],
-          [fn('COUNT', fn('DISTINCT', col('Mesas.id'))), 'mesas_count']
+          [literal('(SELECT COUNT(1) FROM Fiscales WHERE escuela = Escuela.id)'), 'fiscales_count'],
+          [literal('(SELECT COUNT(1) FROM Mesas WHERE escuela = Escuela.id)'), 'mesas_count']
         ]
       },
       include: [{
         model: Partido,
         as: 'partido_'
-      }, {
-        model: Fiscal,
-        attributes: [], // el join es solo para el count
-      }, {
-        model: Mesa,
-        attributes: [], // el join es solo para el count
       }],
       limit: 50,
       offset: req.query.page ? Number(req.query.page) * 50 : undefined,
       where: {
         [Op.and]: queries,
       },
-      group: ['Escuela.id'],
-      subQuery: false,
       having
     });
     res.json(escuelas);
