@@ -112,12 +112,12 @@ const ListEscuelas = () => {
               <table className="table table-flush align-items-center">
                 <thead className="card-header">
                   <tr>
-                    <th scope="col">
+                    <th scope="col" style={{width: 275}}>
                       <label>Municipio</label>
                       <div className="form-inline">
                         <SearchContext>
                           <SelectDistritoField name="distrito" empty={"Filtrar"} label=""/>
-                          {distrito ? <SelectSeccionElectoralField name="seccion" distrito={distrito} empty={"Todos"} label="" style={{width: 170}}/> : null}
+                          {distrito ? <SelectSeccionElectoralField name="seccion" distrito={distrito} empty={"Todos"} label="" style={{width: 160}}/> : null}
                         </SearchContext>
                       </div>
                     </th>
@@ -148,12 +148,12 @@ const ListEscuelas = () => {
                         />
                       </SearchContext>
                     </th>
-                    <th scope="col" style={{width: 120}}>
+                    <th scope="col" style={{width: 110}}>
                       <SearchContext>
                         <SelectPartidoField name="partido" empty={"Filtrar"} label="Partido"/>
                       </SearchContext>
                     </th>
-                    <th scope="col" style={{width: 120}}>
+                    <th scope="col" style={{width: 110}}>
                       <SearchContext>
                         <SelectField
                             name="fiscales"
