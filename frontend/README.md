@@ -5,19 +5,19 @@ Ver más en [@unidosargentina/react-skeleton](https://github.com/unidosargentina
 1) Descargar el proyecto.
 2) Ejecutar `npm install && (cd server && npm install)` 
 3) Puesta en marcha
-4) Copiar el archivo `.env.example` de la carpeta raiz al archivo `.env`.
+4) Copiar el archivo .env `cp .env.example .env`
 5) Ejecutar `npm run start`.
 
 ## Deployment
 ### Para todos 
 1) Descargar el proyecto.
 2) Ejecutar `npm install` 
-3) Copiar el archivo `.env.example` de la carpeta raiz al archivo `.env`.
+3) Copiar el archivo .env `cp .env.example .env`
 4) CONFIGURAR `.env` con la url de API de producción
 
 ### Para producción atras de proxy (Apache/nginx/etc)
 - `npm run build` 
-- Asegurarse que el Apache apunta a la carpeta `build/static`.
+- Asegurarse que el Apache apunta a la carpeta `build`.
 
 ### Para producción standalone
 - En la carpeta `./server`, copiar el archivo `ecosystem.config.js.example` al archivo `ecosystem.config.js`.

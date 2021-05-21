@@ -6,6 +6,7 @@ const fileUpload = require("express-fileupload");
 const bodyParser = require("body-parser");
 const cookieParser = require("cookie-parser");
 const chalk = require("chalk");
+const path = require("path");
 
 require("dotenv").config();
 
@@ -25,11 +26,11 @@ const { SUPERADMIN_INITIAL_PASSWORD } = require("./config");
 const run = async () => {
   console.log(
     `${chalk.yellow(
-      "[SISTEMA-VOTO-BACKEND]"
-    )} Iniciando servicio de votación...`
+      "[SISTEMA-FISCALES]"
+    )} Iniciando servicio de fiscalización...`
   );
 
-  ensureEmailSettingsWereProvided();
+  // ensureEmailSettingsWereProvided();
   // await ensureEmailsCanBeSent();
 
   const app = express();
@@ -50,6 +51,12 @@ const run = async () => {
   app.use(cookieParser());
 
   app.use("/api/v1", apiRoutes);
+
+  app.use(express.static("public"));
+
+  app.get('*', (req,res) =>{
+    res.sendFile(path.join(__dirname+'/../public/index.html'));
+  });
 
   app.use(notFound);
   app.use(validationErrors);
