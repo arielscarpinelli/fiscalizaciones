@@ -6,19 +6,22 @@ module.exports = {
       watch: false,
       env_production: {
         NODE_ENV: "production",
-        UNIDOS_API_EMAIL: "", // DON'T PUSH TO REPOSITORY
-        UNIDOS_API_PASSWORD: "", // DON'T PUSH TO REPOSITORY
         EMAIL_FROM_NAME: "Unidos Argentina",
         EMAIL_FROM_ADDRESS: "votaciones@unidosargentina.org",
+        SMTP_PORT: 587,
+        SMTP_SECURE: true,
+        /*
+        DB_USERNAME: "",
+        DB_HOSTNAME: "",
+        DB_PASSWORD: "",
         SECRET: "", // Secret must have 32 characters,
         SESSION_SECRET: "",
         SMTP_SERVER: "",
         SMTP_USER: "",
-        SMTP_PORT: 587,
-        SMTP_SECURE: true,
         SMTP_PASSWORD: "",
-        URL_BACKOFFICE_FRONTEND: "https://fiscalizacion.republicanosunidospba.com.ar",
         SUPERADMIN_INITIAL_PASSWORD: ""
+        URL_BACKOFFICE_FRONTEND: "https://fiscalizacion.republicanosunidospba.com.ar", // fallback a WEBSITE_HOSTNAME
+        */
       },
     },
   ],

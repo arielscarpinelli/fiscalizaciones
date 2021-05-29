@@ -5,17 +5,14 @@
    * Para desarrollo: 
       0) En otro tab, `docker-compose up`
       1) `cp .env.example .env`.
-      2) `cp src/config/config.json.example src/config/config.json`
-      3) Correr migraciones `cd src && npx sequelize-cli db:migrate`
-	  4) Ejecutar `npm run dev`.
+      2) Correr migraciones `cd src && npx sequelize-cli db:migrate`
+	  3) Ejecutar `npm run dev`.
    * Para producción:
       1) `cp ecosystem.config.js.example ecosystem.config.js`.
-      2) `cp src/config/config.json.example src/config/config.json`
-      3) CONFIGURAR LOS VALORES EN AMBOS ARCHIVOS
-      4) Correr migraciones `cd src && NODE_ENV=production npx sequelize-cli db:migrate`
-      5) Ejecutar `npm run prod`.
+      2) CONFIGURAR LOS VALORES
+      3) Ejecutar `npm run prod`.
       
-      
+       
       
 # Crear base de escuelas desde padron
 

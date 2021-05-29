@@ -18,4 +18,4 @@ ENV PORT 8080
 EXPOSE 8080
 
 # Run the web service on container startup.
-CMD ["npx", "pm2-runtime", "ecosystem.config.js.example", "--env", "production"]
+CMD ["npm", "run", "prod:docker"]

@@ -65,13 +65,14 @@ const run = async () => {
   const { User } = require("./models/index");
   if (await User.count() === 0) {
     if(!SUPERADMIN_INITIAL_PASSWORD) {
-      throw new Error("No se puede crear el usuario superadmin inicial, falta establecer password");
+      console.error("No se puede crear el usuario superadmin inicial, falta establecer password");
+    } else {
+      await User.create({
+        email: 'admin@republicanosunidospba.com.ar',
+        role: 'SUPERADMIN',
+        password: SUPERADMIN_INITIAL_PASSWORD,
+      });
     }
-    await User.create({
-      email: 'admin@republicanosunidospba.com.ar',
-      role: 'SUPERADMIN',
-      password: SUPERADMIN_INITIAL_PASSWORD,
-    });
   }
 
 

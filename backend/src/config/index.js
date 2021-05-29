@@ -1,20 +1,13 @@
-const UNIDOS_API_URI = "https://afiliate.unidosargentina.org/api";
-const UNIDOS_API_EMAIL = process.env.UNIDOS_API_EMAIL;
-const UNIDOS_API_PASSWORD = process.env.UNIDOS_API_PASSWORD;
-
-const SECRET = process.env.SECRET || "secret";
-const SESSION_SECRET = process.env.SESSION_SECRET || "secret";
+const SECRET = process.env.SECRET;
+const SESSION_SECRET = process.env.SESSION_SECRET;
 
 const MAIL_CONFIG = require("./mail");
 
-const URL_BACKOFFICE_FRONTEND = process.env.URL_BACKOFFICE_FRONTEND;
+const URL_BACKOFFICE_FRONTEND = process.env.URL_BACKOFFICE_FRONTEND || ("https://" + process.env.WEBSITE_HOSTNAME);
 
 const SUPERADMIN_INITIAL_PASSWORD = process.env.SUPERADMIN_INITIAL_PASSWORD;
 
 module.exports = {
-  UNIDOS_API_URI,
-  UNIDOS_API_EMAIL,
-  UNIDOS_API_PASSWORD,
   MAIL_CONFIG,
   SECRET,
   SESSION_SECRET,

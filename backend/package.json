@@ -5,6 +5,8 @@
   "main": "index.js",
   "scripts": {
     "prod": "pm2 start ecosystem.config.js --env production",
+    "preprod:docker": "cd src && NODE_ENV=production npx sequelize-cli db:migrate",
+    "prod:docker": "pm2-runtime ecosystem.config.js.example --env production",
     "start": "node src/index.js",
     "dev": "nodemon src/index.js",
     "lint": "eslint --fix src",

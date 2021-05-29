@@ -1,9 +1,0 @@
-{
-  "name": "sistema-voto",
-  "version": "0.14.0",
-  "description": "Sistema de Voto para las elecciones internas del Partido Unidos",
-  "scripts": {
-    "install": "cd backend && npm install && cd ../frontend && npm install",
-    "build": "REACT_APP_API_URI='https://fiscalizacion.republicanosunidospba.com.ar/api/v1' cd frontend && npm run build"
-  }
-}
