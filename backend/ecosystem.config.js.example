@@ -6,10 +6,8 @@ module.exports = {
       watch: false,
       env_production: {
         NODE_ENV: "production",
-        EMAIL_FROM_NAME: "Unidos Argentina",
-        EMAIL_FROM_ADDRESS: "votaciones@unidosargentina.org",
-        SMTP_PORT: 587,
-        SMTP_SECURE: true,
+        EMAIL_FROM_NAME: "Republicanos Unidos",
+        EMAIL_FROM_ADDRESS: "fiscalizacion@republicanosunidospba.com",
         /*
         DB_USERNAME: "",
         DB_HOSTNAME: "",
