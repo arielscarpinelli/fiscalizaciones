@@ -6,9 +6,9 @@ module.exports = {
       watch: false,
       env_production: {
         NODE_ENV: "production",
-        EMAIL_FROM_NAME: "Republicanos Unidos",
-        EMAIL_FROM_ADDRESS: "fiscalizacion@republicanosunidospba.com",
         /*
+        EMAIL_FROM_NAME: "Republicanos Unidos",
+        EMAIL_FROM_ADDRESS: "fiscalizacion@republicanosunidospba.com.ar",
         DB_USERNAME: "",
         DB_HOSTNAME: "",
         DB_PASSWORD: "",
