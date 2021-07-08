@@ -154,7 +154,7 @@ const ListFiscales = () => {
                         {fiscal.dni}
                       </td>
                       <td>
-                        {getSeccionElectoral(fiscal.distrito, fiscal.seccion_electoral).seccion}
+                        {(getSeccionElectoral(fiscal.distrito, fiscal.seccion_electoral) || {}).seccion}
                       </td>
                       <td>
                         {fiscal.partido_ ? fiscal.partido_.name : fiscal.partido}

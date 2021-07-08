@@ -13,5 +13,20 @@ az acr login --name fiscalizacion.azurecr.io
 docker image push fiscalizacion.azurecr.io/fiscalizacion:latest
 ```
 
+## Correr local la imagen de docker
 
-Se puede correr local con `docker run -p 8080:8080 -e DB_HOSTNAME=192.168.56.1 -e DB_USERNAME=root fiscalizacion `
+Crear un alias para la interfaz de loopback, por ejemplo
+
+`ifconfig lo0 alias 192.168.56.1`
+
+Levantar en otro tab 
+
+`cd backend && docker-compose` 
+
+para correr MySQL 
+
+Luego 
+
+`docker run -p 8080:8080 -e DB_HOSTNAME=192.168.56.1 -e DB_USERNAME=root fiscalizacion `
+
+
