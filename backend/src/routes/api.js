@@ -9,7 +9,7 @@ const usersRoutes = require("./users");
 const partidosRoutes = require("./partidos");
 const escuelasRoutes = require("./escuelas");
 const mesasRoutes = require("./mesas");
-const resultsRoutes = require("./results");
+const actasRoutes = require("./actas");
 const authRoutes = require("./auth");
 
 router.get("/", (req, res) => {
@@ -28,7 +28,7 @@ router.use("/escuelas", isAuthenticated, escuelasRoutes);
 
 router.use("/mesas", isAuthenticated, mesasRoutes);
 
-router.use("/results", isAuthenticated, resultsRoutes);
+router.use("/actas", actasRoutes);
 
 router.use("/auth", authRoutes);
 

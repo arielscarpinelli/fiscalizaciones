@@ -24,10 +24,10 @@ module.exports = (sequelize, DataTypes) => {
         });
     }
 
-    static async findByEmail(email) {
-      return await Fiscal.findOne({
+    static async findByDNI(dni) {
+      return Fiscal.findOne({
         where: {
-          email
+          dni
         },
       });
     }
@@ -100,7 +100,7 @@ module.exports = (sequelize, DataTypes) => {
     }
   );
 
-  Fiscal.prototype.generateValidationCode = async function () {
+  Fiscal.prototype.generateValidationCode = function () {
     this.code = randomIntBetweenInterval(100000, 999999);
   };
 

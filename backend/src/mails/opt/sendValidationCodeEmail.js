@@ -4,7 +4,7 @@ const {
 } = require("../../config");
 
 const sendValidationCodeEmail = (email, code) => {
-  const subject = "Verificá tu identidad antes de votar | Unidos Argentina";
+  const subject = "Código de verificación";
 
   return mailer.sendMail({
     from,

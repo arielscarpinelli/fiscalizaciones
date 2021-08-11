@@ -3,19 +3,16 @@ const express = require("express");
 const router = express.Router();
 
 const {
+    getActasFiscal,
     uploadPhoto,
     getPhoto,
-    loginFiscal,
-    validateEmail,
     postResults,
-} = require("../controllers/results");
+} = require("../controllers/actas");
 
 const authFiscal = require("../middlewares/authFiscal");
 
-router.post("/login", loginFiscal);
-router.post("/validate-email", validateEmail);
-
-router.post("/result", authFiscal, postResults);
+router.get("/fiscal", authFiscal, getActasFiscal);
+router.post("/", authFiscal, postResults);
 router.put("/:id/photo", authFiscal, uploadPhoto);
 router.get("/:id/photo", authFiscal, getPhoto);
 

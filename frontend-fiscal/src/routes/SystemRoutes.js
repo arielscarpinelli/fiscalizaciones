@@ -1,0 +1,28 @@
+import React from "react";
+import {Redirect, Route, Switch} from "react-router-dom";
+import ActaList from "pages/System/ActaList"
+import PrivateRoute from "directives/PrivateRoute";
+
+const SystemRoutes = () => {
+  return (
+    <Route
+      path="/sistema"
+      render={({ match: { path } }) => (
+        <Switch>
+          <Route
+            path={`${path}`}
+            render={() => <Redirect to={`${path}/actas`} />}
+            exact
+          />
+          <PrivateRoute
+            path={`${path}/actas`}
+            component={ActaList}
+            exact
+          />
+        </Switch>
+      )}
+    />
+  );
+};
+
+export default SystemRoutes;

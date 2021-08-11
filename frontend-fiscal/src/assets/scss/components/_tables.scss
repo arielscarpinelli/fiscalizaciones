@@ -1,0 +1,34 @@
+.table {
+  margin: 0px;
+  
+  &.align-items-center {
+    td,
+    th {
+      vertical-align: middle;
+    }
+  }
+
+  .table-flush {
+    td,
+    th {
+      border-left: 0;
+      border-right: 0;
+    }
+
+    tbody {
+      tr:first-child {
+        td,
+        th {
+          border-top: 0;
+        }
+      }
+
+      tr:last-child {
+        td,
+        th {
+          border-bottom: 0px;
+        }
+      }
+    }
+  }
+}
