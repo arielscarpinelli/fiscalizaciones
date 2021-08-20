@@ -13,7 +13,7 @@ module.exports = {
         type: Sequelize.STRING,
       },
       estado: {
-        type: Sequelize.ENUM(["PENDIENTE", "ENCURSO", "CERRADA"]),
+        type: Sequelize.ENUM(["PLANIFICADA", "EN_CURSO", "CERRADA"]),
         allowNull: false,
       },
     });

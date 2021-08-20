@@ -1,6 +1,6 @@
 import React from "react";
 import {Redirect, Route, Switch} from "react-router-dom";
-import ActaList from "pages/System/ActaList"
+import ListActas from "pages/System/ListActas";
 import PrivateRoute from "directives/PrivateRoute";
 
 const SystemRoutes = () => {
@@ -16,7 +16,7 @@ const SystemRoutes = () => {
           />
           <PrivateRoute
             path={`${path}/actas`}
-            component={ActaList}
+            component={ListActas}
             exact
           />
         </Switch>

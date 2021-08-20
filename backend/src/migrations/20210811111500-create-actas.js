@@ -44,6 +44,21 @@ module.exports = {
       },
       fiscal: {
         type: Sequelize.INTEGER,
+      },
+      estado: {
+        type: Sequelize.ENUM(["INGRESADA", "COMPLETADA", "VERIFICADA"]),
+      },
+      data_entry: {
+        type: Sequelize.INTEGER
+      },
+      verificador: {
+        type: Sequelize.INTEGER
+      },
+      errores: {
+        type: Sequelize.INTEGER
+      },
+      log: {
+        type: Sequelize.TEXT
       }
     });
 
@@ -59,7 +74,7 @@ module.exports = {
         allowNull: false,
       },
       tipo: {
-        type: Sequelize.ENUM(["LISTA", "NULOS", "BLANCOS", "RECURRIDOS", "IMPUGNADO", "COMANDO"]),
+        type: Sequelize.ENUM(["LISTA", "NULOS", "BLANCOS", "RECURRIDOS", "IMPUGNADOS", "COMANDO"]),
       },
       lista: {
         type: Sequelize.STRING,
@@ -73,6 +88,18 @@ module.exports = {
         allowNull: true,
       },
     });
+
+    await queryInterface.addIndex("Actas", {
+      unique: true,
+      fields: ['eleccion', 'distrito', 'seccion_electoral', 'mesa']
+    });
+    await queryInterface.addIndex("Actas", ['eleccion', 'estado']);
+    await queryInterface.addIndex("Actas", ['eleccion', 'distrito', 'seccion_electoral', 'estado']);
+    await queryInterface.addIndex("Actas", ['eleccion', 'fiscal']);
+    await queryInterface.addIndex("Actas", ['eleccion', 'data_entry']);
+    await queryInterface.addIndex("Actas", ['eleccion', 'verificador']);
+    await queryInterface.addIndex("Actas_Detalle", ['acta']);
+    await queryInterface.addIndex("Actas_Detalle", ['lista', 'cargo']);
   },
   down: async (queryInterface, Sequelize) => {
     await queryInterface.dropTable("Actas");

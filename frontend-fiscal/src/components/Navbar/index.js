@@ -21,7 +21,7 @@ const Navbar = () => {
   return (
     <header
       id="header-fixed"
-      className="pb-3 py-3 container-fluid"
+      className="container-fluid"
       ref={navbarRef}
     >
       <div className="row">

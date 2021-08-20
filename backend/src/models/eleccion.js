@@ -1,6 +1,12 @@
 "use strict";
 const {Model} = require("sequelize");
 
+const EleccionEstado = {
+  PLANIFICADA: "PLANIFICADA",
+  EN_CURSO: "EN_CURSO",
+  CERRADA: "CERRADA"
+}
+
 module.exports = (sequelize, DataTypes) => {
   class Eleccion extends Model {
     /**
@@ -10,15 +16,23 @@ module.exports = (sequelize, DataTypes) => {
      */
     static associate(models) {
     }
+
+    static async findEnCurso() {
+        return Eleccion.findOne({
+          where: {
+            estado: EleccionEstado.EN_CURSO
+          },
+        });
+    }
   }
 
   Eleccion.init({
       nombre: {
-        allowNull: false,
         type: DataTypes.STRING,
+        allowNull: false,
       },
       estado: {
-        type: DataTypes.ENUM(["PENDIENTE", "ENCURSO", "CERRADA"]),
+        type: DataTypes.ENUM(Object.values(EleccionEstado)),
         allowNull: false,
       }
     },
@@ -29,8 +43,11 @@ module.exports = (sequelize, DataTypes) => {
         plural: "Elecciones",
       },
       tableName: "Elecciones",
+      timestamps: false
     }
   );
+
+  Eleccion.Estado = EleccionEstado;
 
   return Eleccion;
 };

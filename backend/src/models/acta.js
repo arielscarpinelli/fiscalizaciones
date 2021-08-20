@@ -1,6 +1,29 @@
 "use strict";
 const {Model} = require("sequelize");
 
+const ActaEstado = {
+  INGRESADA: "INGRESADA",
+  COMPLETADA: "COMPLETADA",
+  VERIFICADA: "VERIFICADA"
+};
+
+const ActaDetalleTipo = {
+  LISTA: "LISTA",
+  NULOS: "NULOS",
+  BLANCOS: "BLANCOS",
+  RECURRIDOS: "RECURRIDOS",
+  IMPUGNADOS: "IMPUGNADOS",
+  COMANDO: "COMANDO"
+}
+
+const ActaDetalleCargo = {
+  SENADORES_NACIONALES: "SENADORES_NACIONALES",
+  DIPUTADOS_NACIONALES: "DIPUTADOS_NACIONALES",
+  SENADORES_PROVINCIALES: "SENADORES_PROVINCIALES",
+  DIPUTADOS_PROVINCIALES: "DIPUTADOS_PROVINCIALES",
+  CONCEJALES: "CONCEJALES"
+}
+
 module.exports = (sequelize, DataTypes) => {
 
   class Acta extends Model {
@@ -18,6 +41,20 @@ module.exports = (sequelize, DataTypes) => {
         foreignKey: 'fiscal',
         as: 'fiscal_'
       });
+    }
+
+    static async findForFiscalEleccionEnCurso(fiscal) {
+      return Acta.findAll({
+        include: [{
+          association: 'eleccion_',
+          where: {
+            estado: 'EN_CURSO',
+          }
+        }, 'detalle'],
+        where: {
+          fiscal
+        }
+      })
     }
   }
 
@@ -58,9 +95,23 @@ module.exports = (sequelize, DataTypes) => {
       },
       fiscal: {
         type: DataTypes.INTEGER,
+      },
+      estado: {
+        type: DataTypes.ENUM(Object.values(ActaEstado)),
+      },
+      data_entry: {
+        type: DataTypes.INTEGER
+      },
+      verificador: {
+        type: DataTypes.INTEGER
+      },
+      errores: {
+        type: DataTypes.INTEGER
+      },
+      log: {
+        type: DataTypes.TEXT
       }
-    },
-    {
+    }, {
       sequelize,
       modelName: "Acta",
       tableName: "Actas",
@@ -82,14 +133,14 @@ module.exports = (sequelize, DataTypes) => {
         allowNull: false,
       },
       tipo: {
-        type: DataTypes.ENUM(["LISTA", "NULOS", "BLANCOS", "RECURRIDOS", "IMPUGNADO", "COMANDO"]),
+        type: DataTypes.ENUM(Object.values(ActaDetalleTipo)),
       },
       lista: {
         type: DataTypes.STRING,
         allowNull: true,
       },
       cargo: {
-        type: DataTypes.ENUM(["SENADORES_NACIONALES", "DIPUTADOS_NACIONALES", "SENADORES_PROVINCIALES", "DIPUTADOS_PROVINCIALES", "CONCEJALES"]),
+        type: DataTypes.ENUM(Object.values(ActaDetalleCargo)),
       },
       votos: {
         type: DataTypes.INTEGER,
@@ -99,14 +150,19 @@ module.exports = (sequelize, DataTypes) => {
     {
       sequelize,
       modelName: "ActaDetalle",
-      tableName: "ActasDetalle",
+      tableName: "Actas_Detalle",
+      timestamps: false,
     }
   );
 
-  Acta.actas = Acta.hasMany(ActaDetalle, {
+  Acta.detalle = Acta.hasMany(ActaDetalle, {
     foreignKey: 'acta',
-    as: 'actas'
+    as: 'detalle'
   });
+
+  Acta.Estado = ActaEstado;
+  Acta.DetalleTipo = ActaDetalleTipo;
+  Acta.DetalleCargo = ActaDetalleCargo;
 
   return Acta;
 };

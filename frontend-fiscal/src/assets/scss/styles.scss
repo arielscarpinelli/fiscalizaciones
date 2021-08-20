@@ -40,29 +40,23 @@ button:hover {
   margin-top: 102px;
 }
 
-.avatar-sm {
+.foto-sm {
   height: 36px;
-  width: 36px;
-  border-radius: 50%;
-  object-fit: cover;
+  max-width: 36px;
 }
 
-.avatar-container {
-  position: relative;
+.foto-container {
   text-align: center;
 
-  .avatar {
-    height: 150px;
-    width: 150px;
-    border-radius: 50%;
-    object-fit: cover;
+  .foto {
+    max-height: 300px;
+    max-width: 100%;
   }
 
-  .btn-change-avatar {
-    position: absolute;
-    top: 130px;
-    left: 54px;
+  .btn {
+    margin-top: 10px;
   }
+
 }
 
 .modal {
