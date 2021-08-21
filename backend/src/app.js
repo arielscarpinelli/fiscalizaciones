@@ -51,6 +51,7 @@ const run = async () => {
   app.use(cookieParser());
 
   app.use("/api/v1", apiRoutes);
+  app.use("/api", notFound);
 
   app.use(express.static("public"));
 

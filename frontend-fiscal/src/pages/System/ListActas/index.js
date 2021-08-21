@@ -1,6 +1,6 @@
 import React, {useEffect, useState} from "react";
 import useAxios from "utils/useAxios";
-import {getActas, getActaDefault, postActa} from "api/modules/actas.api";
+import {getActas, getActaTemplate, postActa, putActa} from "api/modules/actas.api";
 
 import Spinner from "components/Spinner";
 import FormActa from "components/Actas/ActaForm";
@@ -31,7 +31,7 @@ const MyActasList = ({isLoading, list, onClick}) => {
       <td><Spinner/></td>
     </tr>
     : <div className="card-deck">
-      {list.map(acta => <button className="card" onClick={() => onClick(acta)} style={{width: '100%'}}>
+      {list.map(acta => <button className="card" key={acta.id} onClick={() => onClick(acta)} style={{width: '100%'}}>
           <div className="card-body">
             <h5 className="card-title">
               Mesa {acta.mesa}
@@ -48,7 +48,7 @@ const ActaList = (props) => {
 
   const [list, setList] = useState([]);
   const [acta, setActa] = useState({});
-  const [actaDefault, setActaDefault] = useState(null);
+  const [actaTemplate, setActaTemplate] = useState(null);
 
   const { onSubmit: fetchActas, isSubmitting: isLoading } = useAxios({
     submitFn: getActas,
@@ -63,27 +63,27 @@ const ActaList = (props) => {
 
   useEffect(callFetchActas, []);
 
-  const { onSubmit: fetchDefault } = useAxios({
-    submitFn: getActaDefault,
+  const { onSubmit: fetchTemplate } = useAxios({
+    submitFn: getActaTemplate,
     onSuccess: ({ data }) => {
-      setActaDefault(data);
+      setActaTemplate(data);
       setActa(data);
     },
   });
 
   const callFetchListas = () => {
-    fetchDefault();
+    fetchTemplate();
   };
 
   useEffect(callFetchListas, []);
 
 
   const { onSubmit, isSubmitting, errors } = useAxios({
-    submitFn: postActa,
+    submitFn: (form) => acta.id ? putActa(acta.id, form) : postActa(form),
     onSuccess: () => {
       toast.success("Acta enviada correctamente");
       fetchActas();
-      onClick(actaDefault);
+      onClick(actaTemplate);
     }
   });
 
@@ -93,14 +93,14 @@ const ActaList = (props) => {
     window.scrollTo(0, 0);
   }
 
-  const onCancel = () => onClick(actaDefault)
+  const onCancel = () => onClick(actaTemplate)
 
   return (<div>
     <h3 className="d-flex justify-content-between">
       {acta.id ? 'Editar' : 'Cargar'} acta
       {acta.id ? <button className="btn btn-outline-secondary" onClick={onCancel}>Cancelar</button> : null}
     </h3>
-    {actaDefault ? <FormActa onSubmit={onSubmit}
+    {actaTemplate ? <FormActa onSubmit={onSubmit}
               isSubmitting={isSubmitting}
               errors={errors}
               acta={acta}

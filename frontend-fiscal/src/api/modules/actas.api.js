@@ -1,7 +1,8 @@
 import apiClient from "api/apiClient";
 
 export const getActas = () => apiClient.get("actas/fiscal");
-export const getActaDefault = () => apiClient.get("actas/fiscal/default");
+export const getActaTemplate = () => apiClient.get("actas/fiscal/template");
+
 export const postActa = (data) => {
   const formData = new FormData();
   const { foto, ...rest } = data;
@@ -14,3 +15,19 @@ export const postActa = (data) => {
   });
 
 }
+
+export const putActa = (id, data) => {
+  const formData = new FormData();
+  const {foto, ...rest} = data;
+  if (foto && foto instanceof FileList) {
+    formData.append('foto', foto[0]);
+  }
+  formData.append('json', JSON.stringify(rest))
+  return apiClient.put(`actas/fiscal/${id}`, formData, {
+    headers: {
+      "Content-Type": "multipart/form-data",
+    },
+  });
+}
+
+

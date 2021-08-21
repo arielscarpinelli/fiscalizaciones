@@ -1,9 +1,9 @@
-import React, { useEffect } from "react";
+import React, {useEffect} from "react";
 import PropTypes from "prop-types";
-import { useForm, FormProvider } from "react-hook-form";
-import { joiResolver } from "@hookform/resolvers/joi";
+import {useForm, FormProvider} from "react-hook-form";
+import {joiResolver} from "@hookform/resolvers/joi";
 
-import { handleServersideValidationErrors } from "utils/forms";
+import {handleServersideValidationErrors} from "utils/forms";
 
 import validation from "./validation";
 import TextField from "components/Forms/TextField";
@@ -11,13 +11,13 @@ import ImageField from "components/Forms/ImageField";
 import HiddenField from "components/Forms/HiddenField";
 
 const ActaForm = ({
-  onSubmit,
-  acta,
-  isReadonly,
-  isSubmitting,
-  errors,
-  onCancel
-}) => {
+                    onSubmit,
+                    acta,
+                    isReadonly,
+                    isSubmitting,
+                    errors,
+                    onCancel
+                  }) => {
   const form = useForm({
     resolver: joiResolver(validation),
     defaultValues: acta || {},
@@ -41,114 +41,118 @@ const ActaForm = ({
     <div className="card">
       <div className="card-body">
         <FormProvider {...form}>
-          <form onSubmit={form.handleSubmit(onSubmit)}>
-            <div className="row mb-4">
-              <div className="col-auto mx-auto">
-                <ImageField label="Foto" name="foto" readOnly={isReadonly}/>
-              </div>
-            </div>
-            <div className="row">
-              <div className="col">
-                <TextField
-                  name="mesa"
-                  label="Mesa"
-                  readOnly={isReadonly}
-                />
-              </div>
-              <div className="col">
-                <TextField
-                  name="electores"
-                  label="Electores"
-                  readOnly={isReadonly}
-                />
-              </div>
-              <div className="col">
-                <TextField
-                  name="sobres"
-                  label="Sobres"
-                  readOnly={isReadonly}
-                />
-              </div>
-            </div>
-
-            {(acta.detalle || [{}]).map(d =>
-              <React.Fragment key={d.lista}>
-                <h4>Lista {d.lista}</h4>
-                <hr/>
-                <HiddenField name="detalle[0].lista"/>
-
-                <div className="row">
-                  <div className="col">
-                    <TextField
-                      name="detalle[0].diputados_nacionales"
-                      label="Diputados Nac."
-                      readOnly={isReadonly}
-                    />
-                  </div>
-                  <div className="col">
-                    <TextField
-                      name="detalle[0].diputados_provinciales"
-                      label="Diputados Prov."
-                      readOnly={isReadonly}
-                    />
-                  </div>
+          <form className="row" onSubmit={form.handleSubmit(onSubmit)}>
+            <div className="col-md-8">
+              <div className="row">
+                <div className="col-auto mx-auto">
+                  <ImageField label="Foto" name="foto" readOnly={isReadonly}/>
                 </div>
-
-                <div className="row">
-                  <div className="col">
-                    <TextField
-                      name="detalle[0].concejales"
-                      label="Concejales"
-                      readOnly={isReadonly}
-                    />
-                  </div>
-                  <div className="col">
-                    <TextField
-                      name="detalle[0].senadores_provinciales"
-                      label="Senadores Prov."
-                      readOnly={isReadonly}
-                    />
-                  </div>
-                </div>
-              </React.Fragment>
-            )}
-
-            <hr/>
-            <div className="row">
-              <div className="col">
-                <TextField
-                  name="especiales.nulos"
-                  label="Nulos"
-                  readOnly={isReadonly}
-                />
-              </div>
-              <div className="col">
-                <TextField
-                  name="especiales.recurridos"
-                  label="Recurridos"
-                  readOnly={isReadonly}
-                />
-              </div>
-              <div className="col">
-                <TextField
-                  name="especiales.impugnados"
-                  label="Impugnados"
-                  readOnly={isReadonly}
-                />
               </div>
             </div>
-
-            {!isReadonly && (
-              <div className="d-flex justify-content-center">
-                <button
-                  className="btn btn-primary"
-                  type="submit"
-                  disabled={hasErrors || isSubmitting}
-                >
-                  Enviar
-                </button>
+            <div className="col">
+              <div className="row">
+                <div className="col">
+                  <TextField
+                    name="mesa"
+                    label="Mesa"
+                    readOnly={isReadonly}
+                  />
+                </div>
+                <div className="col">
+                  <TextField
+                    name="electores"
+                    label="Electores"
+                    readOnly={isReadonly}
+                  />
+                </div>
+                <div className="col">
+                  <TextField
+                    name="sobres"
+                    label="Sobres"
+                    readOnly={isReadonly}
+                  />
+                </div>
               </div>
-            )}
+
+              {(acta.detalle || [{}]).map((d, i) =>
+                <React.Fragment key={i}>
+                  <h4>Lista {d.lista}</h4>
+                  <hr/>
+                  <HiddenField name={"detalle[" + i + "].lista"}/>
+
+                  <div className="row">
+                    <div className="col">
+                      <TextField
+                        name={"detalle[" + i + "].diputados_nacionales"}
+                        label="Diputados Nac."
+                        readOnly={isReadonly}
+                      />
+                    </div>
+                    <div className="col">
+                      <TextField
+                        name={"detalle[" + i + "].diputados_provinciales"}
+                        label="Diputados Prov."
+                        readOnly={isReadonly}
+                      />
+                    </div>
+                  </div>
+
+                  <div className="row">
+                    <div className="col">
+                      <TextField
+                        name={"detalle[" + i + "].concejales"}
+                        label="Concejales"
+                        readOnly={isReadonly}
+                      />
+                    </div>
+                    <div className="col">
+                      <TextField
+                        name={"detalle[" + i + "].senadores_provinciales"}
+                        label="Senadores Prov."
+                        readOnly={isReadonly}
+                      />
+                    </div>
+                  </div>
+                </React.Fragment>
+              )}
+
+              <hr/>
+              <div className="row">
+                <div className="col">
+                  <TextField
+                    name="especiales.nulos"
+                    label="Nulos"
+                    readOnly={isReadonly}
+                  />
+                </div>
+                <div className="col">
+                  <TextField
+                    name="especiales.recurridos"
+                    label="Recurridos"
+                    readOnly={isReadonly}
+                  />
+                </div>
+                <div className="col">
+                  <TextField
+                    name="especiales.impugnados"
+                    label="Impugnados"
+                    readOnly={isReadonly}
+                  />
+                </div>
+              </div>
+
+              {!isReadonly && (
+                <div className="d-flex justify-content-center">
+                  <button
+                    className="btn btn-primary"
+                    type="submit"
+                    disabled={hasErrors || isSubmitting}
+                  >
+                    Enviar
+                  </button>
+                </div>
+              )}
+            </div>
           </form>
         </FormProvider>
       </div>
@@ -165,7 +169,8 @@ ActaForm.propTypes = {
 };
 
 ActaForm.defaultProps = {
-  onSubmit: () => {},
+  onSubmit: () => {
+  },
   acta: {},
   isReadonly: false,
 };

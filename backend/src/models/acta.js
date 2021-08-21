@@ -56,6 +56,16 @@ module.exports = (sequelize, DataTypes) => {
         }
       })
     }
+
+    updateLog() {
+      let updatedLog = [];
+      if (this.log) {
+        updatedLog = JSON.parse(this.log);
+      }
+      const {log, ...json} = this.toJSON();
+      updatedLog.push(json);
+      this.log = JSON.stringify(updatedLog);
+    }
   }
 
   Acta.init({
@@ -160,6 +170,7 @@ module.exports = (sequelize, DataTypes) => {
     as: 'detalle'
   });
 
+  Acta.ActaDetalle = ActaDetalle;
   Acta.Estado = ActaEstado;
   Acta.DetalleTipo = ActaDetalleTipo;
   Acta.DetalleCargo = ActaDetalleCargo;
