@@ -53,6 +53,12 @@ const run = async () => {
   app.use("/api/v1", apiRoutes);
   app.use("/api", notFound);
 
+  app.use('/admin', express.static("admin"));
+
+  app.get('/admin/*', (req,res) =>{
+    res.sendFile(path.join(__dirname+'/../admin/index.html'));
+  });
+
   app.use(express.static("public"));
 
   app.get('*', (req,res) =>{

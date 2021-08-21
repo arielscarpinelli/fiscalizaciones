@@ -1,6 +1,6 @@
 const fs = require('fs');
 
-module.exports = {
+const config = {
   "development": {
     "username": "root",
     "password": null,
@@ -28,4 +28,10 @@ module.exports = {
       }
     }
   }
+};
+
+if (process.env.DB_SSL_IGNORE) {
+  delete config.production.dialectOptions;
 }
+
+module.exports = config

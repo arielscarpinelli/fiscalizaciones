@@ -10,7 +10,7 @@ import "assets/scss/styles.scss";
 ReactDOM.render(
   <React.StrictMode>
     <UserProvider>
-      <BrowserRouter>
+      <BrowserRouter basename="/admin">
         <Switch>
           <App />
         </Switch>

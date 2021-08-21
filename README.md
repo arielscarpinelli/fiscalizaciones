@@ -1,11 +1,13 @@
 1) Correr backend: Seguir instrucciones en backend/README.md
 2) Correr frontend: Seguir instrucciones en frontend/README.md
+3) Correr frontend del fiscal: Seguir instrucciones en frontend-fiscal/README.md
 
 
 ## Deploy con docker como un único servicio FE+BE (para Azure)
 
 ```
 cd frontend && npm install && REACT_APP_API_URI="/api/v1" npm run build && cd ..
+cd frontend-fiscal && npm install && REACT_APP_API_URI="/api/v1" npm run build && cd ..
 
 docker build . -t fiscalizacion -t fiscalizacion.azurecr.io/fiscalizacion
 
@@ -27,6 +29,6 @@ para correr MySQL
 
 Luego 
 
-`docker run -p 8080:8080 -e DB_HOSTNAME=192.168.56.1 -e DB_USERNAME=root fiscalizacion `
+`docker run -p 8080:8080 -e DB_HOSTNAME=192.168.56.1 -e DB_USERNAME=root -e DB_SSL_IGNORE=true fiscalizacion`
 
 
