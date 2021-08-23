@@ -9,6 +9,7 @@ import validation from "./validation";
 import TextField from "components/Forms/TextField";
 import ImageField from "components/Forms/ImageField";
 import HiddenField from "components/Forms/HiddenField";
+import Spinner from "components/Spinner";
 
 const ActaForm = ({
                     onSubmit,
@@ -143,13 +144,13 @@ const ActaForm = ({
 
               {!isReadonly && (
                 <div className="d-flex justify-content-center">
-                  <button
+                  {!isSubmitting ? <button
                     className="btn btn-primary"
                     type="submit"
                     disabled={hasErrors || isSubmitting}
                   >
                     Enviar
-                  </button>
+                  </button> : <Spinner/>}
                 </div>
               )}
             </div>
