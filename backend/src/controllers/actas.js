@@ -3,7 +3,7 @@ const Joi = require("joi");
 const {
   Acta,
   Eleccion,
-  sequelize
+  sequelize, Partido, Escuela, Mesa, User, Fiscal
 } = require("../models");
 
 const fs = require("fs");
@@ -16,8 +16,9 @@ const readChunk = require("read-chunk");
 const imageType = require("image-type");
 
 const UploadedFileIsNotAnImageException = require("../exceptions/FileExceptions/UploadedFileIsNotAnImageException");
-const {UniqueConstraintError} = require("sequelize");
+const {UniqueConstraintError, Op} = require("sequelize");
 const AccessForbiddenException = require("../exceptions/UserExceptions/AccessForbiddenException");
+const searchValidation = require("../utils/searchValidation");
 
 const validation = Joi.object({
   mesa: Joi.string().required(),
@@ -69,7 +70,30 @@ const getActaTemplate = async (req, res, next) => {
   }
 }
 
+const detalleToJson = function (detalle, reqListas) {
+  const listas = {}
+  const especiales = {}
 
+  detalle.forEach(d => {
+    if (d.lista) {
+      if (!listas[d.lista]) {
+        listas[d.lista] = {
+          lista: d.lista
+        }
+      }
+      listas[d.lista][d.cargo.toLowerCase()] = d.votos;
+    } else {
+      especiales[d.tipo.toLowerCase()] = d.votos;
+    }
+  });
+
+  reqListas.forEach(lista => {
+    if (!listas[lista]) {
+      listas[lista] = {lista}
+    }
+  })
+  return {detalle: Object.values(listas), especiales};
+};
 
 const getActasFiscal = async (req, res, next) => {
 
@@ -77,35 +101,14 @@ const getActasFiscal = async (req, res, next) => {
   const reqListas = await requiredListas(req.fiscal);
 
   res.json(actas.map(acta => {
-    const {id, mesa, electores, sobres, detalle} = acta.toJSON();
+    const {id, mesa, electores, sobres, detalleRaw} = acta.toJSON();
 
-    const listas = {}
-    const especiales = {}
-
-    detalle.forEach(d => {
-      if (d.lista) {
-        if (!listas[d.lista]) {
-          listas[d.lista] = {
-            lista: d.lista
-          }
-        }
-        listas[d.lista][d.cargo.toLowerCase()] = d.votos;
-      } else {
-        especiales[d.tipo.toLowerCase()] = d.votos;
-      }
-    });
-
-    reqListas.forEach(lista => {
-      if(!listas[lista]) {
-        listas[lista] = { lista }
-      }
-    })
-
+    const {detalle, especiales} = detalleToJson(detalleRaw, reqListas);
 
     const foto = req.protocol + '://' + req.get('host') + req.originalUrl.replace('fiscal', id) + '/photo'
 
     return {
-      id, foto, mesa, electores, sobres, especiales, detalle: Object.values(listas)
+      id, foto, mesa, electores, sobres, especiales, detalle
     };
   }));
 
@@ -308,10 +311,145 @@ const putActaFiscal = async (req, res, next) => {
 }
 
 
+const getActasAdmin = async (req, res, next) => {
+
+  try {
+
+    let results;
+
+    const baseOptions = {
+      include: [{
+        model: Eleccion,
+        as: 'eleccion_'
+      }, {
+        model: Fiscal,
+        as: 'fiscal_'
+      }],
+      limit: 50,
+      offset: req.query.page ? Number(req.query.page) * 50 : undefined,
+    }
+
+    const queries = User.applyPrivilegesToQuery(req, true);
+
+    const eleccion = req.query.eleccion || (await(Eleccion.findEnCurso()) || {}).id;
+    if (eleccion) {
+      queries.push({
+        eleccion
+      })
+    }
+
+    const mesa = req.query.mesa;
+
+    if (mesa) {
+      queries.push({
+        mesa: mesa
+      })
+    }
+
+    const fiscal = req.query.fiscal;
+    if (fiscal) {
+      queries.push({
+        [Op.or]: {
+          '$fiscal_.last_name$': {
+            [Op.like]: `%${fiscal}%`,
+          },
+          '$fiscal_.dni$': fiscal
+        },
+      })
+    }
+
+    const estado = req.query.estado;
+    if (estado) {
+      queries.push({
+        estado
+      })
+    }
+
+    results = await Acta.findAll({
+      ...baseOptions,
+      where: {
+        [Op.and]: queries,
+      },
+    });
+
+    res.json(results);
+  } catch (error) {
+    next(error)
+  }
+
+}
+
+const getActaAdmin = async (req, res, next) => {
+
+  try {
+    const acta = await Acta.findByPk(req.params.id, {
+      include: 'detalle'
+    });
+
+    if (!acta) {
+      return next();
+    }
+
+    const actaJSON = acta.toJSON();
+
+    const {detalle, especiales} = detalleToJson(actaJSON.detalle, []);
+
+    actaJSON.foto = req.protocol + '://' + req.get('host') + req.originalUrl + '/photo'
+    actaJSON.detalle = detalle;
+    actaJSON.especiales = especiales
+
+    res.json(actaJSON);
+  } catch (error) {
+    next(error)
+  }
+
+}
+
+const putActaAdmin = async (req, res, next) => {
+
+  try {
+    const acta = await Acta.findByPk(req.params.id);
+
+    if (!acta) {
+      return next();
+    }
+
+    res.json(acta);
+  } catch (error) {
+    next(error)
+  }
+
+}
+
+const postActaAdmin = async (req, res, next) => {
+
+  try {
+    res.status(400)
+  } catch (error) {
+    next(error)
+  }
+
+}
+
+const deleteActaAdmin = async (req, res, next) => {
+
+  try {
+    res.status(400)
+  } catch (error) {
+    next(error)
+  }
+
+}
+
 module.exports = {
   getActaTemplate,
   getActasFiscal,
   getPhoto,
   postActaFiscal,
-  putActaFiscal
+  putActaFiscal,
+  getActasAdmin,
+  getActaAdmin,
+  postActaAdmin,
+  putActaAdmin,
+  deleteActaAdmin,
 };

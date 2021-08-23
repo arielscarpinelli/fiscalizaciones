@@ -1,5 +1,5 @@
 import React from "react";
-import { Route, Switch } from "react-router-dom";
+import {Route, Switch} from "react-router-dom";
 import PrivateRoute from "directives/PrivateRoute";
 
 import Home from "pages/System/Home";
@@ -8,12 +8,13 @@ import UsersRoutes from "routes/System/UsersRoutes";
 import PartidosRoutes from "routes/System/PartidosRoutes";
 import EscuelasRoutes from "routes/System/EscuelasRoutes";
 import MesasRoutes from "routes/System/MesasRoutes";
+import ActasRoutes from "routes/System/ActasRoutes";
 
 const SystemRoutes = () => {
   return (
     <Route
       path="/sistema"
-      render={({ match: { path } }) => {
+      render={({match: {path}}) => {
         return (
           <Switch>
             <PrivateRoute
@@ -28,15 +29,19 @@ const SystemRoutes = () => {
               path={`${path}/partidos`}
               component={PartidosRoutes}
             />
-              <PrivateRoute
-                  path={`${path}/escuelas`}
-                  component={EscuelasRoutes}
-              />
-              <PrivateRoute
-                  path={`${path}/mesas`}
-                  component={MesasRoutes}
-              />
-            <PrivateRoute path={`${path}`} component={Home} exact />
+            <PrivateRoute
+              path={`${path}/escuelas`}
+              component={EscuelasRoutes}
+            />
+            <PrivateRoute
+              path={`${path}/mesas`}
+              component={MesasRoutes}
+            />
+            <PrivateRoute
+              path={`${path}/actas`}
+              component={ActasRoutes}
+            />
+            <PrivateRoute path={`${path}`} component={Home} exact/>
           </Switch>
         );
       }}

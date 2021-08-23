@@ -44,7 +44,7 @@ const SelectField = ({
           >
             {optionsWithEmpty.map((option) => (
               <option key={option.value} value={option.value}>
-                {option.text}
+                {option.text || option.value}
               </option>
             ))}
           </select>

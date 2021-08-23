@@ -108,3 +108,23 @@ button:hover {
     }
   }
 }
+
+.foto-container {
+  text-align: center;
+
+  .foto {
+    max-width: 100%;
+  }
+
+  @media (max-width: 767px) {
+    .foto {
+      max-height: 300px;
+    }
+
+  }
+
+  .btn {
+    margin-top: 10px;
+  }
+
+}

@@ -31,16 +31,18 @@ module.exports = (sequelize, DataTypes) => {
       return (user.role !== "SUPERADMIN") && user.seccion_electoral;
     }
 
-    static applyPrivilegesToQuery(req) {
+    static applyPrivilegesToQuery(req, skipPartido=false) {
 
       const queries = [];
 
-      const partido = User.getPartido(req.user) || req.query.partido;
+      if (!skipPartido) {
+        const partido = User.getPartido(req.user) || req.query.partido;
 
-      if (partido) {
-        queries.push({
-          partido
-        })
+        if (partido) {
+          queries.push({
+            partido
+          })
+        }
       }
 
       const distrito = User.getDistrito(req.user) || req.query.distrito;

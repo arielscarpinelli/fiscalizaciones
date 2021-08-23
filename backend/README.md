@@ -36,3 +36,9 @@ where p.distrito in (1, 2);
 
 ```
       
+## Crear tabla de secciones electorales (no la usa la app, pero sirve para reporting)
+
+CREATE TABLE `Seccion_Electoral` (`distrito` int NOT NULL,`seccion_electoral` int NOT NULL,`nombre` varchar(255),`division` int, PRIMARY KEY (distrito, seccion_electoral));
+Datos en https://docs.google.com/spreadsheets/d/1000d1-lIrSWx3Fsuuuw_59c0oKwYl97p5nMbkq17Lsg/edit#gid=831429320
+
+
