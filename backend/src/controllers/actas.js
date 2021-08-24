@@ -3,7 +3,9 @@ const Joi = require("joi");
 const {
   Acta,
   Eleccion,
-  sequelize, Partido, Escuela, Mesa, User, Fiscal
+  User,
+  Fiscal,
+  sequelize,
 } = require("../models");
 
 const fs = require("fs");
@@ -18,9 +20,10 @@ const imageType = require("image-type");
 const UploadedFileIsNotAnImageException = require("../exceptions/FileExceptions/UploadedFileIsNotAnImageException");
 const {UniqueConstraintError, Op} = require("sequelize");
 const AccessForbiddenException = require("../exceptions/UserExceptions/AccessForbiddenException");
-const searchValidation = require("../utils/searchValidation");
 
 const validation = Joi.object({
+  distrito: Joi.number().empty(''),
+  seccion_electoral: Joi.number().empty(''),
   mesa: Joi.string().required(),
   electores: Joi.number().empty(''),
   sobres: Joi.number().empty(''),
@@ -37,13 +40,14 @@ const validation = Joi.object({
     [Acta.DetalleCargo.SENADORES_NACIONALES.toLowerCase()]: Joi.number().empty(''),
     [Acta.DetalleCargo.SENADORES_PROVINCIALES.toLowerCase()]: Joi.number().empty(''),
     [Acta.DetalleCargo.CONCEJALES.toLowerCase()]: Joi.number().empty(''),
-  }))
+  })),
+  estado: Joi.string().valid(...Object.values(Acta.Estado))
 }).unknown(false)
 
 
 const requiredListas = async (fiscal) => {
   // TODO
-  return ["503"];
+  return ["503", "505"];
 
 }
 
@@ -97,20 +101,26 @@ const detalleToJson = function (detalle, reqListas) {
 
 const getActasFiscal = async (req, res, next) => {
 
-  const actas = await Acta.findForFiscalEleccionEnCurso(req.fiscal.id);
-  const reqListas = await requiredListas(req.fiscal);
+  try {
 
-  res.json(actas.map(acta => {
-    const {id, mesa, electores, sobres, detalleRaw} = acta.toJSON();
+    const actas = await Acta.findForFiscalEleccionEnCurso(req.fiscal.id);
+    const reqListas = await requiredListas(req.fiscal);
 
-    const {detalle, especiales} = detalleToJson(detalleRaw, reqListas);
+    res.json(actas.map(acta => {
+      const {id, mesa, electores, sobres, detalle} = acta.toJSON();
 
-    const foto = req.protocol + '://' + req.get('host') + req.originalUrl.replace('fiscal', id) + '/photo'
+      const {detalleJSON, especiales} = detalleToJson(detalle, reqListas);
 
-    return {
-      id, foto, mesa, electores, sobres, especiales, detalle
-    };
-  }));
+      const foto = req.protocol + '://' + req.get('host') + req.originalUrl.replace('fiscal', id) + '/photo'
+
+      return {
+        id, foto, mesa, electores, sobres, especiales, detalle: detalleJSON
+      };
+    }));
+
+  } catch (e) {
+    next(e);
+  }
 
 }
 
@@ -167,7 +177,7 @@ const processFoto = async (acta, req) => {
 const parseDetalle = (form, acta) => {
   const detalle = [];
 
-  form.detalle.forEach(d => {
+  (form.detalle || []).forEach(d => {
     const lista = d.lista;
     for (const key in d) {
       if (key !== "lista") {
@@ -302,6 +312,8 @@ const putActaFiscal = async (req, res, next) => {
 
     });
 
+    acta.foto = req.protocol + '://' + req.get('host') + req.originalUrl.replace('fiscal', id) + '/photo'
+
     res.json(acta)
 
   } catch (error) {
@@ -407,16 +419,60 @@ const getActaAdmin = async (req, res, next) => {
 
 const putActaAdmin = async (req, res, next) => {
 
+  let acta;
+
   try {
-    const acta = await Acta.findByPk(req.params.id);
+
+    const { id } = req.params
+
+    const form = await validation.validateAsync(JSON.parse(req.body.json));
+
+    acta = await Acta.findByPk(id, {
+      include: Acta.detalle
+    });
 
     if (!acta) {
       return next();
     }
 
-    res.json(acta);
+    acta.updateLog();
+
+    const { distrito, seccion_electoral, mesa, electores, sobres, estado } = form;
+
+    acta.distrito = distrito;
+    acta.seccion_electoral = seccion_electoral;
+    acta.mesa = mesa;
+    acta.electores = electores;
+    acta.sobres = sobres;
+    acta.estado = estado;
+
+    acta.verificador = req.user.id;
+
+    if (req.files && req.files) {
+      acta.foto = await processFoto(acta, req);
+    }
+
+    const currentDetalle = acta.detalle;
+    acta.detalle = parseDetalle(form, acta.id);
+
+    await sequelize.transaction(async (transaction) => {
+
+      await acta.save({ transaction });
+      await Acta.ActaDetalle.destroy({ where: { id: currentDetalle.map(d => d.id) }, transaction});
+      await Acta.ActaDetalle.bulkCreate(acta.detalle, { transaction });
+
+    });
+
+    const actaJSON = acta.toJSON();
+
+    actaJSON.foto = req.protocol + '://' + req.get('host') + req.originalUrl + '/photo'
+    actaJSON.detalle = form.detalle;
+    actaJSON.especiales = form.especiales;
+
+    res.json(actaJSON)
+
   } catch (error) {
-    next(error)
+    next(handleUniqueConstraint(error, acta));
   }
 
 }
@@ -433,8 +489,30 @@ const postActaAdmin = async (req, res, next) => {
 
 const deleteActaAdmin = async (req, res, next) => {
 
+  const { id } = req.params
+
   try {
-    res.status(400)
+
+    const acta = await Acta.findByPk(id);
+
+    if (!acta) {
+      return next();
+    }
+
+    if (req.user.role !== "ADMIN" && req.user.role !== "SUPERADMIN" && (acta.data_entry !== req.user.id)) {
+      throw new AccessForbiddenException("eliminar actas de otros");
+    }
+
+
+    await sequelize.transaction(async (transaction) => {
+
+      await acta.destroy({ transaction });
+      await Acta.ActaDetalle.destroy({ where: { acta: id }, transaction});
+
+    });
+
+    res.status(204).json();
+
   } catch (error) {
     next(error)
   }

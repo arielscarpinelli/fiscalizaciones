@@ -26,10 +26,7 @@ const unauthenticatedError = () => {
 const errorInterceptor = (error) => {
   switch ((error.response || {}).status) {
     case 401:
-      if (error.response.data.code === "SESSION_EXPIRED") {
-        return unauthenticatedError();
-      }
-      return Promise.reject(error);
+      return unauthenticatedError();
     default:
       return Promise.reject(error);
   }
@@ -41,3 +38,13 @@ apiClient.interceptors.request.use(authInterceptor);
 apiClient.interceptors.response.use(responseInterceptor, errorInterceptor);
 
 export default apiClient;
+
+export const refreshClient = axios.create({
+  baseURL: API_URI,
+  headers: {
+    "Content-Type": "application/json",
+  },
+});
+
+refreshClient.interceptors.request.use(authInterceptor);
+

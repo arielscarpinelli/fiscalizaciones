@@ -61,6 +61,7 @@ const ActaForm = ({
               </div>
             </div>
             <div className="col">
+              <div className="sticky">
               <div className="row">
                 <div className="col-2">
                   <label>Elección</label>
@@ -181,6 +182,7 @@ const ActaForm = ({
                   </button> : <Spinner/>}
                 </div>
               )}
+            </div>
             </div>
           </form>
         </FormProvider>

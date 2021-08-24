@@ -57,11 +57,9 @@ const Navbar = () => {
                   Mesas
                 </Link>
             )}
-            {userData && userData.role === "SUPERADMIN" && (
-              <Link className="nav-link" to="/sistema/actas">
-                Actas
-              </Link>
-            )}
+            <Link className="nav-link" to="/sistema/actas">
+              Actas
+            </Link>
             <div className="btn-group">
               <button
                 id="btn-usuario"

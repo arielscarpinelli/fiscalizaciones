@@ -55,7 +55,7 @@ const ShowActa = () => {
         toast.info("El acta ha sido eliminada exitosamente");
         history.push("/sistema/actas");
       } catch (error) {
-        toast.error("Ha ocurrido un error al eliminar el acta");
+        toast.error(error?.response?.data?.message || "Ha ocurrido un error al eliminar el acta");
       }
     }
   };
