@@ -36,7 +36,7 @@ const ImageField = ({name, label, readOnly, ...rest}) => {
                   name={name}
                   ref={ref}
                   hidden
-                  onChange={e => onChange(e.target.files)}
+                  onChange={e => e.target.files.length && onChange(e.target.files)}
                   onBlur={onBlur}
                 />)
               }/>

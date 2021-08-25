@@ -5,6 +5,7 @@
   "dependencies": {
     "@hookform/resolvers": "^1.0.0",
     "axios": "^0.20.0",
+    "image-blob-reduce": "^3.0.1",
     "joi": "^17.2.1",
     "moment": "^2.29.1",
     "react": "^16.13.1",

@@ -90,7 +90,6 @@ const ActaForm = ({
               </div>
             </div>
             <div className="col">
-              <div className="sticky">
               <div className="row">
                 <div className="col-3">
                   <SelectDistritoField name="distrito" label="Provincia" readOnly={isReadonly}/>
@@ -126,6 +125,7 @@ const ActaForm = ({
 
               <hr/>
 
+              <div className="sticky">
               <table className="acta-detalle table">
                 <thead className="card-header">
                   <tr>
