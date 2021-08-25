@@ -2,6 +2,8 @@ import React from "react";
 import PropTypes from "prop-types";
 import {Controller, useFormContext, useWatch} from "react-hook-form";
 
+const URL = window.URL || window.webkitURL || window.mozURL || window.msURL;
+
 const ImageField = ({name, label, readOnly, ...rest}) => {
   const {errors} = useFormContext();
 

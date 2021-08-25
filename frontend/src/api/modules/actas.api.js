@@ -1,15 +1,6 @@
 import apiClient from "api/apiClient";
 
-import imageBlobReduce from "image-blob-reduce";
-
-let _reducer;
-
-const reducer = () => {
-  if(!_reducer) {
-    _reducer = imageBlobReduce();
-  }
-  return _reducer;
-}
+import imageResize from "utils/imageResize";
 
 export const getActas = (params) => apiClient.get("actas", { params });
 export const getActa = (id) => apiClient.get(`actas/${id}`);
@@ -25,7 +16,7 @@ const serializeActa = async function (data) {
   const formData = new FormData();
   const {foto, ...rest} = data;
   if (foto && foto instanceof FileList) {
-    formData.append('foto', await reducer().toBlob(foto[0], { max: 1200 }));
+    formData.append('foto', await imageResize(foto[0], { max: 1200 }));
   }
   formData.append('json', JSON.stringify(rest))
   return formData;
