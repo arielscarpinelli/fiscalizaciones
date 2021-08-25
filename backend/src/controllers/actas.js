@@ -45,16 +45,14 @@ const validation = Joi.object({
 }).unknown(false)
 
 
-const requiredListas = async (fiscal) => {
+const requiredListas = async (eleccion, distrito, seccion_electoral) => {
   // TODO
-  return ["503", "505"];
+  return ["503", seccion_electoral];
 
 }
 
-const getActaTemplate = async (req, res, next) => {
-
+const doGetActaTemplate = async (req, res, next, distrito, seccion_electoral) => {
   try {
-    const fiscal = req.fiscal;
 
     const eleccion = await Eleccion.findEnCurso();
 
@@ -62,7 +60,7 @@ const getActaTemplate = async (req, res, next) => {
       throw new Error("No hay elecciones en curso");
     }
 
-    const reqListas = await requiredListas(fiscal);
+    const reqListas = await requiredListas(eleccion, distrito, seccion_electoral);
 
     res.json({
       detalle: reqListas.map(lista => ({
@@ -74,18 +72,24 @@ const getActaTemplate = async (req, res, next) => {
   }
 }
 
+const getActaTemplate = async (req, res, next) => {
+  return doGetActaTemplate(req, res, next, req.fiscal.distrito, req.fiscal.seccion_electoral)
+}
+
 const detalleToJson = function (detalle, reqListas) {
   const listas = {}
   const especiales = {}
 
   detalle.forEach(d => {
-    if (d.lista) {
-      if (!listas[d.lista]) {
-        listas[d.lista] = {
-          lista: d.lista
+    if (d.lista || d.cargo) {
+      const key = d.lista || d.tipo.toLowerCase();
+      if (!listas[key]) {
+        listas[key] = {
+          lista: d.lista,
+          tipo: d.tipo.toLowerCase()
         }
       }
-      listas[d.lista][d.cargo.toLowerCase()] = d.votos;
+      listas[key][d.cargo.toLowerCase()] = d.votos;
     } else {
       especiales[d.tipo.toLowerCase()] = d.votos;
     }
@@ -179,14 +183,15 @@ const parseDetalle = (form, acta) => {
 
   (form.detalle || []).forEach(d => {
     const lista = d.lista;
+    const tipo = (d.tipo || Acta.DetalleTipo.LISTA).toUpperCase()
     for (const key in d) {
-      if (key !== "lista") {
+      if (key !== "lista" && key !== "tipo") {
         const votos = d[key];
         if (votos) {
           detalle.push({
             acta,
-            tipo: Acta.DetalleTipo.LISTA,
-            lista: lista,
+            tipo,
+            lista,
             cargo: key.toUpperCase(),
             votos
           })
@@ -336,6 +341,12 @@ const getActasAdmin = async (req, res, next) => {
       }, {
         model: Fiscal,
         as: 'fiscal_'
+      }, {
+        model: User,
+        as: 'data_entry_'
+      }, {
+        model: User,
+        as: 'verificador_'
       }],
       limit: 50,
       offset: req.query.page ? Number(req.query.page) * 50 : undefined,
@@ -363,10 +374,22 @@ const getActasAdmin = async (req, res, next) => {
       queries.push({
         [Op.or]: {
           '$fiscal_.last_name$': {
-            [Op.like]: `%${fiscal}%`,
+            [Op.like]: `${fiscal}%`,
           },
-          '$fiscal_.dni$': fiscal
+          '$fiscal_.dni$': fiscal,
+          '$data_entry_.email$': {
+            [Op.like]: `${fiscal}%`,
+          }
         },
+      })
+    }
+
+    const verificador = req.query.verificador;
+    if (verificador) {
+      queries.push({
+        '$verificador_.email$': {
+          [Op.like]: `${verificador}%`,
+        }
       })
     }
 
@@ -417,6 +440,10 @@ const getActaAdmin = async (req, res, next) => {
 
 }
 
+const getActaTemplateAdmin = async (req, res, next) => {
+  return doGetActaTemplate(req, res, next, req.query.distrito, req.query.seccion_electoral)
+}
+
 const putActaAdmin = async (req, res, next) => {
 
   let acta;
@@ -446,7 +473,9 @@ const putActaAdmin = async (req, res, next) => {
     acta.sobres = sobres;
     acta.estado = estado;
 
-    acta.verificador = req.user.id;
+    if (acta.fiscal || (acta.data_entry !== req.user.id)) {
+      acta.verificador = req.user.id;
+    }
 
     if (req.files && req.files) {
       acta.foto = await processFoto(acta, req);
@@ -479,10 +508,43 @@ const putActaAdmin = async (req, res, next) => {
 
 const postActaAdmin = async (req, res, next) => {
 
+  let acta;
+
   try {
-    res.status(400)
+
+    const form = await validation.validateAsync(JSON.parse(req.body.json));
+
+    const eleccion = await Eleccion.findEnCurso();
+
+    if (!eleccion) {
+      throw new Error("No hay elecciones en curso");
+    }
+
+    const {distrito, seccion_electoral, mesa, electores, sobres, estado } = form;
+
+    acta = {
+      distrito,
+      seccion_electoral,
+      mesa,
+      electores,
+      sobres,
+      estado
+    }
+
+    acta.data_entry = req.user.id;
+    acta.eleccion = eleccion.id;
+
+    acta.foto = await processFoto(acta, req);
+    acta.detalle = parseDetalle(form);
+
+    // Si la mesa ya estaba cargada, va a explotar por el indice unique
+    const result = await Acta.create(acta, {
+      include: Acta.detalle
+    });
+    res.status(201).json(result);
+
   } catch (error) {
-    next(error)
+    next(handleUniqueConstraint(error, acta));
   }
 
 }
@@ -527,6 +589,7 @@ module.exports = {
   putActaFiscal,
   getActasAdmin,
   getActaAdmin,
+  getActaTemplateAdmin,
   postActaAdmin,
   putActaAdmin,
   deleteActaAdmin,

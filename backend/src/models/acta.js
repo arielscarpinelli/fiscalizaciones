@@ -41,6 +41,14 @@ module.exports = (sequelize, DataTypes) => {
         foreignKey: 'fiscal',
         as: 'fiscal_'
       });
+      this.data_entry = this.belongsTo(models.User, {
+        foreignKey: 'data_entry',
+        as: 'data_entry_'
+      });
+      this.verificador = this.belongsTo(models.User, {
+        foreignKey: 'verificador',
+        as: 'verificador_'
+      });
     }
 
     static async findForFiscalEleccionEnCurso(fiscal) {

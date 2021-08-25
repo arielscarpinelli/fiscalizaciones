@@ -1,7 +1,5 @@
 import React from "react";
 import PropTypes from "prop-types";
-
-import {getSeccionesElectoralesByDistrito} from "utils/geo"
 import SelectField from "components/Forms/SelectField";
 
 const SelectActaEstadoField = ({ name, label, readOnly, distrito, ...rest }) => {

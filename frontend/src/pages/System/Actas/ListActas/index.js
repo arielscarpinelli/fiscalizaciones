@@ -19,20 +19,20 @@ const ListActas = () => {
   const [actas, setActas] = useState([]);
   const [isLoading, setLoading] = useState(false);
 
-  const {page, eleccion, distrito, seccion, mesa, fiscal, estado} = useQuery();
+  const {page, eleccion, distrito, seccion, mesa, fiscal, estado, verificador} = useQuery();
 
   let doFetch = () => {
     fetchActas();
   };
 
-  useEffect(doFetch, [page, eleccion, distrito, seccion, mesa, fiscal, estado]);
+  useEffect(doFetch, [page, eleccion, distrito, seccion, mesa, fiscal, verificador, estado]);
 
   const fetchActas = async () => {
     setLoading(true);
     try {
       const response = await getActas({
         page,
-        eleccion, distrito, seccion, mesa, fiscal, estado
+        eleccion, distrito, seccion, mesa, fiscal, verificador, estado
       });
       setActas(response.data);
     } catch (error) {
@@ -98,7 +98,7 @@ const ListActas = () => {
                         </SearchContext>
                       </div>
                     </th>
-                    <th scope="col">
+                    <th scope="col" style={{ width: 100 }}>
                       <SearchContext>
                         <TextField
                           label="Mesa"
@@ -110,13 +110,22 @@ const ListActas = () => {
                     <th scope="col">
                       <SearchContext>
                         <TextField
-                          label="Fiscal"
+                          label="Fiscal o Data Entry"
                           name="fiscal"
-                          placeholder="Filtrar (apellido o DNI)"
+                          placeholder="Filtrar (apellido, DNI o email)"
                         />
                       </SearchContext>
                     </th>
                     <th scope="col">
+                      <SearchContext>
+                        <TextField
+                          label="Verificador"
+                          name="verificador"
+                          placeholder="Filtrar (email)"
+                        />
+                      </SearchContext>
+                    </th>
+                    <th scope="col" style={{ width: 150 }}>
                       <SearchContext>
                         <SelectActaEstadoField empty="Filtrar"/>
                       </SearchContext>
@@ -137,7 +146,11 @@ const ListActas = () => {
                         {acta.mesa}
                       </td>
                       <td>
-                        {acta.fiscal_ ? acta.fiscal_.last_name.toUpperCase() + ", " + acta.fiscal_.first_name + ". DNI " + acta.fiscal_.dni : acta.fiscal}
+                        {acta.fiscal_ ? acta.fiscal_.last_name.toUpperCase() + ", " + acta.fiscal_.first_name : acta.fiscal}
+                        {acta.data_entry_ ? acta.data_entry_.email : acta.data_entry}
+                      </td>
+                      <td>
+                        {acta.verificador_ ? acta.verificador_.email : acta.verificador}
                       </td>
                       <td>
                         {acta.estado}

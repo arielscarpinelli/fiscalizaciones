@@ -37,6 +37,9 @@ const Navbar = () => {
             <Link className="nav-link" to="/sistema/fiscales">
               Fiscales
             </Link>
+            <Link className="nav-link" to="/sistema/actas">
+              Actas
+            </Link>
             {userData && userData.role !== "OPERATOR" && (
               <Link className="nav-link" to="/sistema/usuarios">
                 Usuarios
@@ -57,9 +60,6 @@ const Navbar = () => {
                   Mesas
                 </Link>
             )}
-            <Link className="nav-link" to="/sistema/actas">
-              Actas
-            </Link>
             <div className="btn-group">
               <button
                 id="btn-usuario"

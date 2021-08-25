@@ -10,10 +10,10 @@ const {
     putActaFiscal,
     getActasAdmin,
     getActaAdmin,
+    getActaTemplateAdmin,
     putActaAdmin,
     postActaAdmin,
     deleteActaAdmin,
-
 
 } = require("../controllers/actas");
 
@@ -29,6 +29,7 @@ router.put("/fiscal/:id", authFiscal, putActaFiscal);
 router.get("/", isAuthenticated, getActasAdmin);
 router.post("/", isAuthenticated, postActaAdmin);
 router.put("/:id", isAuthenticated, putActaAdmin);
+router.get("/template", isAuthenticated, getActaTemplateAdmin);
 router.get("/:id", isAuthenticated, getActaAdmin);
 router.delete("/:id", isAuthenticated, deleteActaAdmin);
 
