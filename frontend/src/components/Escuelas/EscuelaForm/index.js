@@ -66,11 +66,18 @@ const EscuelaForm = ({
               </div>
             </div>
             <div className="row">
-              <div className="col-lg-12">
+              <div className="col-8">
                 <TextField
                     name="direccion"
                     label="Direccion"
                     readOnly={isReadonly}
+                />
+              </div>
+              <div className="col">
+                <TextField
+                  name="localidad"
+                  label="Localidad"
+                  readOnly={isReadonly}
                 />
               </div>
             </div>

@@ -19,22 +19,11 @@
 Los codigos de escuela son unicos por distrito
 
 ```
-insert into Escuelas (codigo, nombre, direccion, distrito, seccion_electoral, circuito, partido, lat_lon)
-select distinct codigo, local as nombre, direccion, distrito, secc as seccion_electoral, circu as circuito, 1 as partido, ST_GeomFromText('POINT(0 0)') as lat_lon
-from Padron_2017
-where distrito in (1, 2)
+insert into Escuelas (distrito, seccion_electoral, partido, codigo, nombre, direccion, localidad, circuito, prioridad, min_mesa, max_mesa, lat_lon)
+select 2 as distrito, cod_sec as seccion_electoral, 1 as partido, id_estab as codigo, establecimiento as nombre, domicilio as direccion, localidad, circ as circuito, prioridad, min_mesa, max_mesa, ST_GeomFromText('POINT(0 0)') as lat_lon
+from lugares;
 ```
 
-Los codigos de mesa son unicos por distrito y seccion electoral
-
-```
-insert into Mesas (escuela, codigo, electores_femeninos, electores_masculinos)
-select e.id as escuela, mesa, Fem, Masc
-from Padron_2017 p
-inner join Escuelas e on p.distrito = e.distrito and e.codigo = p.codigo and p.secc = e.seccion_electoral
-where p.distrito in (1, 2);
-
-```
       
 ## Crear tabla de secciones electorales (no la usa la app, pero sirve para reporting)
 

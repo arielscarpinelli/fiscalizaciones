@@ -16,9 +16,6 @@ module.exports = (sequelize, DataTypes) => {
       this.fiscales = this.hasMany(models.Fiscal, {
         foreignKey: 'escuela',
       });
-      this.mesas = this.hasMany(models.Mesa, {
-          foreignKey: 'escuela',
-      });
     }
 
   }
@@ -36,6 +33,9 @@ module.exports = (sequelize, DataTypes) => {
         type: DataTypes.STRING,
         allowNull: false,
       },
+      localidad: {
+        type: DataTypes.STRING,
+      },
       distrito: {
         type: DataTypes.INTEGER,
         allowNull: false,
@@ -52,6 +52,15 @@ module.exports = (sequelize, DataTypes) => {
         type: DataTypes.GEOMETRY('POINT'),
         allowNull: false,
         defaultValue: { type: 'Point', coordinates: [0, 0]}
+      },
+      prioridad: {
+        type: DataTypes.INTEGER,
+      },
+      min_mesa: {
+        type: DataTypes.INTEGER,
+      },
+      max_mesa: {
+        type: DataTypes.INTEGER,
       },
     },
     {

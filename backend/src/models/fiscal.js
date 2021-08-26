@@ -18,10 +18,6 @@ module.exports = (sequelize, DataTypes) => {
             foreignKey: 'escuela',
             as: 'escuela_'
         });
-        this.mesa = this.belongsTo(models.Mesa, {
-            foreignKey: 'mesa',
-            as: 'mesa_'
-        });
     }
 
     static async findByDNI(dni) {

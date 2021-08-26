@@ -8,7 +8,6 @@ const fiscalesRoutes = require("./fiscales");
 const usersRoutes = require("./users");
 const partidosRoutes = require("./partidos");
 const escuelasRoutes = require("./escuelas");
-const mesasRoutes = require("./mesas");
 const actasRoutes = require("./actas");
 const authRoutes = require("./auth");
 
@@ -25,8 +24,6 @@ router.use("/users", isAuthenticated, usersRoutes);
 router.use("/partidos", isAuthenticated, partidosRoutes);
 
 router.use("/escuelas", isAuthenticated, escuelasRoutes);
-
-router.use("/mesas", isAuthenticated, mesasRoutes);
 
 router.use("/actas", actasRoutes);
 

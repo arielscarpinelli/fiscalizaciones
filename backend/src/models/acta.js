@@ -91,6 +91,7 @@ module.exports = (sequelize, DataTypes) => {
       },
       mesa: {
         // codigo de la mesa
+        // los codigos de mesa son unicos por distrito y seccion electoral
         type: DataTypes.STRING,
         allowNull: false,
       },

@@ -17,7 +17,7 @@ import SelectPartidoField from "components/Partidos/SelectPartidoField";
 import SelectField from "components/Forms/SelectField";
 
 const ListEscuelas = () => {
-  const {page, distrito, seccion, partido, q, codigo, direccion, fiscales} = useQuery();
+  const {page, distrito, seccion, partido, q, codigo, direccion, localidad, fiscales} = useQuery();
 
   const [escuelas, setEscuelas] = useState([]);
   const [isLoading, setLoading] = useState(false);
@@ -32,6 +32,7 @@ const ListEscuelas = () => {
         partido,
         q,
         direccion,
+        localidad,
         codigo,
         fiscales
       });
@@ -47,7 +48,7 @@ const ListEscuelas = () => {
     fetchEscuelas();
   };
 
-  useEffect(doFetch, [page, distrito, seccion, partido, q, codigo, direccion, fiscales]);
+  useEffect(doFetch, [page, distrito, seccion, partido, q, codigo, direccion, localidad, fiscales]);
 
   const removeEscuela = async (escuela) => {
     if (
@@ -74,13 +75,13 @@ const ListEscuelas = () => {
       value: ">0"
     }, {
       text: "< 30% mesas",
-      value: "<0.3*mesas_count"
+      value: "<0.3*(max_mesa-min_mesa)"
     }, {
       text: "< 50% mesas",
-      value: "<0.5*mesas_count"
+      value: "<0.5*(max_mesa-min_mesa)"
     }, {
       text: "< 100% mesas",
-      value: "<mesas_count"
+      value: "<(max_mesa-min_mesa)"
     }
   ]
 
@@ -148,6 +149,15 @@ const ListEscuelas = () => {
                         />
                       </SearchContext>
                     </th>
+                    <th scope="col">
+                      <SearchContext>
+                        <TextField
+                          label="Localidad"
+                          name="localidad"
+                          placeholder="Filtrar"
+                        />
+                      </SearchContext>
+                    </th>
                     <th scope="col" style={{width: 110}}>
                       <SearchContext>
                         <SelectPartidoField name="partido" empty={"Filtrar"} label="Partido"/>
@@ -183,13 +193,16 @@ const ListEscuelas = () => {
                         {escuela.direccion}
                       </td>
                       <td>
+                        {escuela.localidad}
+                      </td>
+                      <td>
                         {escuela.partido_ ? escuela.partido_.name : escuela.partido}
                       </td>
                       <td>
                         {escuela.fiscales_count}
                       </td>
                       <td>
-                        {escuela.mesas_count}
+                        {escuela.max_mesa - escuela.min_mesa} ({escuela.min_mesa} - {escuela.max_mesa})
                       </td>
                       <td>
                         <div className="btn-group">
@@ -212,7 +225,7 @@ const ListEscuelas = () => {
                   ))}
                 </tbody>
                 <tfoot className="card-footer">
-                  <tr><td colSpan={8}><Pager data={escuelas}/></td></tr>
+                  <tr><td colSpan={9}><Pager data={escuelas}/></td></tr>
                 </tfoot>
               </table>
             </div>

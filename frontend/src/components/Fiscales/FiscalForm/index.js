@@ -14,7 +14,6 @@ import SelectSeccionElectoralField from "components/Geo/SelectSeccionElectoralFi
 
 import {DISTRITO_DEFAULT} from "utils/geo";
 import SelectEscuelaField from "components/Escuelas/SelectEscuelaField";
-import SelectMesaField from "components/Mesas/SelectMesaField";
 
 const FiscalForm = ({
   onSubmit,
@@ -34,11 +33,6 @@ const FiscalForm = ({
   const distrito = useWatch({
     control: form.control,
     name: 'distrito',
-  })
-
-  const escuela = useWatch({
-    control: form.control,
-    name: 'escuela',
   })
 
   const partido = useWatch({
@@ -134,9 +128,9 @@ const FiscalForm = ({
                 />
               </div>
               <div className="col-3">
-                <SelectMesaField
+                <TextField
                   label="Mesa asignada (opcional)"
-                  escuela={escuela}
+                  name="mesa"
                   readOnly={isReadonly}
                 />
               </div>

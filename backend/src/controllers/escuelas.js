@@ -9,6 +9,7 @@ const validation = Joi.object({
   codigo: Joi.number().required(),
   nombre: Joi.string().trim().required(),
   direccion: Joi.string().trim().required(),
+  localidad: Joi.string().empty("").trim().optional(),
   distrito: Joi.number().required(),
   seccion_electoral: Joi.number().required(),
   circuito: Joi.string().trim(),
@@ -36,6 +37,14 @@ const getEscuelas = async (req, res, next) => {
       });
     }
 
+    if (req.query.localidad) {
+      queries.push({
+        localidad: {
+          [Op.like]: `%${req.query.localidad}%`,
+        },
+      });
+    }
+
     if (req.query.codigo) {
       queries.push({
         codigo: req.query.codigo
@@ -58,7 +67,6 @@ const getEscuelas = async (req, res, next) => {
       attributes: {
         include: [
           [literal('(SELECT COUNT(1) FROM Fiscales WHERE escuela = Escuela.id)'), 'fiscales_count'],
-          [literal('(SELECT COUNT(1) FROM Mesas WHERE escuela = Escuela.id)'), 'mesas_count']
         ]
       },
       include: [{

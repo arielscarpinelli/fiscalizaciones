@@ -6,7 +6,6 @@ const {
   Partido,
   User,
   Escuela,
-  Mesa,
 } = require("../models");
 
 const { Op } = require("sequelize");
@@ -73,8 +72,6 @@ const validation = (user, payload) => {
   };
 
 
-  // Si tiene mesa, que la mesa sea de la escuela elegida (eso lo fuerza la UI pero...)
-
   return Joi.object(schema);
 }
 
@@ -118,9 +115,6 @@ const searchFiscales = async (req, res, next) => {
       }, {
         model: Escuela,
         as: 'escuela_'
-      }, {
-        model: Mesa,
-        as: 'mesa_'
       }],
       limit: 50,
       offset: req.query.page ? Number(req.query.page) * 50 : undefined,

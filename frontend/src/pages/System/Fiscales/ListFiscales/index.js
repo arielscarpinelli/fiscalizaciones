@@ -163,7 +163,7 @@ const ListFiscales = () => {
                         {fiscal.escuela_ ? (fiscal.escuela_.codigo + " - " + fiscal.escuela_.nombre) : null}
                       </td>
                       <td>
-                        {fiscal.mesa_ ? fiscal.mesa_.codigo : null}
+                        {fiscal.mesa}
                       </td>
                       <td>
                         <div className="btn-group">
