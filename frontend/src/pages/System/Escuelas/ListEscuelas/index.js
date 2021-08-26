@@ -75,13 +75,13 @@ const ListEscuelas = () => {
       value: ">0"
     }, {
       text: "< 30% mesas",
-      value: "<0.3*(max_mesa-min_mesa)"
+      value: "<0.3*(max_mesa-min_mesa+1)"
     }, {
       text: "< 50% mesas",
-      value: "<0.5*(max_mesa-min_mesa)"
+      value: "<0.5*(max_mesa-min_mesa+1)"
     }, {
       text: "< 100% mesas",
-      value: "<(max_mesa-min_mesa)"
+      value: "<(max_mesa-min_mesa+1)"
     }
   ]
 
@@ -202,7 +202,7 @@ const ListEscuelas = () => {
                         {escuela.fiscales_count}
                       </td>
                       <td>
-                        {escuela.max_mesa - escuela.min_mesa} ({escuela.min_mesa} - {escuela.max_mesa})
+                        {escuela.max_mesa - escuela.min_mesa+1} ({escuela.min_mesa} - {escuela.max_mesa})
                       </td>
                       <td>
                         <div className="btn-group">
