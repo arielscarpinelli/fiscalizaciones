@@ -114,6 +114,7 @@ const ActaForm = ({
                     readOnly={isReadonly}
                   />
                 </div>
+                {/*
                 <div className="col">
                   <TextField
                     name="sobres"
@@ -121,6 +122,7 @@ const ActaForm = ({
                     readOnly={isReadonly}
                   />
                 </div>
+                */}
               </div>
 
               <hr/>
@@ -183,7 +185,7 @@ const ActaForm = ({
               )}
                 </tbody>
               </table>
-
+                {/*}
                 <hr/>
               <div className="row">
                 <div className="col">
@@ -208,6 +210,7 @@ const ActaForm = ({
                   />
                 </div>
               </div>
+                */}
 
               <div className="row">
                 <div className="col">

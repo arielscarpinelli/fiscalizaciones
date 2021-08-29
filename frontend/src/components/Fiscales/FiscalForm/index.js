@@ -35,9 +35,9 @@ const FiscalForm = ({
     name: 'distrito',
   })
 
-  const partido = useWatch({
+  const seccion = useWatch({
     control: form.control,
-    name: 'partido',
+    name: 'seccion_electoral',
   })
 
   useEffect(() => {
@@ -123,7 +123,8 @@ const FiscalForm = ({
                 <SelectEscuelaField
                   label="Escuela asginada (opcional)"
                   readOnly={isReadonly}
-                  partido={partido}
+                  distrito={distrito || DISTRITO_DEFAULT}
+                  seccion={seccion}
                   isClearable={true}
                 />
               </div>

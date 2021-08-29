@@ -7,10 +7,10 @@ export const putEscuela = (id, data) =>
   apiClient.put(`escuelas/${id}`, data);
 export const deleteEscuela = (id) => apiClient.delete(`escuelas/${id}`);
 
-export const searchEscuelas = (q, partido) =>
+export const searchEscuelas = (q, rest) =>
     apiClient.get("escuelas", {
         params: {
             q,
-            partido
+            ...rest
         },
     });

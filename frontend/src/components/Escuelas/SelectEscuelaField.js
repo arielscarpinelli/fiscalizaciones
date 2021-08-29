@@ -5,7 +5,7 @@ import {getSeccionElectoral} from "utils/geo";
 import {getEscuela, searchEscuelas} from "api/modules/escuelas.api";
 import AutocompleteField from "components/Forms/AutocompleteField";
 
-const SelectEscuelaField = ({partido, ...rest}) => {
+const SelectEscuelaField = ({distrito, seccion, ...rest}) => {
 
         const formatOption = escuela => {
             return {
@@ -15,7 +15,7 @@ const SelectEscuelaField = ({partido, ...rest}) => {
         };
 
         const loadOptions = async (inputValue) => {
-            let {data} = await searchEscuelas(inputValue, partido);
+            let {data} = await searchEscuelas(inputValue, { distrito, seccion });
             return data.map(formatOption)
         };
 

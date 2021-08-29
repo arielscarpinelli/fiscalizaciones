@@ -66,6 +66,7 @@ const ActaForm = ({
                     readOnly={isReadonly}
                   />
                 </div>
+                {/*
                 <div className="col">
                   <TextField
                     name="sobres"
@@ -73,6 +74,7 @@ const ActaForm = ({
                     readOnly={isReadonly}
                   />
                 </div>
+                */}
               </div>
 
               {(acta.detalle || [{}]).map((d, i) =>
@@ -116,6 +118,7 @@ const ActaForm = ({
                   </div>
                 </React.Fragment>
               )}
+              {/*
 
               <hr/>
               <div className="row">
@@ -141,6 +144,7 @@ const ActaForm = ({
                   />
                 </div>
               </div>
+                */}
 
               {!isReadonly && (
                 <div className="d-flex justify-content-center">

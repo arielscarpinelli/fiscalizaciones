@@ -28,7 +28,7 @@ SelectSeccionElectoralField.propTypes = {
 
 SelectSeccionElectoralField.defaultProps = {
   name: "seccion_electoral",
-  label: "Municipio / Sección electoral",
+  label: "Municipio",
   readOnly: false,
 };
 

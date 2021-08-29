@@ -53,10 +53,11 @@ const validation = (user, payload) => {
       // - que la escuela sea del mismo distrito y/o seccion del usuario si aplica
       if (escuela) {
         const model = await Escuela.findByPk(escuela);
+        /*
         if (model.partido !== payload.partido) {
           throw new Error("Escuela asignada a otro partido");
         }
-
+        */
         const distrito = User.getDistrito(user);
         if (distrito && (model.distrito !== distrito)) {
           throw new Error("Escuela de otro distrito");
