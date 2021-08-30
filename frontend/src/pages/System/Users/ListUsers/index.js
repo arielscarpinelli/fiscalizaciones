@@ -67,7 +67,7 @@ const ListUsers = () => {
 
   return (
     <div className="row">
-      <div className="col-lg-10 col-xl-8 mx-auto">
+      <div className="col-12 mx-auto">
         <div className="d-flex align-items-center justify-content-between">
           <div>
             <span className="h2 m-0">Usuarios</span>

@@ -6,6 +6,7 @@ const {
   Escuela,
   User,
   Fiscal,
+  Listas,
   sequelize,
 } = require("../models");
 
@@ -46,22 +47,16 @@ const validation = Joi.object({
 }).unknown(false)
 
 
-const requiredListas = async (distrito, seccion_electoral) => {
-  const eleccion = await Eleccion.findEnCurso();
-
-  if (!eleccion) {
-    throw new Error("No hay elecciones en curso");
-  }
-
-  // TODO
-  return ["503", seccion_electoral];
-
-}
-
 const doGetActaTemplate = async (req, res, next, distrito, seccion_electoral) => {
   try {
 
-    const reqListas = await requiredListas(distrito, seccion_electoral);
+    const eleccion = await Eleccion.findEnCurso();
+
+    if (!eleccion) {
+      throw new Error("No hay elecciones en curso");
+    }
+
+    const reqListas = await Listas.findForEleccion(eleccion.id, distrito, seccion_electoral)
 
     res.json({
       detalle: reqListas.map(lista => ({
@@ -111,8 +106,14 @@ const getActasFiscal = async (req, res, next) => {
 
   try {
 
+    const eleccion = await Eleccion.findEnCurso();
+
+    if (!eleccion) {
+      throw new Error("No hay elecciones en curso");
+    }
+
     const actas = await Acta.findForFiscalEleccionEnCurso(req.fiscal);
-    const reqListas = await requiredListas(req.fiscal.distrito, req.fiscal.seccion_electoral);
+    const reqListas = await Listas.findForEleccion(eleccion.id, req.fiscal.distrito, req.fiscal.seccion_electoral);
 
     res.json(actas.map(acta => {
       const actaJson = acta.toJSON();
@@ -447,7 +448,7 @@ const getActaAdmin = async (req, res, next) => {
 
     const actaJSON = acta.toJSON();
 
-    const {detalle, especiales} = detalleToJson(actaJSON.detalle, await requiredListas(acta.distrito, acta.seccion_electoral));
+    const {detalle, especiales} = detalleToJson(actaJSON.detalle, await Listas.findForEleccion(acta.eleccion, acta.distrito, acta.seccion_electoral));
 
     actaJSON.foto = req.protocol + '://' + req.get('host') + req.originalUrl + '/photo'
     actaJSON.detalle = detalle;
