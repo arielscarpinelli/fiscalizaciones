@@ -1,6 +1,7 @@
 import Joi from "joi";
 
 const validation = Joi.object({
+  name: Joi.string().empty("").optional(),
   email: Joi.string()
     .trim()
     .email({ tlds: { allow: false } })

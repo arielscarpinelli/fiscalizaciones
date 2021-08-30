@@ -77,7 +77,14 @@ const UserForm = ({
         <FormProvider {...form}>
           <form onSubmit={form.handleSubmit(onSubmit)}>
             <div className="row">
-              <div className="col-lg-12">
+              <div className="col">
+                <TextField
+                  name="name"
+                  label="Nombre"
+                  readOnly={isReadonly}
+                />
+              </div>
+              <div className="col">
                 <TextField
                   name="email"
                   label="Correo electrónico"

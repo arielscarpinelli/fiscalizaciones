@@ -17,6 +17,7 @@ const validation = (reqUser) => {
   const adminSeccion = User.getSeccionElectoral(reqUser);
 
   return Joi.object({
+    name: Joi.string().trim().optional(),
     email: Joi.string().trim().email().required(),
     role: Joi.string().trim().valid("SUPERADMIN", "ADMIN", "OPERATOR").required(),
     distrito: !adminDistrito ? Joi.number().allow(null).optional() : Joi.number().required().custom((distrito) => {

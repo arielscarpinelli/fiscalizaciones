@@ -93,6 +93,7 @@ const ListUsers = () => {
               <table className="table table-flush align-items-center">
                 <thead className="card-header">
                   <tr>
+                    <th scope="col">Nombre</th>
                     <th scope="col">Email</th>
                     <th scope="col">Rol</th>
                     <th scope="col">Partido</th>
@@ -104,6 +105,7 @@ const ListUsers = () => {
                 <tbody>
                   {isLoading ? <tr><td><Spinner/></td></tr> : users.map((user) => (
                     <tr key={user.id}>
+                      <td>{user.name}</td>
                       <td>{user.email}</td>
                       <td>{user.role}</td>
                       <td>{(user.partido_ || {}).name}</td>
@@ -124,7 +126,7 @@ const ListUsers = () => {
                   ))}
                 </tbody>
                 <tfoot className="card-footer">
-                  <tr><td colSpan={6}><Pager data={users}/></td></tr>
+                  <tr><td colSpan={7}><Pager data={users}/></td></tr>
                 </tfoot>
               </table>
             </div>
