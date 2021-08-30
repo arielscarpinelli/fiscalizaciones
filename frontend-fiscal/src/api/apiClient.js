@@ -25,7 +25,7 @@ const authInterceptor = (config) => {
 
 const unauthenticatedError = () => {
   setAPIAuthToken(null);
-  localStorage.removeItem("token");
+  localStorage.removeItem("fiscal_token");
   window.location.reload();
 };
 

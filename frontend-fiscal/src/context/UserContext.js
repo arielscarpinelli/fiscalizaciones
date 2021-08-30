@@ -34,11 +34,11 @@ export const UserProvider = ({ children }) => {
   const setAuthToken = (token) => {
     setAPIAuthToken(token);
     setToken(token);
-    localStorage.setItem("token", token);
+    localStorage.setItem("fiscal_token", token);
   };
 
   const getTokenFromLocalStorage = () => {
-    const token = localStorage.getItem("token");
+    const token = localStorage.getItem("fiscal_token");
     if (!token || token === "null") {
       setAuthToken(null);
     } else {

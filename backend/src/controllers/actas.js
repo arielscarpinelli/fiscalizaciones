@@ -3,6 +3,7 @@ const Joi = require("joi");
 const {
   Acta,
   Eleccion,
+  Escuela,
   User,
   Fiscal,
   sequelize,
@@ -24,7 +25,7 @@ const AccessForbiddenException = require("../exceptions/UserExceptions/AccessFor
 const validation = Joi.object({
   distrito: Joi.number().empty(''),
   seccion_electoral: Joi.number().empty(''),
-  mesa: Joi.string().required(),
+  mesa: Joi.number().required(),
   electores: Joi.number().empty(''),
   sobres: Joi.number().empty(''),
   especiales: Joi.object({
@@ -45,7 +46,13 @@ const validation = Joi.object({
 }).unknown(false)
 
 
-const requiredListas = async (eleccion, distrito, seccion_electoral) => {
+const requiredListas = async (distrito, seccion_electoral) => {
+  const eleccion = await Eleccion.findEnCurso();
+
+  if (!eleccion) {
+    throw new Error("No hay elecciones en curso");
+  }
+
   // TODO
   return ["503", seccion_electoral];
 
@@ -54,13 +61,7 @@ const requiredListas = async (eleccion, distrito, seccion_electoral) => {
 const doGetActaTemplate = async (req, res, next, distrito, seccion_electoral) => {
   try {
 
-    const eleccion = await Eleccion.findEnCurso();
-
-    if (!eleccion) {
-      throw new Error("No hay elecciones en curso");
-    }
-
-    const reqListas = await requiredListas(eleccion, distrito, seccion_electoral);
+    const reqListas = await requiredListas(distrito, seccion_electoral);
 
     res.json({
       detalle: reqListas.map(lista => ({
@@ -97,7 +98,10 @@ const detalleToJson = function (detalle, reqListas) {
 
   reqListas.forEach(lista => {
     if (!listas[lista]) {
-      listas[lista] = {lista}
+      listas[lista] = {
+        lista,
+        tipo: Acta.DetalleTipo.LISTA,
+      }
     }
   })
   return {detalle: Object.values(listas), especiales};
@@ -107,18 +111,19 @@ const getActasFiscal = async (req, res, next) => {
 
   try {
 
-    const actas = await Acta.findForFiscalEleccionEnCurso(req.fiscal.id);
-    const reqListas = await requiredListas(req.fiscal);
+    const actas = await Acta.findForFiscalEleccionEnCurso(req.fiscal);
+    const reqListas = await requiredListas(req.fiscal.distrito, req.fiscal.seccion_electoral);
 
     res.json(actas.map(acta => {
-      const {id, mesa, electores, sobres, detalle} = acta.toJSON();
+      const actaJson = acta.toJSON();
+      const {id, mesa, electores, sobres} = actaJson;
 
-      const {detalleJSON, especiales} = detalleToJson(detalle, reqListas);
+      const {detalle, especiales} = detalleToJson(actaJson.detalle, reqListas);
 
       const foto = req.protocol + '://' + req.get('host') + req.originalUrl.replace('fiscal', id) + '/photo'
 
       return {
-        id, foto, mesa, electores, sobres, especiales, detalle: detalleJSON
+        id, foto, mesa, electores, sobres, especiales, detalle
       };
     }));
 
@@ -175,7 +180,6 @@ const processFoto = async (acta, req) => {
   }
 
   return filename;
-
 }
 
 const parseDetalle = (form, acta) => {
@@ -244,6 +248,14 @@ const postActaFiscal = async (req, res, next) => {
       sobres
     }
 
+    if (fiscal.escuela) {
+      const escuela = await Escuela.findByPk(fiscal.escuela);
+      if (mesa < escuela.min_mesa || mesa > escuela.max_mesa) {
+        throw new Error("la mesa " + mesa + " no pertence a la escuela asignada (" + escuela.min_mesa + " - " + escuela.max_mesa + ")")
+      }
+      acta.escuela = escuela.id;
+    }
+
     acta.fiscal = fiscal.id;
     acta.eleccion = eleccion.id;
     // como el fiscal no se puede asignar a una escuela que no corresponda con el mismo distrito/seccion electoral
@@ -286,8 +298,8 @@ const putActaFiscal = async (req, res, next) => {
       return next();
     }
 
-    if (acta.fiscal !== fiscal.id) {
-      throw new AccessForbiddenException("Acta de otro fiscal");
+    if ((acta.fiscal !== fiscal.id) && (acta.escuela !== fiscal.escuela)) {
+      throw new AccessForbiddenException("Acta de otro fiscal y/o escuela");
     }
 
     if (acta.estado !== Acta.Estado.INGRESADA) {
@@ -298,9 +310,17 @@ const putActaFiscal = async (req, res, next) => {
 
     const { mesa, electores, sobres } = form;
 
+    if (fiscal.escuela) {
+      const escuela = Escuela.findByPk(fiscal.escuela);
+      if (mesa < escuela.min_mesa || mesa > escuela.max_mesa) {
+        throw new Error("la mesa " + mesa + " no pertence a la escuela asignada (" + escuela.min_mesa + " - " + escuela.max_mesa + ")")
+      }
+    }
+
     acta.mesa = mesa;
     acta.electores = electores;
     acta.sobres = sobres;
+    acta.fiscal = fiscal.id;
 
     if (req.files && req.files) {
       acta.foto = await processFoto(acta, req);
@@ -427,7 +447,7 @@ const getActaAdmin = async (req, res, next) => {
 
     const actaJSON = acta.toJSON();
 
-    const {detalle, especiales} = detalleToJson(actaJSON.detalle, []);
+    const {detalle, especiales} = detalleToJson(actaJSON.detalle, await requiredListas(acta.distrito, acta.seccion_electoral));
 
     actaJSON.foto = req.protocol + '://' + req.get('host') + req.originalUrl + '/photo'
     actaJSON.detalle = detalle;
@@ -469,6 +489,7 @@ const putActaAdmin = async (req, res, next) => {
     acta.distrito = distrito;
     acta.seccion_electoral = seccion_electoral;
     acta.mesa = mesa;
+    acta.escuela = ((await Escuela.findByMesa(distrito, seccion_electoral, mesa)) || {}).id;
     acta.electores = electores;
     acta.sobres = sobres;
     acta.estado = estado;
@@ -533,6 +554,7 @@ const postActaAdmin = async (req, res, next) => {
 
     acta.data_entry = req.user.id;
     acta.eleccion = eleccion.id;
+    acta.escuela = ((await Escuela.findByMesa(distrito, seccion_electoral, mesa)) || {}).id;
 
     acta.foto = await processFoto(acta, req);
     acta.detalle = parseDetalle(form);

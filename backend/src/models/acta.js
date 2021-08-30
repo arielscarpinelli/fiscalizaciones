@@ -1,5 +1,5 @@
 "use strict";
-const {Model} = require("sequelize");
+const {Model, Op} = require("sequelize");
 
 const ActaEstado = {
   INGRESADA: "INGRESADA",
@@ -51,16 +51,25 @@ module.exports = (sequelize, DataTypes) => {
       });
     }
 
-    static async findForFiscalEleccionEnCurso(fiscal) {
+    static async findForFiscalEleccionEnCurso(fiscal_) {
+      const fiscal = fiscal_.id;
+      const escuela = fiscal_.escuela;
       return Acta.findAll({
-        include: [{
-          association: 'eleccion_',
-          where: {
-            estado: 'EN_CURSO',
-          }
-        }, 'detalle'],
+        include: [
+          {
+            association: 'eleccion_',
+            where: {
+              estado: 'EN_CURSO',
+            }
+          },
+          'detalle'
+        ],
         where: {
-          fiscal
+          [Op.or]: [{
+            fiscal
+          }, {
+            escuela
+          }]
         }
       })
     }
@@ -124,7 +133,7 @@ module.exports = (sequelize, DataTypes) => {
       verificador: {
         type: DataTypes.INTEGER
       },
-      errores: {
+      escuela: {
         type: DataTypes.INTEGER
       },
       log: {

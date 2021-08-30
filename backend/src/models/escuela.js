@@ -1,5 +1,5 @@
 "use strict";
-const { Model } = require("sequelize");
+const { Model, Op} = require("sequelize");
 
 module.exports = (sequelize, DataTypes) => {
   class Escuela extends Model {
@@ -18,6 +18,20 @@ module.exports = (sequelize, DataTypes) => {
       });
     }
 
+    static findByMesa(distrito, seccion_electoral, mesa) {
+      return Escuela.findOne({
+        where: {
+          distrito,
+          seccion_electoral,
+          min_mesa: {
+            [Op.lte]: mesa
+          },
+          max_mesa: {
+            [Op.gte]: mesa
+          },
+        }
+      })
+    }
   }
   Escuela.init(
     {

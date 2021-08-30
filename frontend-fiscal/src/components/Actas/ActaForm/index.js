@@ -1,15 +1,15 @@
 import React, {useEffect} from "react";
 import PropTypes from "prop-types";
-import {useForm, FormProvider} from "react-hook-form";
+import {FormProvider, useForm} from "react-hook-form";
 import {joiResolver} from "@hookform/resolvers/joi";
 
 import {handleServersideValidationErrors} from "utils/forms";
 
 import validation from "./validation";
-import TextField from "components/Forms/TextField";
 import ImageField from "components/Forms/ImageField";
 import HiddenField from "components/Forms/HiddenField";
 import Spinner from "components/Spinner";
+import NumberField from "components/Forms/NumberField";
 
 const ActaForm = ({
                     onSubmit,
@@ -53,14 +53,14 @@ const ActaForm = ({
             <div className="col">
               <div className="row">
                 <div className="col">
-                  <TextField
+                  <NumberField
                     name="mesa"
                     label="Mesa"
                     readOnly={isReadonly}
                   />
                 </div>
                 <div className="col">
-                  <TextField
+                  <NumberField
                     name="electores"
                     label="Electores"
                     readOnly={isReadonly}
@@ -68,7 +68,7 @@ const ActaForm = ({
                 </div>
                 {/*
                 <div className="col">
-                  <TextField
+                  <NumberField
                     name="sobres"
                     label="Sobres"
                     readOnly={isReadonly}
@@ -77,7 +77,7 @@ const ActaForm = ({
                 */}
               </div>
 
-              {(acta.detalle || [{}]).map((d, i) =>
+              {(acta.detalle || []).map((d, i) =>
                 <React.Fragment key={i}>
                   <h4>Lista {d.lista}</h4>
                   <hr/>
@@ -85,14 +85,14 @@ const ActaForm = ({
 
                   <div className="row">
                     <div className="col">
-                      <TextField
+                      <NumberField
                         name={"detalle[" + i + "].diputados_nacionales"}
                         label="Diputados Nac."
                         readOnly={isReadonly}
                       />
                     </div>
                     <div className="col">
-                      <TextField
+                      <NumberField
                         name={"detalle[" + i + "].diputados_provinciales"}
                         label="Diputados Prov."
                         readOnly={isReadonly}
@@ -102,14 +102,14 @@ const ActaForm = ({
 
                   <div className="row">
                     <div className="col">
-                      <TextField
+                      <NumberField
                         name={"detalle[" + i + "].concejales"}
                         label="Concejales"
                         readOnly={isReadonly}
                       />
                     </div>
                     <div className="col">
-                      <TextField
+                      <NumberField
                         name={"detalle[" + i + "].senadores_provinciales"}
                         label="Senadores Prov."
                         readOnly={isReadonly}
@@ -123,21 +123,21 @@ const ActaForm = ({
               <hr/>
               <div className="row">
                 <div className="col">
-                  <TextField
+                  <NumberField
                     name="especiales.nulos"
                     label="Nulos"
                     readOnly={isReadonly}
                   />
                 </div>
                 <div className="col">
-                  <TextField
+                  <NumberField
                     name="especiales.recurridos"
                     label="Recurridos"
                     readOnly={isReadonly}
                   />
                 </div>
                 <div className="col">
-                  <TextField
+                  <NumberField
                     name="especiales.impugnados"
                     label="Impugnados"
                     readOnly={isReadonly}
