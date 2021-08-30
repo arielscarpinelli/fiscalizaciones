@@ -19,7 +19,7 @@ const validation = Joi.object({
 const getEscuelas = async (req, res, next) => {
   try {
 
-    const queries = User.applyPrivilegesToQuery(req);
+    const queries = User.applyPrivilegesToQuery(req, true);
 
     if (req.query.q) {
       queries.push({
