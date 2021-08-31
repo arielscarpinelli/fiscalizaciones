@@ -149,7 +149,15 @@ const searchFiscales = async (req, res, next) => {
     const escuela = req.query.escuela;
 
     if (escuela) {
-      queries.push({
+      queries.push(escuela === 'any' ? {
+        escuela: {
+          [Op.ne]: null
+        }
+      } : escuela === 'none' ? {
+        escuela: {
+          [Op.eq]: null
+        }
+      } : {
         escuela
       })
     }

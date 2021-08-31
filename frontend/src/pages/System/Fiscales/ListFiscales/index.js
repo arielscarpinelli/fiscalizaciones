@@ -15,6 +15,7 @@ import SelectDistritoField from "components/Geo/SelectDistritoField";
 import SelectSeccionElectoralField from "components/Geo/SelectSeccionElectoralField";
 import TextField from "components/Forms/TextField";
 import SelectPartidoField from "components/Partidos/SelectPartidoField";
+import SelectField from "components/Forms/SelectField";
 
 const ListFiscales = () => {
   const [fiscales, setFiscales] = useState([]);
@@ -70,6 +71,11 @@ const ListFiscales = () => {
       }
     }
   };
+
+  const ESCUELA_OPTIONS = [
+    { value: 'any', label: 'Tiene asignada'},
+    { value: 'none', label: 'No tiene asignada'},
+  ]
 
   return (
     <div className="row">
@@ -134,10 +140,12 @@ const ListFiscales = () => {
                     <th scope="col">
                       <SearchContext>
                         <SelectEscuelaField
+                            extraOptions={ESCUELA_OPTIONS}
                             name="escuela"
                             className={"flex-grow-1 mr-3"}
                             placeholder={"Filtrar"}
                             isClearable={true}/>
+
                       </SearchContext>
                     </th>
                     <th scope="col">Mesa</th>

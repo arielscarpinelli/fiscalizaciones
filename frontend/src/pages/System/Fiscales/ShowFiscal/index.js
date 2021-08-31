@@ -90,7 +90,7 @@ const ShowFiscal = () => {
                 ? fiscal.first_name + " " + fiscal.last_name
                 : "Fiscal"}
             </h2>
-            Volver al <Link to="/sistema/fiscales">listado de fiscales</Link>
+            Volver al <Link to="/sistema/fiscales">listado de fiscales</Link>  | <Link to="/sistema/fiscales/crear">Registrar nuevo fiscal </Link>
           </div>
           <div>
             {isReadonly && (

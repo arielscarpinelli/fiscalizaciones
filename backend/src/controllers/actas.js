@@ -22,6 +22,7 @@ const imageType = require("image-type");
 const UploadedFileIsNotAnImageException = require("../exceptions/FileExceptions/UploadedFileIsNotAnImageException");
 const {UniqueConstraintError, Op} = require("sequelize");
 const AccessForbiddenException = require("../exceptions/UserExceptions/AccessForbiddenException");
+const ValidationException = require("../exceptions/ValidationException");
 
 const validation = Joi.object({
   distrito: Joi.number().empty(''),
@@ -36,7 +37,7 @@ const validation = Joi.object({
     [Acta.DetalleTipo.COMANDO.toLowerCase()]: Joi.number().empty('')
   }),
   detalle: Joi.array().items(Joi.object({
-    [Acta.DetalleTipo.LISTA.toLowerCase()]: Joi.number().empty(''),
+    [Acta.DetalleTipo.LISTA.toLowerCase()]: Joi.string().empty(''),
     [Acta.DetalleCargo.DIPUTADOS_NACIONALES.toLowerCase()]: Joi.number().empty(''),
     [Acta.DetalleCargo.DIPUTADOS_PROVINCIALES.toLowerCase()]: Joi.number().empty(''),
     [Acta.DetalleCargo.SENADORES_NACIONALES.toLowerCase()]: Joi.number().empty(''),
@@ -220,7 +221,7 @@ const parseDetalle = (form, acta) => {
 
 const handleUniqueConstraint = (error, acta) => {
   if (error instanceof UniqueConstraintError) {
-    return new Error('La mesa ' + acta.mesa + ' del municipio ' + acta.seccion_electoral + ' ya fue cargada');
+    return new ValidationException('La mesa ' + acta.mesa + ' del municipio ' + acta.seccion_electoral + ' ya fue cargada', 'mesa');
   }
   return error;
 };
@@ -252,7 +253,7 @@ const postActaFiscal = async (req, res, next) => {
     if (fiscal.escuela) {
       const escuela = await Escuela.findByPk(fiscal.escuela);
       if (mesa < escuela.min_mesa || mesa > escuela.max_mesa) {
-        throw new Error("la mesa " + mesa + " no pertence a la escuela asignada (" + escuela.min_mesa + " - " + escuela.max_mesa + ")")
+        throw new ValidationException("la mesa " + mesa + " no pertence a la escuela asignada (" + escuela.min_mesa + " - " + escuela.max_mesa + ")", "mesa")
       }
       acta.escuela = escuela.id;
     }
@@ -312,9 +313,9 @@ const putActaFiscal = async (req, res, next) => {
     const { mesa, electores, sobres } = form;
 
     if (fiscal.escuela) {
-      const escuela = Escuela.findByPk(fiscal.escuela);
+      const escuela = await Escuela.findByPk(fiscal.escuela);
       if (mesa < escuela.min_mesa || mesa > escuela.max_mesa) {
-        throw new Error("la mesa " + mesa + " no pertence a la escuela asignada (" + escuela.min_mesa + " - " + escuela.max_mesa + ")")
+        throw new ValidationException("la mesa " + mesa + " no pertence a la escuela asignada (" + escuela.min_mesa + " - " + escuela.max_mesa + ")", "mesa")
       }
     }
 

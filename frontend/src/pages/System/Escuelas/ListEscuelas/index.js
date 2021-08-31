@@ -1,5 +1,5 @@
 /* eslint-disable no-restricted-globals */
-import React, { useEffect, useState } from "react";
+import React, {useContext, useEffect, useState} from "react";
 import {Link} from "react-router-dom";
 
 import Spinner from "components/Spinner";
@@ -15,9 +15,11 @@ import SelectDistritoField from "components/Geo/SelectDistritoField";
 import SelectSeccionElectoralField from "components/Geo/SelectSeccionElectoralField";
 import SelectPartidoField from "components/Partidos/SelectPartidoField";
 import SelectField from "components/Forms/SelectField";
+import UserContext from "context/UserContext";
 
 const ListEscuelas = () => {
   const {page, distrito, seccion, partido, q, codigo, direccion, localidad, fiscales} = useQuery();
+  const { userData } = useContext(UserContext);
 
   const [escuelas, setEscuelas] = useState([]);
   const [isLoading, setLoading] = useState(false);
@@ -93,7 +95,7 @@ const ListEscuelas = () => {
             <span className="h2 m-0">Escuelas</span>
           </div>
           <Pager data={escuelas}/>
-          <div className="btn-group">
+          {userData.role === "SUPERADMIN" && <div className="btn-group">
             <button
               className="btn btn-sm btn-outline-secondary"
               onClick={fetchEscuelas}
@@ -106,7 +108,7 @@ const ListEscuelas = () => {
             >
               Registrar escuela
             </Link>
-          </div>
+          </div>}
         </div>
         <hr />
             <div className="table-responsive card">
@@ -205,7 +207,7 @@ const ListEscuelas = () => {
                         {escuela.max_mesa - escuela.min_mesa+1} ({escuela.min_mesa} - {escuela.max_mesa})
                       </td>
                       <td>
-                        <div className="btn-group">
+                        {userData.role === "SUPERADMIN" && <div className="btn-group">
                           <Link
                             className="btn btn-outline-secondary btn-sm"
                             to={`escuelas/${escuela.id}`}
@@ -219,7 +221,7 @@ const ListEscuelas = () => {
                           >
                             Eliminar
                           </button>
-                        </div>
+                        </div>}
                       </td>
                     </tr>
                   ))}
