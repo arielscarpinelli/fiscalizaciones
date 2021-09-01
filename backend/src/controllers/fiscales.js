@@ -195,7 +195,7 @@ const getFiscal = async (req, res, next) => {
 
     validatePartido(req.user, fiscal);
 
-    const {code, token, ...cleanFiscal} = fiscal.toJSON();
+    const {token, ...cleanFiscal} = fiscal.toJSON();
 
     res.json(cleanFiscal);
   } catch (error) {
