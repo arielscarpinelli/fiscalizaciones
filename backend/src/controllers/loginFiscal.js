@@ -58,6 +58,7 @@ const validateEmail = async (req, res, next) => {
 
     const token = crypto.randomBytes(36).toString("hex");
     fiscal.token = token;
+    fiscal.code = null;
     await fiscal.save();
 
     const encryptedToken = encrypt(token);

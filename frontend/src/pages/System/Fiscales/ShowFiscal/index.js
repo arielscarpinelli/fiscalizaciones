@@ -80,6 +80,15 @@ const ShowFiscal = () => {
     }
   };
 
+  const showCode = async () => {
+    const response = await getFiscal(id);
+    if (response.data?.code) {
+      alert('El código es ' + response.data.code);
+    } else {
+      alert('El fiscal no intentó ingresar aún');
+    }
+  }
+
   return (
     <div className="row mb-4">
       <div className="col-lg-10 col-xl-8 mx-auto">
@@ -91,6 +100,9 @@ const ShowFiscal = () => {
                 : "Fiscal"}
             </h2>
             Volver al <Link to="/sistema/fiscales">listado de fiscales</Link>  | <Link to="/sistema/fiscales/crear">Registrar nuevo fiscal </Link>
+          </div>
+          <div>
+            <button className="btn btn-sm btn-outline-success" onClick={showCode}>Revelar código de login</button>
           </div>
           <div>
             {isReadonly && (
