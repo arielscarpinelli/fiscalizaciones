@@ -10,20 +10,28 @@ import UserContext from "context/UserContext";
 import {getDistrito, getSeccionElectoral} from "utils/geo";
 import Pager from "components/Pager";
 import {useQuery} from "utils/router";
+import {SearchContext} from "utils/forms";
+import TextField from "components/Forms/TextField";
+import SelectDistritoField from "components/Geo/SelectDistritoField";
+import SelectSeccionElectoralField from "components/Geo/SelectSeccionElectoralField";
+import SelectPartidoField from "components/Partidos/SelectPartidoField";
+import SelectEscuelaField from "components/Escuelas/SelectEscuelaField";
+import {useWatch} from "react-hook-form";
+import SelectField from "components/Forms/SelectField";
 
 const ListUsers = () => {
   const history = useHistory();
   const [users, setUsers] = useState([]);
   const [isLoading, setLoading] = useState(false);
-  const {page} = useQuery();
+  const {name, email, role, partido, distrito, seccion, page} = useQuery();
 
   const {
-    userData: { email, role },
+    userData,
   } = useContext(UserContext);
 
-  const isSuperAdmin = role === "SUPERADMIN";
-  const isAdmin = role === "ADMIN";
-  const isOperator = role === "OPERATOR";
+  const isSuperAdmin = userData.role === "SUPERADMIN";
+  const isAdmin = userData.role === "ADMIN";
+  const isOperator = userData.role === "OPERATOR";
 
   const rejectIfUserIsOperator = () => {
     if (isOperator) {
@@ -38,13 +46,13 @@ const ListUsers = () => {
     fetchUsers();
   };
 
-  useEffect(doFetch, [page]);
+  useEffect(doFetch, [name, email, role, partido, distrito, seccion, page]);
 
   const fetchUsers = async () => {
     setLoading(true);
     setUsers([]);
     try {
-      const response = await getUsers();
+      const response = await getUsers({ name, email, role, partido, distrito, seccion, page });
       setUsers(response.data);
     } catch (error) {
       toast.error("Ha ocurrido un error al obtener los usuarios");
@@ -64,6 +72,12 @@ const ListUsers = () => {
       }
     }
   };
+
+  const roles = [
+    { value: "OPERATOR" },
+    { value: "ADMIN" },
+    { value: "SUPERADMIN"},
+  ]
 
   return (
     <div className="row">
@@ -93,13 +107,45 @@ const ListUsers = () => {
               <table className="table table-flush align-items-center">
                 <thead className="card-header">
                   <tr>
-                    <th scope="col">Nombre</th>
-                    <th scope="col">Email</th>
-                    <th scope="col">Rol</th>
-                    <th scope="col">Partido</th>
-                    <th scope="col">Distrito</th>
-                    <th scope="col">Municipio</th>
-                    <th></th>
+                    <th scope="col">
+                      <SearchContext>
+                        <TextField
+                          label="Nombre"
+                          name="name"
+                          placeholder="Filtrar"
+                        />
+                      </SearchContext>
+                    </th>
+                    <th scope="col">
+                      <SearchContext>
+                        <TextField
+                          label="Email"
+                          name="email"
+                          placeholder="Filtrar"
+                        />
+                      </SearchContext>
+                    </th>
+                    <th scope="col">
+                      <SearchContext>
+                        <SelectField name="role" empty={"Filtrar"} label="Rol" options={roles}/>
+                      </SearchContext>
+                    </th>
+                    <th scope="col" style={{width: 120}}>
+                      <SearchContext>
+                        <SelectPartidoField name="partido" empty={"Filtrar"} label="Partido"/>
+                      </SearchContext>
+                    </th>
+                    <th scope="col">
+                      <SearchContext>
+                        <SelectDistritoField name="distrito" empty={"Todos"} label="Distrito"/>
+                      </SearchContext>
+                    </th>
+                    <th scope="col">
+                      <SearchContext>
+                        <SelectSeccionElectoralField name="seccion" distrito={distrito} empty={"Todos"} label="Municipio"/>
+                      </SearchContext>
+                    </th>
+                    <th scope="col" style={{ width: 100 }}></th>
                   </tr>
                 </thead>
                 <tbody>
@@ -112,7 +158,7 @@ const ListUsers = () => {
                       <td>{getDistrito(user.distrito)}</td>
                       <td>{(getSeccionElectoral(user.distrito, user.seccion_electoral) || {}).seccion}</td>
                       <td className="text-right">
-                        {((isSuperAdmin && user.email !== email) ||
+                        {((isSuperAdmin && user.email !== userData.email) ||
                           (isAdmin && user.role === "OPERATOR")) && (
                           <button
                             className="btn btn-sm btn-outline-danger"

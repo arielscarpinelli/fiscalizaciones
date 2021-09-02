@@ -11,6 +11,7 @@ const AccessForbiddenException = require("../exceptions/UserExceptions/AccessFor
 const InvalidResetTokenException = require("../exceptions/UserExceptions/InvalidResetTokenException");
 const UserEmailAlreadyExistsException = require("../exceptions/UserExceptions/UserEmailAlreadyExistsException");
 const UserInvalidCredentialsException = require("../exceptions/UserExceptions/UserInvalidCredentialsException");
+const searchValidation = require("../utils/searchValidation");
 
 const validation = (reqUser) => {
   const adminDistrito = User.getDistrito(reqUser);
@@ -74,6 +75,31 @@ const getUsers = async (req, res, next) => {
     }
 
     const queries = User.applyPrivilegesToQuery(req);
+
+    const name = req.query.name;
+    if (name) {
+      queries.push({
+          name: {
+            [Op.like]: `%${name}%`
+          }
+        })
+    }
+
+    const email = req.query.email;
+    if (email) {
+      queries.push({
+        email: {
+          [Op.like]: `${email}%`
+        }
+      })
+    }
+
+    const role = req.query.role;
+    if (role) {
+      queries.push({
+        role
+      })
+    }
 
     const users = await User.findAll({
       include: {
