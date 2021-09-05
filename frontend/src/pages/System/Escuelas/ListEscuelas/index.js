@@ -133,6 +133,9 @@ const ListEscuelas = () => {
                         />
                       </SearchContext>
                     </th>
+                    <th>
+                      Circuito
+                    </th>
                     <th scope="col">
                       <SearchContext>
                         <TextField
@@ -175,6 +178,7 @@ const ListEscuelas = () => {
                         />
                       </SearchContext>
                     </th>
+                    <th scope="col">Prioridad</th>
                     <th scope="col">Mesas</th>
                     <th scope="col" style={{ width: 100 }}></th>
                   </tr>
@@ -187,6 +191,9 @@ const ListEscuelas = () => {
                       </td>
                       <td>
                         {escuela.codigo}
+                      </td>
+                      <td>
+                        {escuela.circuito}
                       </td>
                       <td>
                         {escuela.nombre}
@@ -202,6 +209,9 @@ const ListEscuelas = () => {
                       </td>
                       <td>
                         {escuela.fiscales_count}
+                      </td>
+                      <td>
+                        {escuela.prioridad}
                       </td>
                       <td>
                         {escuela.max_mesa - escuela.min_mesa+1} ({escuela.min_mesa} - {escuela.max_mesa})
@@ -227,7 +237,7 @@ const ListEscuelas = () => {
                   ))}
                 </tbody>
                 <tfoot className="card-footer">
-                  <tr><td colSpan={9}><Pager data={escuelas}/></td></tr>
+                  <tr><td colSpan={11}><Pager data={escuelas}/></td></tr>
                 </tfoot>
               </table>
             </div>

@@ -15,7 +15,6 @@ import SelectDistritoField from "components/Geo/SelectDistritoField";
 import SelectSeccionElectoralField from "components/Geo/SelectSeccionElectoralField";
 import TextField from "components/Forms/TextField";
 import SelectPartidoField from "components/Partidos/SelectPartidoField";
-import SelectField from "components/Forms/SelectField";
 
 const ListFiscales = () => {
   const [fiscales, setFiscales] = useState([]);

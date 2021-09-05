@@ -15,8 +15,6 @@ import TextField from "components/Forms/TextField";
 import SelectDistritoField from "components/Geo/SelectDistritoField";
 import SelectSeccionElectoralField from "components/Geo/SelectSeccionElectoralField";
 import SelectPartidoField from "components/Partidos/SelectPartidoField";
-import SelectEscuelaField from "components/Escuelas/SelectEscuelaField";
-import {useWatch} from "react-hook-form";
 import SelectField from "components/Forms/SelectField";
 
 const ListUsers = () => {

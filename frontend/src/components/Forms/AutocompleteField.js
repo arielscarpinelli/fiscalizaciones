@@ -14,11 +14,13 @@ const AutocompleteField = ({
                                onChange,
                                onBlur,
                                defaultValue,
+                               onChangeExtra,
+                               localError,
                                ...rest
                            }) => {
     const {getValues, errors} = useFormContext() || {};
 
-    const error = errors && errors[name] ? errors[name].message : null;
+    const error = errors && errors[name] ? errors[name].message : localError;
 
     const [loadedDefaultValue, setLoadedDefaultValue] = useState();
 
@@ -43,7 +45,7 @@ const AutocompleteField = ({
     const render = ({onChange, onBlur}) => loadedDefaultValue ? <AsyncSelect
         name={name}
         placeholder={label}
-        onChange={option => onChange(option && option.value)}
+        onChange={option => { onChange(option && option.value); onChangeExtra && onChangeExtra(option)}}
         onBlur={onBlur}
         className={`${error ? "is-invalid" : ""}`}
         isDisabled={readOnly}
