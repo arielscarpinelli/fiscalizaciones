@@ -23,9 +23,13 @@ const getEscuelas = async (req, res, next) => {
 
     if (req.query.q) {
       queries.push({
-        nombre: {
-          [Op.like]: `%${req.query.q}%`,
-        },
+        [Op.or]: [{
+          nombre: {
+            [Op.like]: `%${req.query.q}%`,
+          }
+        }, {
+          codigo: req.query.q
+        }]
       });
     }
 

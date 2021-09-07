@@ -7,18 +7,19 @@ import AutocompleteField from "components/Forms/AutocompleteField";
 
 const SelectEscuelaField = ({distrito, seccion, extraOptions = [], ...rest}) => {
 
+    // eslint-disable-next-line
     const [localError, setLocalError] = useState();
 
     const formatOption = escuela => {
       return {
-        label: escuela.codigo + " - " + escuela.nombre + " - " + getSeccionElectoral(escuela.distrito, escuela.seccion_electoral).seccion + ((escuela.prioridad === 1) ? " [OBJETIVO]" : ""), // + " - " + (escuela.partido_ ? escuela.partido_.name : ""),
+        label: escuela.codigo + " - " + escuela.nombre + " - " + getSeccionElectoral(escuela.distrito, escuela.seccion_electoral).seccion + " - Mesas: " + escuela.min_mesa + " - " + escuela.max_mesa, // ((escuela.prioridad === 1) ? " [OBJETIVO]" : ""), // + " - " + (escuela.partido_ ? escuela.partido_.name : ""),
         value: escuela.id,
         prioridad: escuela.prioridad
       }
     };
 
     const setWarning = (option) => {
-      setLocalError(option && option.prioridad !== 1 ? 'Advertencia: no es escuela objetivo' : null);
+      //setLocalError(option && option.prioridad !== 1 ? 'Advertencia: no es escuela objetivo' : null);
       return option;
     }
 
