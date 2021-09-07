@@ -57,6 +57,18 @@ const getEscuelas = async (req, res, next) => {
       });
     }
 
+    if (req.query.circuito) {
+      queries.push({
+        circuito: req.query.circuito
+      });
+    }
+
+    if (req.query.prioridad) {
+      queries.push({
+        prioridad: req.query.prioridad
+      });
+    }
+
     let having;
 
     if (req.query.fiscales) {
@@ -78,6 +90,7 @@ const getEscuelas = async (req, res, next) => {
       where: {
         [Op.and]: queries,
       },
+      order: [fn('isnull', col('prioridad')), 'prioridad'],
       having
     });
     res.json(escuelas);

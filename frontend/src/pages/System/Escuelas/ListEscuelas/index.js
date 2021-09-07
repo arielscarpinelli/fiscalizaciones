@@ -18,7 +18,7 @@ import SelectField from "components/Forms/SelectField";
 import UserContext from "context/UserContext";
 
 const ListEscuelas = () => {
-  const {page, distrito, seccion, partido, q, codigo, direccion, localidad, fiscales} = useQuery();
+  const {page, distrito, seccion, partido, q, codigo, direccion, localidad, fiscales, circuito, prioridad} = useQuery();
   const { userData } = useContext(UserContext);
 
   const [escuelas, setEscuelas] = useState([]);
@@ -36,7 +36,9 @@ const ListEscuelas = () => {
         direccion,
         localidad,
         codigo,
-        fiscales
+        fiscales,
+        circuito,
+        prioridad
       });
       setEscuelas(response.data);
     } catch (error) {
@@ -50,7 +52,7 @@ const ListEscuelas = () => {
     fetchEscuelas();
   };
 
-  useEffect(doFetch, [page, distrito, seccion, partido, q, codigo, direccion, localidad, fiscales]);
+  useEffect(doFetch, [page, distrito, seccion, partido, q, codigo, direccion, localidad, fiscales, circuito, prioridad]);
 
   const removeEscuela = async (escuela) => {
     if (
@@ -134,7 +136,13 @@ const ListEscuelas = () => {
                       </SearchContext>
                     </th>
                     <th>
-                      Circuito
+                      <SearchContext>
+                        <TextField
+                          label="Circuito"
+                          name="circuito"
+                          placeholder="Filtrar"
+                        />
+                      </SearchContext>
                     </th>
                     <th scope="col">
                       <SearchContext>
@@ -178,7 +186,15 @@ const ListEscuelas = () => {
                         />
                       </SearchContext>
                     </th>
-                    <th scope="col">Prioridad</th>
+                    <th scope="col">
+                      <SearchContext>
+                        <TextField
+                          label="Prioridad"
+                          name="prioridad"
+                          placeholder="Filtrar"
+                        />
+                      </SearchContext>
+                    </th>
                     <th scope="col">Mesas</th>
                     <th scope="col" style={{ width: 100 }}></th>
                   </tr>
