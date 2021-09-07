@@ -17,26 +17,13 @@ module.exports = (sequelize, DataTypes) => {
     }
 
     static async findForEleccion(eleccion, distrito, seccion_electoral) {
-      const listas = await Listas.findOne({
+      return await Listas.findAll({
         where: {
           eleccion,
           distrito,
-          [Op.or]: [{
-            seccion_electoral
-          }, {
-            seccion_electoral: {
-              [Op.eq]: null
-            }
-          }]
-        },
-        order: [['seccion_electoral', 'DESC']]
-      })
-
-      if (listas) {
-        return listas.listas.split(",");
-      }
-
-      return null;
+          seccion_electoral,
+        }
+      });
     }
   }
 
@@ -51,8 +38,11 @@ module.exports = (sequelize, DataTypes) => {
       seccion_electoral: {
         type: DataTypes.INTEGER,
       },
-      listas: {
-        type: DataTypes.TEXT,
+      lista: {
+        type: DataTypes.STRING,
+      },
+      cargos: {
+        type: DataTypes.STRING,
       }
     }, {
       sequelize,

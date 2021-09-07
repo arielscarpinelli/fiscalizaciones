@@ -37,7 +37,6 @@ const ActaForm = ({
 
   useEffect(handleReset, [acta]);
 
-
   return (
     <div className="card">
       <div className="card-body">
@@ -62,6 +61,7 @@ const ActaForm = ({
                     name="mesa"
                     label="Mesa"
                     readOnly={isReadonly}
+                    autocomplete="off"
                   />
                 </div>
                 <div className="col">
@@ -69,6 +69,7 @@ const ActaForm = ({
                     name="electores"
                     label="Electores"
                     readOnly={isReadonly}
+                    autocomplete="off"
                   />
                 </div>
                 {/*
@@ -90,37 +91,36 @@ const ActaForm = ({
 
                   <div className="row">
                     <div className="col">
+                      {typeof (d.diputados_nacionales) !== 'undefined' ?
                       <NumberField
                         name={"detalle[" + i + "].diputados_nacionales"}
-                        label="Diputados Nac."
+                        label="Diputados"
                         readOnly={isReadonly}
-                      />
+                        autocomplete="off"
+                      /> : null}
                     </div>
-                    <div className="col">
-                      <NumberField
-                        name={"detalle[" + i + "].diputados_provinciales"}
-                        label="Diputados Prov."
-                        readOnly={isReadonly}
-                      />
-                    </div>
-                  </div>
 
-                  <div className="row">
                     <div className="col">
+                      {typeof (d.legisladores_provinciales) !== 'undefined' ?
+                      <NumberField
+                        name={"detalle[" + i + "].legisladores_provinciales"}
+                        label="Legisladores"
+                        readOnly={isReadonly}
+                        autocomplete="off"
+                      /> : null }
+                    </div>
+
+                    <div className="col">
+                      {typeof (d.concejales) !== 'undefined' ?
                       <NumberField
                         name={"detalle[" + i + "].concejales"}
                         label="Concejales"
                         readOnly={isReadonly}
-                      />
-                    </div>
-                    <div className="col">
-                      <NumberField
-                        name={"detalle[" + i + "].senadores_provinciales"}
-                        label="Senadores Prov."
-                        readOnly={isReadonly}
-                      />
+                        autocomplete="off"
+                      /> : null }
                     </div>
                   </div>
+
                 </React.Fragment>
               )}
               {/*

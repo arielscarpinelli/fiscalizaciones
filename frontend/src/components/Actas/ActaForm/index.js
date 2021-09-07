@@ -110,6 +110,7 @@ const ActaForm = ({
                     name="mesa"
                     label="Mesa"
                     readOnly={isReadonly}
+                    autocomplete="off"
                   />
                 </div>
                 <div className="col">
@@ -117,6 +118,7 @@ const ActaForm = ({
                     name="electores"
                     label="Electores"
                     readOnly={isReadonly}
+                    autocomplete="off"
                   />
                 </div>
                 {/*
@@ -140,16 +142,13 @@ const ActaForm = ({
                       Lista
                     </th>
                     <th>
-                      Dipu. Nac.
+                      Diputados
                     </th>
                     <th>
-                      Dipu. Prov.
+                      Legisladores
                     </th>
                     <th>
                       Concejales
-                    </th>
-                    <th>
-                      Sena. Prov.
                     </th>
                   </tr>
                 </thead>
@@ -161,30 +160,27 @@ const ActaForm = ({
                   </th>
 
                   <td>
+                      {typeof (detalle[i].diputados_nacionales) !== 'undefined' ?
                       <TextField
                         name={"detalle[" + i + "].diputados_nacionales"}
                         label=""
                         readOnly={isReadonly}
-                      />
+                        autocomplete="off"
+                      /> : null}
                     </td>
                   <td>
-                      <TextField
-                        name={"detalle[" + i + "].diputados_provinciales"}
-                        readOnly={isReadonly}
-                      />
-                    </td>
-
-                  <td>
-                    <TextField
-                      name={"detalle[" + i + "].concejales"}
+                    {typeof (detalle[i].legisladores_provinciales) !== 'undefined' ? <TextField
+                      name={"detalle[" + i + "].legisladores_provinciales"}
                       readOnly={isReadonly}
-                    />
+                      autocomplete="off"
+                    /> : null}
                   </td>
                   <td>
-                    <TextField
-                      name={"detalle[" + i + "].senadores_provinciales"}
+                    {typeof (detalle[i].concejales) !== 'undefined' ? <TextField
+                      name={"detalle[" + i + "].concejales"}
                       readOnly={isReadonly}
-                    />
+                      autocomplete="off"
+                    /> : null }
                   </td>
                 </tr>
               )}

@@ -39,9 +39,7 @@ const validation = Joi.object({
   detalle: Joi.array().items(Joi.object({
     [Acta.DetalleTipo.LISTA.toLowerCase()]: Joi.string().empty(''),
     [Acta.DetalleCargo.DIPUTADOS_NACIONALES.toLowerCase()]: Joi.number().empty(''),
-    [Acta.DetalleCargo.DIPUTADOS_PROVINCIALES.toLowerCase()]: Joi.number().empty(''),
-    [Acta.DetalleCargo.SENADORES_NACIONALES.toLowerCase()]: Joi.number().empty(''),
-    [Acta.DetalleCargo.SENADORES_PROVINCIALES.toLowerCase()]: Joi.number().empty(''),
+    [Acta.DetalleCargo.LEGISLADORES_PROVINCIALES.toLowerCase()]: Joi.number().empty(''),
     [Acta.DetalleCargo.CONCEJALES.toLowerCase()]: Joi.number().empty(''),
   })),
   estado: Joi.string().valid(...Object.values(Acta.Estado))
@@ -60,9 +58,17 @@ const doGetActaTemplate = async (req, res, next, distrito, seccion_electoral) =>
     const reqListas = await Listas.findForEleccion(eleccion.id, distrito, seccion_electoral)
 
     res.json({
-      detalle: reqListas.map(lista => ({
-        lista
-      }))
+      detalle: reqListas.map(lista => {
+        const detalle = {
+          lista: lista.lista
+        }
+
+        lista.cargos.split(',').forEach(cargo => {
+          detalle[cargo] = ""
+        })
+
+        return detalle;
+      })
     });
   } catch (error) {
     next(error);
@@ -93,11 +99,15 @@ const detalleToJson = function (detalle, reqListas) {
   });
 
   reqListas.forEach(lista => {
-    if (!listas[lista]) {
-      listas[lista] = {
-        lista,
+    const key = lista.lista;
+    if (!listas[key]) {
+      listas[key] = {
+        lista: key,
         tipo: Acta.DetalleTipo.LISTA,
       }
+      lista.cargos.split(',').forEach(cargo => {
+        listas[key][cargo] = '';
+      })
     }
   })
   return {detalle: Object.values(listas), especiales};
