@@ -45,8 +45,13 @@ const ActaForm = ({
           <form className="row" onSubmit={form.handleSubmit(onSubmit)}>
             <div className="col-md-8">
               <div className="row">
-                <div className="col-auto mx-auto">
+                <div className="col">
                   <ImageField label="Foto" name="foto" readOnly={isReadonly}/>
+                </div>
+              </div>
+              <div className="row">
+                <div className="col">
+                  <ImageField label="Foto segunda página" name="foto2" readOnly={isReadonly}/>
                 </div>
               </div>
             </div>

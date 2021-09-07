@@ -113,6 +113,9 @@ module.exports = (sequelize, DataTypes) => {
       foto: {
         type: DataTypes.STRING
       },
+      foto2: {
+        type: DataTypes.STRING
+      },
       createdAt: {
         allowNull: false,
         type: DataTypes.DATE,

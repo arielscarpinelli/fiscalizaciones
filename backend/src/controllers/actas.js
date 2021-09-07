@@ -124,8 +124,10 @@ const getActasFiscal = async (req, res, next) => {
 
       const foto = req.protocol + '://' + req.get('host') + req.originalUrl.replace('fiscal', id) + '/photo'
 
+      const foto2 = !actaJson.foto2 ? undefined : req.protocol + '://' + req.get('host') + req.originalUrl.replace('fiscal', id) + '/photo?index=2'
+
       return {
-        id, foto, mesa, electores, sobres, especiales, detalle
+        id, foto, foto2, mesa, electores, sobres, especiales, detalle
       };
     }));
 
@@ -141,8 +143,10 @@ const getPhoto = async (req, res, next) => {
     const {id} = req.params;
 
     const acta = await Acta.findByPk(id);
+    
+    const field = 'foto' + (req.query.index || '');
 
-    if (!acta || !acta.foto) {
+    if (!acta || !acta[field]) {
       return next();
     }
 
@@ -154,20 +158,20 @@ const getPhoto = async (req, res, next) => {
       },
     };
 
-    res.sendFile(acta.foto, options);
+    res.sendFile(acta[field], options);
   } catch (error) {
     next(error);
   }
 
 };
 
-const processFoto = async (acta, req) => {
-  if (!req.files || !req.files.foto) {
+const processFoto = async (acta, req, field = 'foto') => {
+  if (!req.files || !req.files[field]) {
     throw new Error("Falta la foto del acta");
   }
 
-  const foto = req.files.foto;
-  const filename = `${acta.eleccion}_${acta.distrito}_${acta.seccion_electoral}_${acta.mesa}_${foto.md5}${path.extname(foto.name)}`;
+  const foto = req.files[field];
+  const filename = `${acta.eleccion}_${acta.distrito}_${acta.seccion_electoral}_${acta.mesa}_${field}_${foto.md5}${path.extname(foto.name)}`;
   const filePath = `${UPLOAD_PATH}/${filename}`;
   await foto.mv(filePath);
 
@@ -267,6 +271,9 @@ const postActaFiscal = async (req, res, next) => {
     acta.estado = Acta.Estado.INGRESADA;
 
     acta.foto = await processFoto(acta, req);
+    if (req.files.foto2) {
+      acta.foto2 = await processFoto(acta, req, 'foto2');
+    }
     acta.detalle = parseDetalle(form);
 
     // Si la mesa ya estaba cargada, va a explotar por el indice unique
@@ -324,8 +331,11 @@ const putActaFiscal = async (req, res, next) => {
     acta.sobres = sobres;
     acta.fiscal = fiscal.id;
 
-    if (req.files && req.files) {
+    if (req.files && req.files.foto) {
       acta.foto = await processFoto(acta, req);
+    }
+    if (req.files && req.files.foto2) {
+      acta.foto2 = await processFoto(acta, req, 'foto2');
     }
 
     const currentDetalle = acta.detalle;
@@ -340,6 +350,7 @@ const putActaFiscal = async (req, res, next) => {
     });
 
     acta.foto = req.protocol + '://' + req.get('host') + req.originalUrl.replace('fiscal', id) + '/photo'
+    acta.foto2 = !acta.foto2 ? undefined : req.protocol + '://' + req.get('host') + req.originalUrl.replace('fiscal', id) + '/photo?index=2'
 
     res.json(acta)
 
@@ -452,6 +463,7 @@ const getActaAdmin = async (req, res, next) => {
     const {detalle, especiales} = detalleToJson(actaJSON.detalle, await Listas.findForEleccion(acta.eleccion, acta.distrito, acta.seccion_electoral));
 
     actaJSON.foto = req.protocol + '://' + req.get('host') + req.originalUrl + '/photo'
+    actaJSON.foto2 = !actaJSON.foto2 ? undefined : (req.protocol + '://' + req.get('host') + req.originalUrl + '/photo?index=2')
     actaJSON.detalle = detalle;
     actaJSON.especiales = especiales
 
@@ -500,8 +512,11 @@ const putActaAdmin = async (req, res, next) => {
       acta.verificador = req.user.id;
     }
 
-    if (req.files && req.files) {
+    if (req.files && req.files.foto) {
       acta.foto = await processFoto(acta, req);
+    }
+    if (req.files && req.files.foto2) {
+      acta.foto2 = await processFoto(acta, req, 'foto2');
     }
 
     const currentDetalle = acta.detalle;
@@ -518,6 +533,7 @@ const putActaAdmin = async (req, res, next) => {
     const actaJSON = acta.toJSON();
 
     actaJSON.foto = req.protocol + '://' + req.get('host') + req.originalUrl + '/photo'
+    actaJSON.foto2 = !actaJSON.foto2 ? undefined : (req.protocol + '://' + req.get('host') + req.originalUrl + '/photo?index=2')
     actaJSON.detalle = form.detalle;
     actaJSON.especiales = form.especiales;
 

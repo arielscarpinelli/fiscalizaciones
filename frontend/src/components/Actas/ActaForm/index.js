@@ -88,6 +88,11 @@ const ActaForm = ({
                   <ImageField label="Foto" name="foto" readOnly={isReadonly}/>
                 </div>
               </div>
+              <div className="row">
+                <div className="col">
+                  <ImageField label="Foto segunda página" name="foto2" readOnly={isReadonly}/>
+                </div>
+              </div>
             </div>
             <div className="col">
               <div className="row">

@@ -7,9 +7,12 @@ export const getActaTemplate = () => apiClient.get("actas/fiscal/template");
 
 const serializeActa = async function (data) {
   const formData = new FormData();
-  const {foto, ...rest} = data;
+  const {foto, foto2, ...rest} = data;
   if (foto && foto instanceof FileList) {
     formData.append('foto', await imageResize(foto[0], { max: 1200 }));
+  }
+  if (foto2 && foto2 instanceof FileList) {
+    formData.append('foto2', await imageResize(foto2[0], { max: 1200 }));
   }
   formData.append('json', JSON.stringify(rest))
   return formData;
