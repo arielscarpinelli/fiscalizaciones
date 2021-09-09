@@ -14,25 +14,26 @@ import SelectSeccionElectoralField from "components/Geo/SelectSeccionElectoralFi
 import TextField from "components/Forms/TextField";
 import {deleteActa, getActas} from "api/modules/actas.api";
 import SelectActaEstadoField from "components/Actas/SelectActaEstadoField";
+import SelectEscuelaField from "components/Escuelas/SelectEscuelaField";
 
 const ListActas = () => {
   const [actas, setActas] = useState([]);
   const [isLoading, setLoading] = useState(false);
 
-  const {page, eleccion, distrito, seccion, mesa, fiscal, estado, verificador} = useQuery();
+  const {page, eleccion, distrito, seccion, mesa, escuela, fiscal, estado, verificador} = useQuery();
 
   let doFetch = () => {
     fetchActas();
   };
 
-  useEffect(doFetch, [page, eleccion, distrito, seccion, mesa, fiscal, verificador, estado]);
+  useEffect(doFetch, [page, eleccion, distrito, seccion, mesa, escuela, fiscal, verificador, estado]);
 
   const fetchActas = async () => {
     setLoading(true);
     try {
       const response = await getActas({
         page,
-        eleccion, distrito, seccion, mesa, fiscal, verificador, estado
+        eleccion, distrito, seccion, mesa, escuela, fiscal, verificador, estado
       });
       setActas(response.data);
     } catch (error) {
@@ -57,6 +58,10 @@ const ListActas = () => {
       }
     }
   };
+
+  const ESCUELA_OPTIONS = [
+    { value: 'none', label: 'No tiene'}
+  ]
 
   return (
     <div className="row">
@@ -109,6 +114,17 @@ const ListActas = () => {
                     </th>
                     <th scope="col">
                       <SearchContext>
+                        <SelectEscuelaField
+                          extraOptions={ESCUELA_OPTIONS}
+                          label="Escuela"
+                          name="escuela"
+                          placeholder="Filtrar"
+                          isClearable={true}
+                        />
+                      </SearchContext>
+                    </th>
+                    <th scope="col">
+                      <SearchContext>
                         <TextField
                           label="Fiscal o Data Entry"
                           name="fiscal"
@@ -121,7 +137,7 @@ const ListActas = () => {
                         <TextField
                           label="Verificador"
                           name="verificador"
-                          placeholder="Filtrar (email)"
+                          placeholder="Filtrar (nombre o email)"
                         />
                       </SearchContext>
                     </th>
@@ -146,11 +162,14 @@ const ListActas = () => {
                         {acta.mesa}
                       </td>
                       <td>
-                        {acta.fiscal_ ? acta.fiscal_.last_name.toUpperCase() + ", " + acta.fiscal_.first_name : acta.fiscal}
-                        {acta.data_entry_ ? acta.data_entry_.email : acta.data_entry}
+                        {acta.escuela_ ? acta.escuela_.codigo + " - " + acta.escuela_.nombre : acta.escuela}
                       </td>
                       <td>
-                        {acta.verificador_ ? acta.verificador_.email : acta.verificador}
+                        {acta.fiscal_ ? acta.fiscal_.last_name.toUpperCase() + ", " + acta.fiscal_.first_name : acta.fiscal}
+                        {acta.data_entry_ ? (acta.data_entry_.name || acta.data_entry_.email) : acta.data_entry}
+                      </td>
+                      <td>
+                        {acta.verificador_ ? (acta.verificador_.name || acta.verificador_.email) : acta.verificador}
                       </td>
                       <td>
                         {acta.estado}
@@ -176,7 +195,7 @@ const ListActas = () => {
                   ))}
                 </tbody>
                 <tfoot className="card-footer">
-                  <tr><td colSpan={7}><Pager data={actas}/></td></tr>
+                  <tr><td colSpan={8}><Pager data={actas}/></td></tr>
                 </tfoot>
               </table>
             </div>

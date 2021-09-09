@@ -270,6 +270,8 @@ const postActaFiscal = async (req, res, next) => {
         throw new ValidationException("la mesa " + mesa + " no pertence a la escuela asignada (" + escuela.min_mesa + " - " + escuela.max_mesa + ")", "mesa")
       }
       acta.escuela = escuela.id;
+    } else {
+      acta.escuela = ((await Escuela.findByMesa(fiscal.distrito, fiscal.seccion_electoral, mesa)) || {}).id;
     }
 
     acta.fiscal = fiscal.id;
@@ -334,6 +336,9 @@ const putActaFiscal = async (req, res, next) => {
       if (mesa < escuela.min_mesa || mesa > escuela.max_mesa) {
         throw new ValidationException("la mesa " + mesa + " no pertence a la escuela asignada (" + escuela.min_mesa + " - " + escuela.max_mesa + ")", "mesa")
       }
+      acta.escuela = escuela.id;
+    } else {
+      acta.escuela = ((await Escuela.findByMesa(fiscal.distrito, fiscal.seccion_electoral, mesa)) || {}).id;
     }
 
     acta.mesa = mesa;
@@ -385,6 +390,9 @@ const getActasAdmin = async (req, res, next) => {
         model: Fiscal,
         as: 'fiscal_'
       }, {
+        model: Escuela,
+        as: 'escuela_'
+      }, {
         model: User,
         as: 'data_entry_'
       }, {
@@ -412,6 +420,21 @@ const getActasAdmin = async (req, res, next) => {
       })
     }
 
+    const escuela = req.query.escuela;
+    if (escuela) {
+      queries.push(escuela === 'any' ? {
+        escuela: {
+          [Op.ne]: null
+        }
+      } : escuela === 'none' ? {
+        escuela: {
+          [Op.eq]: null
+        }
+      } : {
+        escuela
+      })
+    }
+
     const fiscal = req.query.fiscal;
     if (fiscal) {
       queries.push({
@@ -422,6 +445,9 @@ const getActasAdmin = async (req, res, next) => {
           '$fiscal_.dni$': fiscal,
           '$data_entry_.email$': {
             [Op.like]: `${fiscal}%`,
+          },
+          '$data_entry_.name$': {
+            [Op.like]: `${fiscal}%`,
           }
         },
       })
@@ -430,8 +456,13 @@ const getActasAdmin = async (req, res, next) => {
     const verificador = req.query.verificador;
     if (verificador) {
       queries.push({
-        '$verificador_.email$': {
-          [Op.like]: `${verificador}%`,
+        [Op.or]: {
+          '$verificador_.email$': {
+            [Op.like]: `${verificador}%`,
+          },
+          '$verificador_.name$': {
+            [Op.like]: `${verificador}%`,
+          }
         }
       })
     }
