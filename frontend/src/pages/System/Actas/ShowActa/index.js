@@ -15,15 +15,16 @@ const ShowActa = () => {
   const [hasErrors, setErrors] = useState({});
 
   const invokeFetchActa = () => {
-    fetchActa();
+    fetchActa(id);
   }
 
   useEffect(invokeFetchActa, []);
 
-  const fetchActa = async () => {
+  const fetchActa = async (id, params) => {
     try {
-      const response = await getActa(id);
+      const response = await getActa(id, params);
       setActa(response.data);
+      return response.data;
     } catch (error) {
       setActa(null);
       toast.error("No existe un acta con ese identificador");
@@ -43,6 +44,15 @@ const ShowActa = () => {
       handleFormSubmitError(error, setErrors)
     }
   };
+
+  const onSubmitAndNext = async (data) => {
+    data.estado = 'VERIFICADA';
+    await onSubmit(data);
+    const nextActa = await fetchActa('next', { eleccion: acta.eleccion });
+    history.push("/sistema/actas/" + nextActa.id);
+    window.scroll(0,0);
+  }
+
 
   const removeActa = async () => {
     if (
@@ -83,6 +93,7 @@ const ShowActa = () => {
         {acta && (
           <ActaForm
             onSubmit={onSubmit}
+            onSubmitAndNext={onSubmitAndNext}
             acta={acta}
             isSubmitting={isSubmitting}
             errors={hasErrors}

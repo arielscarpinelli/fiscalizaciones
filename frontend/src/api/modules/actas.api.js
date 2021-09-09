@@ -3,7 +3,7 @@ import apiClient from "api/apiClient";
 import imageResize from "utils/imageResize";
 
 export const getActas = (params) => apiClient.get("actas", { params });
-export const getActa = (id) => apiClient.get(`actas/${id}`);
+export const getActa = (id, params) => apiClient.get(`actas/${id}`, { params });
 export const getActaTemplate = (distrito, seccion_electoral) => apiClient.get(`actas/template`, {
   params: {
     distrito,

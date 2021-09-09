@@ -19,6 +19,7 @@ import {toast} from "react-toastify";
 
 const ActaForm = ({
                     onSubmit,
+                    onSubmitAndNext,
                     acta,
                     isReadonly,
                     isSubmitting,
@@ -220,13 +221,23 @@ const ActaForm = ({
               </div>
               {!isReadonly && (
                 <div className="d-flex justify-content-center">
-                  {!isSubmitting ? <button
-                    className="btn btn-primary"
-                    type="submit"
-                    disabled={hasErrors || isSubmitting}
-                  >
-                    Guardar
-                  </button> : <Spinner/>}
+                  {!isSubmitting ? <div>
+                    <button
+                      className="btn btn-primary"
+                      type="submit"
+                      disabled={hasErrors || isSubmitting}
+                    >
+                      Guardar
+                    </button>&nbsp;
+                    {onSubmitAndNext ? <button
+                      className="btn btn-success"
+                      type="button"
+                      disabled={hasErrors || isSubmitting}
+                      onClick={form.handleSubmit(onSubmitAndNext)}
+                    >
+                      Verificar, guardar y abrir otra
+                    </button> : null}
+                  </div> : <Spinner/>}
                 </div>
               )}
             </div>

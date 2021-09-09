@@ -1,5 +1,5 @@
 "use strict";
-const {Model, Op} = require("sequelize");
+const {Model, Op, fn, col} = require("sequelize");
 
 const ActaEstado = {
   INGRESADA: "INGRESADA",
@@ -73,6 +73,21 @@ module.exports = (sequelize, DataTypes) => {
             escuela
           }]
         }
+      })
+    }
+
+    static async findNextToCheck(query) {
+      return Acta.findOne({
+        include: [
+          'detalle'
+        ],
+        where: {
+          estado: {
+            [Op.not]: ActaEstado.VERIFICADA
+          },
+          eleccion: query.eleccion
+        },
+        order: fn('rand'),
       })
     }
 

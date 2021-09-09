@@ -491,9 +491,10 @@ const getActasAdmin = async (req, res, next) => {
 const getActaAdmin = async (req, res, next) => {
 
   try {
-    const acta = await Acta.findByPk(req.params.id, {
+
+    const acta = await (req.params.id !== 'next' ? Acta.findByPk(req.params.id, {
       include: 'detalle'
-    });
+    }) : Acta.findNextToCheck(req.query));
 
     if (!acta) {
       return next();
