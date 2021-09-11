@@ -97,7 +97,9 @@ module.exports = (sequelize, DataTypes) => {
   );
 
   Fiscal.prototype.generateValidationCode = function () {
-    this.code = randomIntBetweenInterval(100000, 999999);
+    if (!this.code) {
+      this.code = randomIntBetweenInterval(100000, 999999);
+    }
   };
 
   return Fiscal;

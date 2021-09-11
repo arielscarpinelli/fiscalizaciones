@@ -148,7 +148,7 @@ module.exports = (sequelize, DataTypes) => {
       },
       SESSION_SECRET,
       {
-        expiresIn: "1h",
+        expiresIn: "12h",
       }
     );
   };
