@@ -17,38 +17,39 @@ const ImageField = ({name, label, readOnly, ...rest}) => {
       ? URL.createObjectURL(current[0])
       : null)
 
-
   return (
-    <>
-      <div className="form-group foto-container">
-        {img && <img
-          src={img}
-          className="d-block foto"
-          alt={label}
-          onLoad={(e) => typeof current !== "string" && URL.revokeObjectURL(e.target.src)}
-        />}
-        {!readOnly && (
-          <label className="btn btn-sm btn-secondary">
-            <Controller
-              defaultValue={null}
-              name={name}
-              render={({onChange, onBlur, ref}) => (<input
-                  type="file"
-                  accept="image/*"
-                  name={name}
-                  ref={ref}
-                  hidden
-                  onChange={e => e.target.files.length && onChange(e.target.files)}
-                  onBlur={onBlur}
-                />)
-              }/>
-            {img ? "Cambiar" : "Subir"} {label}
-          </label>
-
-        )}
-        {error && <div><small className="text-danger">{error}</small></div>}
-      </div>
-    </>
+    <Controller
+      defaultValue={null}
+      name={name}
+      render={({onChange, onBlur, ref}) => (
+        <div className="form-group foto-container"
+             onDragOver={e => e.preventDefault()}
+             onDrop={e => {
+               e.dataTransfer.files.length && onChange(e.dataTransfer.files);
+               e.preventDefault();
+             }}>
+          {img && <img
+              src={img}
+              className="d-block foto"
+              alt={label}
+              onLoad={(e) => typeof current !== "string" && URL.revokeObjectURL(e.target.src)}
+          />}
+          {!readOnly && (
+            <label className="btn btn-sm btn-secondary">
+              <input
+                type="file"
+                accept="image/*"
+                name={name}
+                ref={ref}
+                hidden
+                onChange={e => e.target.files.length && onChange(e.target.files)}
+                onBlur={onBlur}
+              />
+              {img ? "Cambiar" : "Subir"} {label}
+            </label>
+          )}
+          {error && <div><small className="text-danger">{error}</small></div>}
+        </div>)}/>
   );
 };
 

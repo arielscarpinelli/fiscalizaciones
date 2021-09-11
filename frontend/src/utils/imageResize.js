@@ -85,6 +85,10 @@ export default async function imageResize(blob, options) {
     _pica = pica();
   }
 
+  if (blob.size < 500000 || (blob.name && blob.name.startsWith("WhatsApp"))) {
+    return blob;
+  }
+
   try {
     return await Promise.resolve({
       blob: blob,

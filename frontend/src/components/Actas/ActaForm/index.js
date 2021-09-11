@@ -90,7 +90,7 @@ const ActaForm = ({
                 </div>
               </div>
               <div className="row">
-                <div className="col">
+                <div className="col-auto mx-auto">
                   <ImageField label="Foto segunda página" name="foto2" readOnly={isReadonly}/>
                 </div>
               </div>
