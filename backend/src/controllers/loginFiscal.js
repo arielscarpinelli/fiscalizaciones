@@ -30,7 +30,7 @@ const loginFiscal = async (req, res, next) => {
 
     const fiscal = await Fiscal.findByDNI(dni);
 
-    if (fiscal) {
+    if (fiscal && fiscal.email) {
       await sendCodeViaEmail(fiscal);
     }// Si el fiscal no existe, NO-OP. Esto es para no develar la base de direcciones de email
 
