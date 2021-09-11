@@ -617,6 +617,9 @@ const postActaAdmin = async (req, res, next) => {
     acta.escuela = ((await Escuela.findByMesa(distrito, seccion_electoral, mesa)) || {}).id;
 
     acta.foto = await processFoto(acta, req);
+    if (req.files && req.files.foto2) {
+      acta.foto2 = await processFoto(acta, req, 'foto2');
+    }
     acta.detalle = parseDetalle(form);
 
     // Si la mesa ya estaba cargada, va a explotar por el indice unique
