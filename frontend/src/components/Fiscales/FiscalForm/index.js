@@ -89,13 +89,21 @@ const FiscalForm = ({
               </div>
             </div>
             <div className="row">
-              <div className="col-lg-12">
+              <div className="col-lg-9">
                 <TextField
                   name="email"
                   label="Email"
                   type="email"
                   readOnly={isReadonly}
                 />
+              </div>
+              <div className="col-lg-3">
+                {fiscal.code && <TextField
+                  name="code"
+                  label="Código login"
+                  type="code"
+                  readOnly="true"
+                />}
               </div>
             </div>
             <div className="row">

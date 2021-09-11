@@ -122,6 +122,7 @@ const ListFiscales = () => {
                         />
                       </SearchContext>
                     </th>
+                    <th scope="col">Código login</th>
                     <th scope="col">
                       <label>Municipio</label>
                       <div className="form-inline">
@@ -159,6 +160,9 @@ const ListFiscales = () => {
                       </td>
                       <td>
                         {fiscal.dni}
+                      </td>
+                      <td>
+                        {fiscal.code}
                       </td>
                       <td>
                         {(getSeccionElectoral(fiscal.distrito, fiscal.seccion_electoral) || {}).seccion}
