@@ -98,12 +98,11 @@ const FiscalForm = ({
                 />
               </div>
               <div className="col-lg-3">
-                {fiscal.code && <TextField
-                  name="code"
-                  label="Código login"
-                  type="code"
-                  readOnly="true"
-                />}
+                {fiscal.code &&
+                <div className="form-group">
+                  <label>Código login</label>
+                  <div>{fiscal.code}</div>
+                </div>}
               </div>
             </div>
             <div className="row">

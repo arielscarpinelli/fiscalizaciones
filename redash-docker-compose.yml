@@ -1,0 +1,98 @@
+# Azure App Services docker-compose.yml Version
+
+version: "3.9"
+
+x-environment: &base_environment
+  PYTHONUNBUFFERED: 0
+  REDASH_WEB_WORKERS: 4
+  REDASH_LOG_LEVEL: "INFO"
+  REDASH_RATELIMIT_ENABLED: "false"
+  REDASH_REDIS_URL: "redis://redis_server:6379/0"
+  REDASH_MAIL_DEFAULT_SENDER: "redash@example.com"
+  REDASH_ADDITIONAL_QUERY_RUNNERS: "redash.query_runner.python"
+  REDASH_DATABASE_URL: "postgresql://postgresuser:postgrespassword@postgres/redash"
+
+
+x-base_redash: &base_redash
+  environment:
+    <<: *base_environment
+  image: redash/redash:8.0.2.b37747
+  restart: always
+
+services:
+  # redis
+  redis_server:
+    image: redis:alpine
+    container_name: redis_server_local
+    restart: unless-stopped
+
+  server:
+    <<: *base_redash
+    command: server
+    ports:
+      - "5000:5000"
+      - "5678:5678"
+    depends_on:
+      - redis_server
+      - postgres
+
+  # redash scheduler
+  scheduler:
+    <<: *base_redash
+    command: scheduler
+    depends_on:
+      - server
+    environment:
+      << : *base_environment
+      QUEUES: "celery"
+      WORKERS_COUNT: 1
+
+  # redash worker 1
+  scheduled_worker:
+    <<: *base_redash
+    command: worker
+    depends_on:
+      - server
+    environment:
+      << : *base_environment
+      QUEUES: "scheduled_queries"
+      WORKERS_COUNT: 1
+
+  # redash worker 2
+  adhoc_worker:
+    <<: *base_redash
+    command: worker
+    depends_on:
+      - server
+    environment:
+      << : *base_environment
+      QUEUES: "queries"
+      WORKERS_COUNT: 2
+
+  # redash worker 3
+  scheduled_worker3:
+    <<: *base_redash
+    command: worker
+    depends_on:
+      - server
+
+  postgres:
+    image: postgres:9.6-alpine
+    environment:
+      POSTGRES_HOST_AUTH_METHOD: "trust"
+      POSTGRES_USER: postgresuser
+      POSTGRES_PASSWORD: postgrespassword
+      POSTGRES_DB: redash
+    volumes:
+      - ${WEBAPP_STORAGE_HOME}/redash/postgres-data:/var/lib/postgresql/data
+    restart: always
+
+  nginx:
+    image: redash/nginx:latest
+    ports:
+      - "80:80"
+    depends_on:
+      - server
+    links:
+      - server:redash
+    restart: always
