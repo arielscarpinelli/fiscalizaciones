@@ -76,7 +76,7 @@ const ActaForm = ({
     fetchTemplate();
   }
 
-  useEffect(invokeFetchTemplate, [seccion_electoral])
+  useEffect(invokeFetchTemplate, [acta, seccion_electoral])
 
   return (
     <div className="card">

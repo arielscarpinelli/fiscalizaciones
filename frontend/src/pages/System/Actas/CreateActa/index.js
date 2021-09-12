@@ -17,9 +17,12 @@ const CreateActa = () => {
     setErrors({});
     try {
       await postActa(data);
-      setActa({});
+      setActa({
+        distrito: data.distrito,
+        seccion_electoral: data.seccion_electoral
+      });
       setSubmitting(false);
-      toast.info("El acta ha sido creada exitosamente");
+      toast.info("El acta de la mesa " + data.mesa + " ha sido creada exitosamente");
     } catch (error) {
       setSubmitting(false);
       handleFormSubmitError(error, setErrors)
