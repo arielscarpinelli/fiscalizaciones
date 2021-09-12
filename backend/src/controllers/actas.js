@@ -504,8 +504,8 @@ const getActaAdmin = async (req, res, next) => {
 
     const {detalle, especiales} = detalleToJson(actaJSON.detalle, await Listas.findForEleccion(acta.eleccion, acta.distrito, acta.seccion_electoral));
 
-    actaJSON.foto = req.protocol + '://' + req.get('host') + req.originalUrl + '/photo'
-    actaJSON.foto2 = !actaJSON.foto2 ? undefined : (req.protocol + '://' + req.get('host') + req.originalUrl + '/photo?index=2')
+    actaJSON.foto = req.protocol + '://' + req.get('host') + '/api/v1/actas/' + acta.id + '/photo'
+    actaJSON.foto2 = !actaJSON.foto2 ? undefined : (req.protocol + '://' + req.get('host') +'/api/v1/actas/' + acta.id + '/photo?index=2')
     actaJSON.detalle = detalle;
     actaJSON.especiales = especiales
 
