@@ -157,7 +157,7 @@ const ActaForm = ({
               {detalle.map((d, i) =>
                 <tr key={i}>
                   <th>{d.lista || d.tipo}
-                    <HiddenField name={"detalle[" + i + "].lista"}/>
+                    <HiddenField name={"detalle[" + i + "].lista"} value={d.lista}/>
                   </th>
 
                   <td>
