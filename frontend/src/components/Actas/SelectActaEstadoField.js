@@ -10,6 +10,8 @@ const SelectActaEstadoField = ({ name, label, readOnly, distrito, ...rest }) => 
     value: "COMPLETADA",
   }, {
     value: "VERIFICADA"
+  }, {
+    value: "ILEGIBLE"
   }];
 
   return (

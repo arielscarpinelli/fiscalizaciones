@@ -4,7 +4,8 @@ const {Model, Op, fn, col} = require("sequelize");
 const ActaEstado = {
   INGRESADA: "INGRESADA",
   COMPLETADA: "COMPLETADA",
-  VERIFICADA: "VERIFICADA"
+  VERIFICADA: "VERIFICADA",
+  ILEGIBLE: "ILEGIBLE"
 };
 
 const ActaDetalleTipo = {

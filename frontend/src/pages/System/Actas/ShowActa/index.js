@@ -53,6 +53,13 @@ const ShowActa = () => {
     window.scroll(0,0);
   }
 
+  const onDismiss = async (data) => {
+    data.estado = 'ILEGIBLE';
+    await onSubmit(data);
+    const nextActa = await fetchActa('next', { eleccion: acta.eleccion });
+    history.push("/sistema/actas/" + nextActa.id);
+    window.scroll(0,0);
+  }
 
   const removeActa = async () => {
     if (
@@ -94,6 +101,7 @@ const ShowActa = () => {
           <ActaForm
             onSubmit={onSubmit}
             onSubmitAndNext={onSubmitAndNext}
+            onDismiss={onDismiss}
             acta={acta}
             isSubmitting={isSubmitting}
             errors={hasErrors}

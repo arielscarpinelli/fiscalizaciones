@@ -20,6 +20,7 @@ import {toast} from "react-toastify";
 const ActaForm = ({
                     onSubmit,
                     onSubmitAndNext,
+                    onDismiss,
                     acta,
                     isReadonly,
                     isSubmitting,
@@ -237,6 +238,12 @@ const ActaForm = ({
                     >
                       Verificar, guardar y abrir otra
                     </button> : null}
+                    {onDismiss ? <div style={{marginTop: "10px"}} className="d-flex justify-content-center"><button
+                      className="btn btn-danger"
+                      type="button"
+                      disabled={hasErrors || isSubmitting}
+                      onClick={form.handleSubmit(onDismiss)}
+                    >Marcar ilegible</button></div> : null}
                   </div> : <Spinner/>}
                 </div>
               )}
