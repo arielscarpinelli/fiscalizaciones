@@ -197,7 +197,7 @@ const ListFiscales = () => {
                   ))}
                 </tbody>
                 <tfoot className="card-footer">
-                  <tr><td colSpan={7}><Pager data={fiscales}/></td></tr>
+                  <tr><td colSpan={8}><Pager data={fiscales}/></td></tr>
                 </tfoot>
               </table>
             </div>

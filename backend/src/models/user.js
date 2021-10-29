@@ -20,7 +20,9 @@ module.exports = (sequelize, DataTypes) => {
     }
 
     static getPartido(user) {
-      return (user.role !== "SUPERADMIN") && user.partido;
+      // temporarly disabled
+      // return (user.role !== "SUPERADMIN") && user.partido;
+      return null;
     }
 
     static getDistrito(user) {

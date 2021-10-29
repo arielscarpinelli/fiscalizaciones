@@ -8,11 +8,12 @@ const {
   Escuela,
 } = require("../models");
 
-const { Op } = require("sequelize");
+const { Op, UniqueConstraintError} = require("sequelize");
 
 const AccessForbiddenException = require("../exceptions/UserExceptions/AccessForbiddenException");
 
 const searchValidation = require("../utils/searchValidation");
+const ValidationException = require("../exceptions/ValidationException");
 
 
 const validation = (user, payload) => {
@@ -20,7 +21,7 @@ const validation = (user, payload) => {
     first_name: Joi.string().trim().required(),
     last_name: Joi.string().trim().required(),
     dni: Joi.number().required(),
-    email: Joi.string().email({tlds: {allow: false}}).required(),
+    email: Joi.string().email({tlds: {allow: false}}).empty('').optional(),
     phone: Joi.number().empty('').optional(),
     address: Joi.string().trim().optional(),
     distrito: Joi.number().required().custom((distrito) => {
@@ -209,6 +210,16 @@ const postFiscal = async (req, res, next) => {
     const fiscal = await Fiscal.create(data);
     res.status(201).json(fiscal);
   } catch (error) {
+    if (error instanceof UniqueConstraintError) {
+      const path = error && error.errors && error.errors[0] && error.errors[0].path;
+      if (path === 'fiscales_dni') {
+        error = new ValidationException('Ya existe un fiscal con este DNI', 'dni');
+      } else if (path === 'email') {
+        error = new ValidationException('Ya existe un fiscal con este email', 'email');
+      } else {
+        error = new ValidationException('Ya existe un fiscal con estos datos');
+      }
+    }
     next(error);
   }
 };

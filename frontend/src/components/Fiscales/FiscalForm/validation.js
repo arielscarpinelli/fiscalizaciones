@@ -5,7 +5,7 @@ const validation = Joi.object({
   first_name: Joi.string().trim().required(),
   last_name: Joi.string().trim().required(),
   dni: Joi.number().required(),
-  email: Joi.string().email({ tlds: { allow: false } }).required(),
+  email: Joi.string().email({ tlds: { allow: false } }).empty('').optional(),
   phone: Joi.number().empty('').optional().default(null),
   address: Joi.string().trim().optional().default(null),
   distrito: Joi.number().required(),
