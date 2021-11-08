@@ -1,6 +1,6 @@
 import React, {useState} from "react";
 
-export default function ImageMagnifier({
+export default React.forwardRef(function ImageMagnifier({
                                          src,
                                          magnifierHeight = 150,
                                          magnifierWidth = 150,
@@ -9,7 +9,7 @@ export default function ImageMagnifier({
                                          alt,
                                          onLoad,
                                          className
-                                       }
+                                       }, ref
 ) {
   const [[x, y], setXY] = useState([0, 0]);
   const [[imgWidth, imgHeight], setSize] = useState([0, 0]);
@@ -47,6 +47,7 @@ export default function ImageMagnifier({
         alt={alt}
         onLoad={onLoad}
         className={className}
+        ref={ref}
       />
 
       <div
@@ -82,4 +83,4 @@ export default function ImageMagnifier({
       </div>
     </div>
   );
-}
+})

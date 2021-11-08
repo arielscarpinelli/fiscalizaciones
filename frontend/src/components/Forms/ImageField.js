@@ -1,4 +1,4 @@
-import React, {useState} from "react";
+import React, {useRef, useState} from "react";
 import PropTypes from "prop-types";
 import {Controller, useFormContext, useWatch} from "react-hook-form";
 import ImageMagnifier from "components/Forms/ImageMagnifier";
@@ -18,9 +18,28 @@ const ImageField = ({name, label, readOnly, ...rest}) => {
       ? URL.createObjectURL(current[0])
       : null)
 
-  const [rotate, doSetRotate] = useState(0);
+  const [rotated, setRotated] = useState();
 
-  const setRotate = angle => doSetRotate(((angle < 0) ? (angle + 360) : angle) % 360)
+  const imageRef = useRef();
+
+  const rotate = direction => {
+    const canvas = document.createElement('canvas');
+    const image = imageRef.current;
+
+    canvas.width = image.naturalHeight;
+    canvas.height = image.naturalWidth;
+
+    const context = canvas.getContext("2d");
+    context.translate(canvas.width/2,canvas.height/2);
+
+    // rotate the canvas to the specified degrees
+    context.rotate(direction * Math.PI/2);
+
+    context.drawImage(image,-image.naturalWidth/2,-image.naturalHeight/2);
+
+    canvas.toBlob(blob => setRotated(URL.createObjectURL(blob)));
+
+  }
 
   return (
     <Controller
@@ -35,18 +54,16 @@ const ImageField = ({name, label, readOnly, ...rest}) => {
              }}>
           {img && <div style={{overflow: "hidden"}}>
             <ImageMagnifier
-              src={img}
+              src={rotated || img}
               className="d-block foto"
               alt={label}
-              style={{
-                transform: `rotate(${rotate}deg)`,
-              }}
-              onLoad={(e) => typeof current !== "string" && URL.revokeObjectURL(e.target.src)}
+              ref={imageRef}
+              onLoad={(e) => (typeof current !== "string" || rotated) && URL.revokeObjectURL(e.target.src)}
             />
           </div>}
           {img && <div className="btn-group" role="group">
-            <button type="button" className="btn btn-sm btn-secondary" onClick={() => setRotate(rotate - 90)}>Rotar izquierda</button>
-            <button type="button" className="btn btn-sm btn-secondary" onClick={() => setRotate(rotate + 90)}>Rotar derecha</button>
+            <button type="button" className="btn btn-sm btn-secondary" onClick={() => rotate( -1)}>Rotar izquierda</button>
+            <button type="button" className="btn btn-sm btn-secondary" onClick={() => rotate( +1)}>Rotar derecha</button>
           </div>}
           {!readOnly && (
             <div><label className="btn btn-sm btn-secondary">
@@ -56,7 +73,7 @@ const ImageField = ({name, label, readOnly, ...rest}) => {
                 name={name}
                 ref={ref}
                 hidden
-                onChange={e => {e.target.files.length && onChange(e.target.files); setRotate(0)}}
+                onChange={e => {e.target.files.length && onChange(e.target.files); setRotated(null)}}
                 onBlur={onBlur}
               />
               {img ? "Cambiar" : "Subir"} {label}
