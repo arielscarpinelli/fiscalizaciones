@@ -20,8 +20,9 @@ module.exports = (sequelize, DataTypes) => {
       return await Listas.findAll({
         where: {
           eleccion,
-          distrito,
-          seccion_electoral,
+          // TODO: traer las otras categorias cuando corresponde.
+          // distrito,
+          // seccion_electoral,
         }
       });
     }

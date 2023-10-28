@@ -41,6 +41,7 @@ const validation = Joi.object({
     [Acta.DetalleCargo.DIPUTADOS_NACIONALES.toLowerCase()]: Joi.number().empty(''),
     [Acta.DetalleCargo.LEGISLADORES_PROVINCIALES.toLowerCase()]: Joi.number().empty(''),
     [Acta.DetalleCargo.CONCEJALES.toLowerCase()]: Joi.number().empty(''),
+    [Acta.DetalleCargo.PRESIDENTE.toLowerCase()]: Joi.number().empty(''),
   })),
   estado: Joi.string().valid(...Object.values(Acta.Estado))
 }).unknown(false)

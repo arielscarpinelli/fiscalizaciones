@@ -81,7 +81,7 @@ module.exports = {
         allowNull: true,
       },
       cargo: {
-        type: Sequelize.ENUM(["SENADORES_NACIONALES", "DIPUTADOS_NACIONALES", "SENADORES_PROVINCIALES", "DIPUTADOS_PROVINCIALES", "CONCEJALES"]),
+        type: Sequelize.ENUM(["PRESIDENTE", "SENADORES_NACIONALES", "DIPUTADOS_NACIONALES", "SENADORES_PROVINCIALES", "DIPUTADOS_PROVINCIALES", "CONCEJALES"]),
       },
       votos: {
         type: Sequelize.INTEGER,

@@ -91,6 +91,15 @@ const ActaForm = ({
 
                   <div className="row">
                     <div className="col">
+                      {typeof (d.presidente) !== 'undefined' ?
+                      <NumberField
+                        name={"detalle[" + i + "].presidente"}
+                        label="Presidente"
+                        readOnly={isReadonly}
+                        autocomplete="off"
+                      /> : null}
+                    </div>
+                    <div className="col">
                       {typeof (d.diputados_nacionales) !== 'undefined' ?
                       <NumberField
                         name={"detalle[" + i + "].diputados_nacionales"}
@@ -123,7 +132,6 @@ const ActaForm = ({
 
                 </React.Fragment>
               )}
-              {/*
 
               <hr/>
               <div className="row">
@@ -149,7 +157,6 @@ const ActaForm = ({
                   />
                 </div>
               </div>
-                */}
 
               {!isReadonly && (
                 <div className="d-flex justify-content-center">
