@@ -1,752 +1,2642 @@
 [
-  {
-    "distrito": 1,
-    "secc": 1,
-    "seccion": "COMUNA N°1"
-  },
-  {
-    "distrito": 1,
-    "secc": 2,
-    "seccion": "COMUNA N°2"
-  },
-  {
-    "distrito": 1,
-    "secc": 3,
-    "seccion": "COMUNA N°3"
-  },
-  {
-    "distrito": 1,
-    "secc": 4,
-    "seccion": "COMUNA N°4"
-  },
-  {
-    "distrito": 1,
-    "secc": 5,
-    "seccion": "COMUNA N°5"
-  },
-  {
-    "distrito": 1,
-    "secc": 6,
-    "seccion": "COMUNA N°6"
-  },
-  {
-    "distrito": 1,
-    "secc": 7,
-    "seccion": "COMUNA N°7"
-  },
-  {
-    "distrito": 1,
-    "secc": 8,
-    "seccion": "COMUNA N°8"
-  },
-  {
-    "distrito": 1,
-    "secc": 9,
-    "seccion": "COMUNA N°9"
-  },
-  {
-    "distrito": 1,
-    "secc": 10,
-    "seccion": "COMUNA N°10"
-  },
-  {
-    "distrito": 1,
-    "secc": 11,
-    "seccion": "COMUNA N°11"
-  },
-  {
-    "distrito": 1,
-    "secc": 12,
-    "seccion": "COMUNA N°12"
-  },
-  {
-    "distrito": 1,
-    "secc": 13,
-    "seccion": "COMUNA N°13"
-  },
-  {
-    "distrito": 1,
-    "secc": 14,
-    "seccion": "COMUNA N°14"
-  },
-  {
-    "distrito": 1,
-    "secc": 15,
-    "seccion": "COMUNA N°15"
-  },
-  {
-    "distrito": 2,
-    "secc": 1,
-    "seccion": "ADOLFO ALSINA"
-  },
-  {
-    "distrito": 2,
-    "secc": 2,
-    "seccion": "ALBERTI"
-  },
-  {
-    "distrito": 2,
-    "secc": 3,
-    "seccion": "ALMIRANTE BROWN"
-  },
-  {
-    "distrito": 2,
-    "secc": 4,
-    "seccion": "AVELLANEDA"
-  },
-  {
-    "distrito": 2,
-    "secc": 5,
-    "seccion": "AYACUCHO"
-  },
-  {
-    "distrito": 2,
-    "secc": 6,
-    "seccion": "AZUL"
-  },
-  {
-    "distrito": 2,
-    "secc": 7,
-    "seccion": "BAHIA BLANCA"
-  },
-  {
-    "distrito": 2,
-    "secc": 8,
-    "seccion": "BALCARCE"
-  },
-  {
-    "distrito": 2,
-    "secc": 9,
-    "seccion": "BARADERO"
-  },
-  {
-    "distrito": 2,
-    "secc": 10,
-    "seccion": "ARRECIFES"
-  },
-  {
-    "distrito": 2,
-    "secc": 11,
-    "seccion": "BERAZATEGUI"
-  },
-  {
-    "distrito": 2,
-    "secc": 12,
-    "seccion": "BERISSO"
-  },
-  {
-    "distrito": 2,
-    "secc": 13,
-    "seccion": "BOLIVAR"
-  },
-  {
-    "distrito": 2,
-    "secc": 14,
-    "seccion": "BRAGADO"
-  },
-  {
-    "distrito": 2,
-    "secc": 15,
-    "seccion": "BRANDSEN"
-  },
-  {
-    "distrito": 2,
-    "secc": 16,
-    "seccion": "CAMPANA"
-  },
-  {
-    "distrito": 2,
-    "secc": 17,
-    "seccion": "CAÑUELAS"
-  },
-  {
-    "distrito": 2,
-    "secc": 18,
-    "seccion": "CAPITAN SARMIENTO"
-  },
-  {
-    "distrito": 2,
-    "secc": 19,
-    "seccion": "CARLOS CASARES"
-  },
-  {
-    "distrito": 2,
-    "secc": 20,
-    "seccion": "CARLOS TEJEDOR"
-  },
-  {
-    "distrito": 2,
-    "secc": 21,
-    "seccion": "CARMEN DE ARECO"
-  },
-  {
-    "distrito": 2,
-    "secc": 22,
-    "seccion": "PATAGONES"
-  },
-  {
-    "distrito": 2,
-    "secc": 23,
-    "seccion": "CASTELLI"
-  },
-  {
-    "distrito": 2,
-    "secc": 24,
-    "seccion": "COLON"
-  },
-  {
-    "distrito": 2,
-    "secc": 25,
-    "seccion": "CORONEL DORREGO"
-  },
-  {
-    "distrito": 2,
-    "secc": 26,
-    "seccion": "CORONEL PRINGLES"
-  },
-  {
-    "distrito": 2,
-    "secc": 27,
-    "seccion": "CORONEL ROSALES"
-  },
-  {
-    "distrito": 2,
-    "secc": 28,
-    "seccion": "CORONEL SUAREZ"
-  },
-  {
-    "distrito": 2,
-    "secc": 29,
-    "seccion": "CHACABUCO"
-  },
-  {
-    "distrito": 2,
-    "secc": 30,
-    "seccion": "CHASCOMUS"
-  },
-  {
-    "distrito": 2,
-    "secc": 31,
-    "seccion": "CHIVILCOY"
-  },
-  {
-    "distrito": 2,
-    "secc": 32,
-    "seccion": "DAIREAUX"
-  },
-  {
-    "distrito": 2,
-    "secc": 33,
-    "seccion": "DOLORES"
-  },
-  {
-    "distrito": 2,
-    "secc": 34,
-    "seccion": "ENSENADA"
-  },
-  {
-    "distrito": 2,
-    "secc": 35,
-    "seccion": "ESCOBAR"
-  },
-  {
-    "distrito": 2,
-    "secc": 36,
-    "seccion": "ESTEBAN ECHEVERRIA"
-  },
-  {
-    "distrito": 2,
-    "secc": 37,
-    "seccion": "EXALTACION DE LA CRUZ"
-  },
-  {
-    "distrito": 2,
-    "secc": 38,
-    "seccion": "FLORENCIO VARELA"
-  },
-  {
-    "distrito": 2,
-    "secc": 39,
-    "seccion": "GENERAL ALVARADO"
-  },
-  {
-    "distrito": 2,
-    "secc": 40,
-    "seccion": "GENERAL ALVEAR"
-  },
-  {
-    "distrito": 2,
-    "secc": 41,
-    "seccion": "GENERAL ARENALES"
-  },
-  {
-    "distrito": 2,
-    "secc": 42,
-    "seccion": "GENERAL BELGRANO"
-  },
-  {
-    "distrito": 2,
-    "secc": 43,
-    "seccion": "GENERAL GUIDO"
-  },
-  {
-    "distrito": 2,
-    "secc": 44,
-    "seccion": "GENERAL LAMADRID"
-  },
-  {
-    "distrito": 2,
-    "secc": 45,
-    "seccion": "LAS HERAS"
-  },
-  {
-    "distrito": 2,
-    "secc": 46,
-    "seccion": "GENERAL LAVALLE"
-  },
-  {
-    "distrito": 2,
-    "secc": 47,
-    "seccion": "GENERAL MADARIAGA"
-  },
-  {
-    "distrito": 2,
-    "secc": 48,
-    "seccion": "GENERAL PAZ"
-  },
-  {
-    "distrito": 2,
-    "secc": 49,
-    "seccion": "GENERAL PINTO"
-  },
-  {
-    "distrito": 2,
-    "secc": 50,
-    "seccion": "GENERAL PUEYRREDON"
-  },
-  {
-    "distrito": 2,
-    "secc": 51,
-    "seccion": "GENERAL RODRIGUEZ"
-  },
-  {
-    "distrito": 2,
-    "secc": 52,
-    "seccion": "GENERAL SAN MARTIN"
-  },
-  {
-    "distrito": 2,
-    "secc": 53,
-    "seccion": "SAN MIGUEL"
-  },
-  {
-    "distrito": 2,
-    "secc": 54,
-    "seccion": "GENERAL VIAMONTE"
-  },
-  {
-    "distrito": 2,
-    "secc": 55,
-    "seccion": "GENERAL VILLEGAS"
-  },
-  {
-    "distrito": 2,
-    "secc": 56,
-    "seccion": "GONZALES CHAVES"
-  },
-  {
-    "distrito": 2,
-    "secc": 57,
-    "seccion": "GUAMINI"
-  },
-  {
-    "distrito": 2,
-    "secc": 58,
-    "seccion": "HIPOLITO YRIGOYEN"
-  },
-  {
-    "distrito": 2,
-    "secc": 59,
-    "seccion": "JUAREZ"
-  },
-  {
-    "distrito": 2,
-    "secc": 60,
-    "seccion": "JUNIN"
-  },
-  {
-    "distrito": 2,
-    "secc": 61,
-    "seccion": "MATANZA"
-  },
-  {
-    "distrito": 2,
-    "secc": 62,
-    "seccion": "LANUS"
-  },
-  {
-    "distrito": 2,
-    "secc": 63,
-    "seccion": "LA PLATA"
-  },
-  {
-    "distrito": 2,
-    "secc": 64,
-    "seccion": "LAPRIDA"
-  },
-  {
-    "distrito": 2,
-    "secc": 65,
-    "seccion": "LAS FLORES"
-  },
-  {
-    "distrito": 2,
-    "secc": 66,
-    "seccion": "LEANDRO N. ALEM"
-  },
-  {
-    "distrito": 2,
-    "secc": 67,
-    "seccion": "LINCOLN"
-  },
-  {
-    "distrito": 2,
-    "secc": 68,
-    "seccion": "LOBERIA"
-  },
-  {
-    "distrito": 2,
-    "secc": 69,
-    "seccion": "LOBOS"
-  },
-  {
-    "distrito": 2,
-    "secc": 70,
-    "seccion": "LOMAS DE ZAMORA"
-  },
-  {
-    "distrito": 2,
-    "secc": 71,
-    "seccion": "LUJAN"
-  },
-  {
-    "distrito": 2,
-    "secc": 72,
-    "seccion": "MAGDALENA"
-  },
-  {
-    "distrito": 2,
-    "secc": 73,
-    "seccion": "MAIPU"
-  },
-  {
-    "distrito": 2,
-    "secc": 74,
-    "seccion": "MAR CHIQUITA"
-  },
-  {
-    "distrito": 2,
-    "secc": 75,
-    "seccion": "MARCOS PAZ"
-  },
-  {
-    "distrito": 2,
-    "secc": 76,
-    "seccion": "MERCEDES"
-  },
-  {
-    "distrito": 2,
-    "secc": 77,
-    "seccion": "MERLO"
-  },
-  {
-    "distrito": 2,
-    "secc": 78,
-    "seccion": "MONTE"
-  },
-  {
-    "distrito": 2,
-    "secc": 79,
-    "seccion": "MORENO"
-  },
-  {
-    "distrito": 2,
-    "secc": 80,
-    "seccion": "MORON"
-  },
-  {
-    "distrito": 2,
-    "secc": 81,
-    "seccion": "NAVARRO"
-  },
-  {
-    "distrito": 2,
-    "secc": 82,
-    "seccion": "NECOCHEA"
-  },
-  {
-    "distrito": 2,
-    "secc": 83,
-    "seccion": "NUEVE DE JULIO"
-  },
-  {
-    "distrito": 2,
-    "secc": 84,
-    "seccion": "OLAVARRIA"
-  },
-  {
-    "distrito": 2,
-    "secc": 85,
-    "seccion": "PEHUAJO"
-  },
-  {
-    "distrito": 2,
-    "secc": 86,
-    "seccion": "PELLEGRINI"
-  },
-  {
-    "distrito": 2,
-    "secc": 87,
-    "seccion": "PERGAMINO"
-  },
-  {
-    "distrito": 2,
-    "secc": 88,
-    "seccion": "PILA"
-  },
-  {
-    "distrito": 2,
-    "secc": 89,
-    "seccion": "PILAR"
-  },
-  {
-    "distrito": 2,
-    "secc": 90,
-    "seccion": "PINAMAR"
-  },
-  {
-    "distrito": 2,
-    "secc": 91,
-    "seccion": "PUAN"
-  },
-  {
-    "distrito": 2,
-    "secc": 92,
-    "seccion": "QUILMES"
-  },
-  {
-    "distrito": 2,
-    "secc": 93,
-    "seccion": "RAMALLO"
-  },
-  {
-    "distrito": 2,
-    "secc": 94,
-    "seccion": "RAUCH"
-  },
-  {
-    "distrito": 2,
-    "secc": 95,
-    "seccion": "RIVADAVIA"
-  },
-  {
-    "distrito": 2,
-    "secc": 96,
-    "seccion": "ROJAS"
-  },
-  {
-    "distrito": 2,
-    "secc": 97,
-    "seccion": "ROQUE PEREZ"
-  },
-  {
-    "distrito": 2,
-    "secc": 98,
-    "seccion": "SAAVEDRA"
-  },
-  {
-    "distrito": 2,
-    "secc": 99,
-    "seccion": "SALADILLO"
-  },
-  {
-    "distrito": 2,
-    "secc": 100,
-    "seccion": "SALLIQUELO"
-  },
-  {
-    "distrito": 2,
-    "secc": 101,
-    "seccion": "SALTO"
-  },
-  {
-    "distrito": 2,
-    "secc": 102,
-    "seccion": "SAN ANDRES DE GILES"
-  },
-  {
-    "distrito": 2,
-    "secc": 103,
-    "seccion": "SAN ANTONIO DE ARECO"
-  },
-  {
-    "distrito": 2,
-    "secc": 104,
-    "seccion": "SAN CAYETANO"
-  },
-  {
-    "distrito": 2,
-    "secc": 105,
-    "seccion": "SAN FERNANDO"
-  },
-  {
-    "distrito": 2,
-    "secc": 106,
-    "seccion": "SAN ISIDRO"
-  },
-  {
-    "distrito": 2,
-    "secc": 107,
-    "seccion": "SAN NICOLAS"
-  },
-  {
-    "distrito": 2,
-    "secc": 108,
-    "seccion": "SAN PEDRO"
-  },
-  {
-    "distrito": 2,
-    "secc": 109,
-    "seccion": "SAN VICENTE"
-  },
-  {
-    "distrito": 2,
-    "secc": 110,
-    "seccion": "SUIPACHA"
-  },
-  {
-    "distrito": 2,
-    "secc": 111,
-    "seccion": "TANDIL"
-  },
-  {
-    "distrito": 2,
-    "secc": 112,
-    "seccion": "TAPALQUE"
-  },
-  {
-    "distrito": 2,
-    "secc": 113,
-    "seccion": "TIGRE"
-  },
-  {
-    "distrito": 2,
-    "secc": 114,
-    "seccion": "TORNQUIST"
-  },
-  {
-    "distrito": 2,
-    "secc": 115,
-    "seccion": "TRENQUE LAUQUEN"
-  },
-  {
-    "distrito": 2,
-    "secc": 116,
-    "seccion": "TORDILLO"
-  },
-  {
-    "distrito": 2,
-    "secc": 117,
-    "seccion": "TRES ARROYOS"
-  },
-  {
-    "distrito": 2,
-    "secc": 118,
-    "seccion": "TRES DE FEBRERO"
-  },
-  {
-    "distrito": 2,
-    "secc": 119,
-    "seccion": "LA COSTA"
-  },
-  {
-    "distrito": 2,
-    "secc": 120,
-    "seccion": "MONTE HERMOSO"
-  },
-  {
-    "distrito": 2,
-    "secc": 121,
-    "seccion": "VEINTICINCO DE MAYO"
-  },
-  {
-    "distrito": 2,
-    "secc": 122,
-    "seccion": "VICENTE LOPEZ"
-  },
-  {
-    "distrito": 2,
-    "secc": 123,
-    "seccion": "VILLA GESELL"
-  },
-  {
-    "distrito": 2,
-    "secc": 124,
-    "seccion": "VILLARINO"
-  },
-  {
-    "distrito": 2,
-    "secc": 125,
-    "seccion": "ZARATE"
-  },
-  {
-    "distrito": 2,
-    "secc": 126,
-    "seccion": "TRES LOMAS"
-  },
-  {
-    "distrito": 2,
-    "secc": 127,
-    "seccion": "F.AMEGHINO"
-  },
-  {
-    "distrito": 2,
-    "secc": 128,
-    "seccion": "PRESIDENTE PERON"
-  },
-  {
-    "distrito": 2,
-    "secc": 129,
-    "seccion": "J.C.PAZ"
-  },
-  {
-    "distrito": 2,
-    "secc": 130,
-    "seccion": "MALVINAS ARGENTINAS"
-  },
-  {
-    "distrito": 2,
-    "secc": 131,
-    "seccion": "PUNTA INDIO"
-  },
-  {
-    "distrito": 2,
-    "secc": 132,
-    "seccion": "EZEIZA"
-  },
-  {
-    "distrito": 2,
-    "secc": 133,
-    "seccion": "ITUZAINGO"
-  },
-  {
-    "distrito": 2,
-    "secc": 134,
-    "seccion": "HURLINGHAM"
-  },
-  {
-    "distrito": 2,
-    "secc": 135,
-    "seccion": "LEZAMA"
-  }
+    {
+        "distrito": 6,
+        "secc": 21,
+        "seccion": "12 de Octubre"
+    },
+    {
+        "distrito": 6,
+        "secc": 2,
+        "seccion": "1\u00ba de Mayo"
+    },
+    {
+        "distrito": 6,
+        "secc": 22,
+        "seccion": "2 de Abril"
+    },
+    {
+        "distrito": 2,
+        "secc": 121,
+        "seccion": "25 de Mayo"
+    },
+    {
+        "distrito": 18,
+        "secc": 14,
+        "seccion": "25 de Mayo"
+    },
+    {
+        "distrito": 14,
+        "secc": 11,
+        "seccion": "25 de Mayo"
+    },
+    {
+        "distrito": 16,
+        "secc": 6,
+        "seccion": "25 de Mayo"
+    },
+    {
+        "distrito": 6,
+        "secc": 15,
+        "seccion": "25 de Mayo"
+    },
+    {
+        "distrito": 16,
+        "secc": 5,
+        "seccion": "9 de Julio"
+    },
+    {
+        "distrito": 21,
+        "secc": 12,
+        "seccion": "9 de Julio"
+    },
+    {
+        "distrito": 18,
+        "secc": 7,
+        "seccion": "9 de Julio"
+    },
+    {
+        "distrito": 6,
+        "secc": 19,
+        "seccion": "9 de Julio"
+    },
+    {
+        "distrito": 2,
+        "secc": 83,
+        "seccion": "9 de Julio"
+    },
+    {
+        "distrito": 16,
+        "secc": 1,
+        "seccion": "Adolfo Alsina"
+    },
+    {
+        "distrito": 2,
+        "secc": 1,
+        "seccion": "Adolfo Alsina"
+    },
+    {
+        "distrito": 2,
+        "secc": 56,
+        "seccion": "Adolfo Gonzales Chaves"
+    },
+    {
+        "distrito": 22,
+        "secc": 3,
+        "seccion": "Aguirre"
+    },
+    {
+        "distrito": 18,
+        "secc": 10,
+        "seccion": "Albard\u00f3n"
+    },
+    {
+        "distrito": 22,
+        "secc": 4,
+        "seccion": "Alberdi"
+    },
+    {
+        "distrito": 2,
+        "secc": 2,
+        "seccion": "Alberti"
+    },
+    {
+        "distrito": 2,
+        "secc": 3,
+        "seccion": "Almirante Brown"
+    },
+    {
+        "distrito": 6,
+        "secc": 24,
+        "seccion": "Almirante Brown"
+    },
+    {
+        "distrito": 15,
+        "secc": 10,
+        "seccion": "Alumin\u00e9"
+    },
+    {
+        "distrito": 3,
+        "secc": 10,
+        "seccion": "Ambato"
+    },
+    {
+        "distrito": 3,
+        "secc": 4,
+        "seccion": "Ancasti"
+    },
+    {
+        "distrito": 3,
+        "secc": 12,
+        "seccion": "Andalgal\u00e1"
+    },
+    {
+        "distrito": 18,
+        "secc": 9,
+        "seccion": "Angaco"
+    },
+    {
+        "distrito": 17,
+        "secc": 5,
+        "seccion": "Anta"
+    },
+    {
+        "distrito": 3,
+        "secc": 14,
+        "seccion": "Antofagasta de la Sierra"
+    },
+    {
+        "distrito": 24,
+        "secc": 3,
+        "seccion": "Ant\u00e1rtida Argentina"
+    },
+    {
+        "distrito": 14,
+        "secc": 2,
+        "seccion": "Ap\u00f3stoles"
+    },
+    {
+        "distrito": 12,
+        "secc": 4,
+        "seccion": "Arauco"
+    },
+    {
+        "distrito": 2,
+        "secc": 10,
+        "seccion": "Arrecifes"
+    },
+    {
+        "distrito": 22,
+        "secc": 5,
+        "seccion": "Atamisqui"
+    },
+    {
+        "distrito": 11,
+        "secc": 1,
+        "seccion": "Atreuc\u00f3"
+    },
+    {
+        "distrito": 2,
+        "secc": 4,
+        "seccion": "Avellaneda"
+    },
+    {
+        "distrito": 16,
+        "secc": 11,
+        "seccion": "Avellaneda"
+    },
+    {
+        "distrito": 22,
+        "secc": 2,
+        "seccion": "Avellaneda"
+    },
+    {
+        "distrito": 2,
+        "secc": 5,
+        "seccion": "Ayacucho"
+    },
+    {
+        "distrito": 19,
+        "secc": 7,
+        "seccion": "Ayacucho"
+    },
+    {
+        "distrito": 2,
+        "secc": 6,
+        "seccion": "Azul"
+    },
+    {
+        "distrito": 15,
+        "secc": 3,
+        "seccion": "A\u00f1elo"
+    },
+    {
+        "distrito": 2,
+        "secc": 7,
+        "seccion": "Bah\u00eda Blanca"
+    },
+    {
+        "distrito": 2,
+        "secc": 8,
+        "seccion": "Balcarce"
+    },
+    {
+        "distrito": 22,
+        "secc": 6,
+        "seccion": "Banda"
+    },
+    {
+        "distrito": 2,
+        "secc": 9,
+        "seccion": "Baradero"
+    },
+    {
+        "distrito": 16,
+        "secc": 9,
+        "seccion": "Bariloche"
+    },
+    {
+        "distrito": 22,
+        "secc": 7,
+        "seccion": "Belgrano"
+    },
+    {
+        "distrito": 19,
+        "secc": 8,
+        "seccion": "Belgrano"
+    },
+    {
+        "distrito": 21,
+        "secc": 17,
+        "seccion": "Belgrano"
+    },
+    {
+        "distrito": 5,
+        "secc": 11,
+        "seccion": "Bella Vista"
+    },
+    {
+        "distrito": 3,
+        "secc": 13,
+        "seccion": "Bel\u00e9n"
+    },
+    {
+        "distrito": 2,
+        "secc": 59,
+        "seccion": "Benito Ju\u00e1rez"
+    },
+    {
+        "distrito": 2,
+        "secc": 11,
+        "seccion": "Berazategui"
+    },
+    {
+        "distrito": 2,
+        "secc": 12,
+        "seccion": "Berisso"
+    },
+    {
+        "distrito": 6,
+        "secc": 7,
+        "seccion": "Bermejo"
+    },
+    {
+        "distrito": 9,
+        "secc": 7,
+        "seccion": "Bermejo"
+    },
+    {
+        "distrito": 5,
+        "secc": 25,
+        "seccion": "Ber\u00f3n de Astrada"
+    },
+    {
+        "distrito": 7,
+        "secc": 2,
+        "seccion": "Biedma"
+    },
+    {
+        "distrito": 2,
+        "secc": 13,
+        "seccion": "Bol\u00edvar"
+    },
+    {
+        "distrito": 2,
+        "secc": 14,
+        "seccion": "Bragado"
+    },
+    {
+        "distrito": 2,
+        "secc": 15,
+        "seccion": "Brandsen"
+    },
+    {
+        "distrito": 23,
+        "secc": 13,
+        "seccion": "Burruyac\u00fa"
+    },
+    {
+        "distrito": 17,
+        "secc": 20,
+        "seccion": "Cachi"
+    },
+    {
+        "distrito": 17,
+        "secc": 17,
+        "seccion": "Cafayate"
+    },
+    {
+        "distrito": 14,
+        "secc": 10,
+        "seccion": "Caingu\u00e1s"
+    },
+    {
+        "distrito": 4,
+        "secc": 2,
+        "seccion": "Calamuchita"
+    },
+    {
+        "distrito": 11,
+        "secc": 3,
+        "seccion": "Caleu Caleu"
+    },
+    {
+        "distrito": 18,
+        "secc": 19,
+        "seccion": "Calingasta"
+    },
+    {
+        "distrito": 2,
+        "secc": 16,
+        "seccion": "Campana"
+    },
+    {
+        "distrito": 14,
+        "secc": 3,
+        "seccion": "Candelaria"
+    },
+    {
+        "distrito": 3,
+        "secc": 2,
+        "seccion": "Capay\u00e1n"
+    },
+    {
+        "distrito": 5,
+        "secc": 1,
+        "seccion": "Capital"
+    },
+    {
+        "distrito": 11,
+        "secc": 2,
+        "seccion": "Capital"
+    },
+    {
+        "distrito": 22,
+        "secc": 1,
+        "seccion": "Capital"
+    },
+    {
+        "distrito": 13,
+        "secc": 1,
+        "seccion": "Capital"
+    },
+    {
+        "distrito": 23,
+        "secc": 1,
+        "seccion": "Capital"
+    },
+    {
+        "distrito": 3,
+        "secc": 1,
+        "seccion": "Capital"
+    },
+    {
+        "distrito": 17,
+        "secc": 1,
+        "seccion": "Capital"
+    },
+    {
+        "distrito": 4,
+        "secc": 1,
+        "seccion": "Capital"
+    },
+    {
+        "distrito": 12,
+        "secc": 1,
+        "seccion": "Capital"
+    },
+    {
+        "distrito": 14,
+        "secc": 1,
+        "seccion": "Capital"
+    },
+    {
+        "distrito": 18,
+        "secc": 1,
+        "seccion": "Capital"
+    },
+    {
+        "distrito": 2,
+        "secc": 18,
+        "seccion": "Capit\u00e1n Sarmiento"
+    },
+    {
+        "distrito": 2,
+        "secc": 19,
+        "seccion": "Carlos Casares"
+    },
+    {
+        "distrito": 2,
+        "secc": 20,
+        "seccion": "Carlos Tejedor"
+    },
+    {
+        "distrito": 2,
+        "secc": 21,
+        "seccion": "Carmen de Areco"
+    },
+    {
+        "distrito": 21,
+        "secc": 14,
+        "seccion": "Caseros"
+    },
+    {
+        "distrito": 21,
+        "secc": 5,
+        "seccion": "Castellanos"
+    },
+    {
+        "distrito": 2,
+        "secc": 23,
+        "seccion": "Castelli"
+    },
+    {
+        "distrito": 12,
+        "secc": 3,
+        "seccion": "Castro Barros"
+    },
+    {
+        "distrito": 11,
+        "secc": 4,
+        "seccion": "Catril\u00f3"
+    },
+    {
+        "distrito": 15,
+        "secc": 11,
+        "seccion": "Cat\u00e1n Lil"
+    },
+    {
+        "distrito": 18,
+        "secc": 15,
+        "seccion": "Caucete"
+    },
+    {
+        "distrito": 2,
+        "secc": 17,
+        "seccion": "Ca\u00f1uelas"
+    },
+    {
+        "distrito": 17,
+        "secc": 11,
+        "seccion": "Cerrillos"
+    },
+    {
+        "distrito": 6,
+        "secc": 20,
+        "seccion": "Chacabuco"
+    },
+    {
+        "distrito": 19,
+        "secc": 4,
+        "seccion": "Chacabuco"
+    },
+    {
+        "distrito": 2,
+        "secc": 29,
+        "seccion": "Chacabuco"
+    },
+    {
+        "distrito": 11,
+        "secc": 5,
+        "seccion": "Chalileo"
+    },
+    {
+        "distrito": 12,
+        "secc": 12,
+        "seccion": "Chamical"
+    },
+    {
+        "distrito": 11,
+        "secc": 6,
+        "seccion": "Chapaleuf\u00fa"
+    },
+    {
+        "distrito": 2,
+        "secc": 30,
+        "seccion": "Chascom\u00fas"
+    },
+    {
+        "distrito": 11,
+        "secc": 7,
+        "seccion": "Chical C\u00f3"
+    },
+    {
+        "distrito": 23,
+        "secc": 5,
+        "seccion": "Chicligasta"
+    },
+    {
+        "distrito": 17,
+        "secc": 12,
+        "seccion": "Chicoana"
+    },
+    {
+        "distrito": 12,
+        "secc": 6,
+        "seccion": "Chilecito"
+    },
+    {
+        "distrito": 18,
+        "secc": 3,
+        "seccion": "Chimbas"
+    },
+    {
+        "distrito": 2,
+        "secc": 31,
+        "seccion": "Chivilcoy"
+    },
+    {
+        "distrito": 15,
+        "secc": 5,
+        "seccion": "Chos Malal"
+    },
+    {
+        "distrito": 22,
+        "secc": 9,
+        "seccion": "Choya"
+    },
+    {
+        "distrito": 10,
+        "secc": 12,
+        "seccion": "Cochinoca"
+    },
+    {
+        "distrito": 15,
+        "secc": 13,
+        "seccion": "Coll\u00f3n Cur\u00e1"
+    },
+    {
+        "distrito": 8,
+        "secc": 15,
+        "seccion": "Col\u00f3n"
+    },
+    {
+        "distrito": 4,
+        "secc": 3,
+        "seccion": "Col\u00f3n"
+    },
+    {
+        "distrito": 2,
+        "secc": 24,
+        "seccion": "Col\u00f3n"
+    },
+    {
+        "distrito": 6,
+        "secc": 13,
+        "seccion": "Comandante Fern\u00e1ndez"
+    },
+    {
+        "distrito": 1,
+        "secc": 1,
+        "seccion": "Comuna 01"
+    },
+    {
+        "distrito": 1,
+        "secc": 2,
+        "seccion": "Comuna 02"
+    },
+    {
+        "distrito": 1,
+        "secc": 3,
+        "seccion": "Comuna 03"
+    },
+    {
+        "distrito": 1,
+        "secc": 4,
+        "seccion": "Comuna 04"
+    },
+    {
+        "distrito": 1,
+        "secc": 5,
+        "seccion": "Comuna 05"
+    },
+    {
+        "distrito": 1,
+        "secc": 6,
+        "seccion": "Comuna 06"
+    },
+    {
+        "distrito": 1,
+        "secc": 7,
+        "seccion": "Comuna 07"
+    },
+    {
+        "distrito": 1,
+        "secc": 8,
+        "seccion": "Comuna 08"
+    },
+    {
+        "distrito": 1,
+        "secc": 9,
+        "seccion": "Comuna 09"
+    },
+    {
+        "distrito": 1,
+        "secc": 10,
+        "seccion": "Comuna 10"
+    },
+    {
+        "distrito": 1,
+        "secc": 11,
+        "seccion": "Comuna 11"
+    },
+    {
+        "distrito": 1,
+        "secc": 12,
+        "seccion": "Comuna 12"
+    },
+    {
+        "distrito": 1,
+        "secc": 13,
+        "seccion": "Comuna 13"
+    },
+    {
+        "distrito": 1,
+        "secc": 14,
+        "seccion": "Comuna 14"
+    },
+    {
+        "distrito": 1,
+        "secc": 15,
+        "seccion": "Comuna 15"
+    },
+    {
+        "distrito": 5,
+        "secc": 17,
+        "seccion": "Concepci\u00f3n"
+    },
+    {
+        "distrito": 14,
+        "secc": 5,
+        "seccion": "Concepci\u00f3n"
+    },
+    {
+        "distrito": 8,
+        "secc": 13,
+        "seccion": "Concordia"
+    },
+    {
+        "distrito": 16,
+        "secc": 2,
+        "seccion": "Conesa"
+    },
+    {
+        "distrito": 15,
+        "secc": 1,
+        "seccion": "Confluencia"
+    },
+    {
+        "distrito": 11,
+        "secc": 8,
+        "seccion": "Conhelo"
+    },
+    {
+        "distrito": 21,
+        "secc": 15,
+        "seccion": "Constituci\u00f3n"
+    },
+    {
+        "distrito": 22,
+        "secc": 8,
+        "seccion": "Copo"
+    },
+    {
+        "distrito": 2,
+        "secc": 25,
+        "seccion": "Coronel Dorrego"
+    },
+    {
+        "distrito": 12,
+        "secc": 8,
+        "seccion": "Coronel Felipe Varela"
+    },
+    {
+        "distrito": 19,
+        "secc": 2,
+        "seccion": "Coronel Pringles"
+    },
+    {
+        "distrito": 2,
+        "secc": 26,
+        "seccion": "Coronel Pringles"
+    },
+    {
+        "distrito": 2,
+        "secc": 28,
+        "seccion": "Coronel Su\u00e1rez"
+    },
+    {
+        "distrito": 2,
+        "secc": 27,
+        "seccion": "Coronel de Marina L. Rosales"
+    },
+    {
+        "distrito": 20,
+        "secc": 5,
+        "seccion": "Corpen Aike"
+    },
+    {
+        "distrito": 23,
+        "secc": 12,
+        "seccion": "Cruz Alta"
+    },
+    {
+        "distrito": 4,
+        "secc": 4,
+        "seccion": "Cruz del Eje"
+    },
+    {
+        "distrito": 11,
+        "secc": 9,
+        "seccion": "Curac\u00f3"
+    },
+    {
+        "distrito": 5,
+        "secc": 3,
+        "seccion": "Curuz\u00fa Cuati\u00e1"
+    },
+    {
+        "distrito": 7,
+        "secc": 5,
+        "seccion": "Cushamen"
+    },
+    {
+        "distrito": 2,
+        "secc": 32,
+        "seccion": "Daireaux"
+    },
+    {
+        "distrito": 20,
+        "secc": 1,
+        "seccion": "Deseado"
+    },
+    {
+        "distrito": 8,
+        "secc": 4,
+        "seccion": "Diamante"
+    },
+    {
+        "distrito": 2,
+        "secc": 33,
+        "seccion": "Dolores"
+    },
+    {
+        "distrito": 10,
+        "secc": 1,
+        "seccion": "Dr. Manuel Belgrano"
+    },
+    {
+        "distrito": 3,
+        "secc": 5,
+        "seccion": "El Alto"
+    },
+    {
+        "distrito": 10,
+        "secc": 4,
+        "seccion": "El Carmen"
+    },
+    {
+        "distrito": 16,
+        "secc": 13,
+        "seccion": "El Cuy"
+    },
+    {
+        "distrito": 14,
+        "secc": 14,
+        "seccion": "Eldorado"
+    },
+    {
+        "distrito": 5,
+        "secc": 12,
+        "seccion": "Empedrado"
+    },
+    {
+        "distrito": 2,
+        "secc": 34,
+        "seccion": "Ensenada"
+    },
+    {
+        "distrito": 7,
+        "secc": 15,
+        "seccion": "Escalante"
+    },
+    {
+        "distrito": 2,
+        "secc": 35,
+        "seccion": "Escobar"
+    },
+    {
+        "distrito": 5,
+        "secc": 5,
+        "seccion": "Esquina"
+    },
+    {
+        "distrito": 2,
+        "secc": 36,
+        "seccion": "Esteban Echeverr\u00eda"
+    },
+    {
+        "distrito": 2,
+        "secc": 37,
+        "seccion": "Exaltaci\u00f3n de la Cruz"
+    },
+    {
+        "distrito": 2,
+        "secc": 132,
+        "seccion": "Ezeiza"
+    },
+    {
+        "distrito": 23,
+        "secc": 3,
+        "seccion": "Famaill\u00e1"
+    },
+    {
+        "distrito": 12,
+        "secc": 7,
+        "seccion": "Famatina"
+    },
+    {
+        "distrito": 8,
+        "secc": 17,
+        "seccion": "Federaci\u00f3n"
+    },
+    {
+        "distrito": 8,
+        "secc": 14,
+        "seccion": "Federal"
+    },
+    {
+        "distrito": 8,
+        "secc": 16,
+        "seccion": "Feliciano"
+    },
+    {
+        "distrito": 22,
+        "secc": 10,
+        "seccion": "Figueroa"
+    },
+    {
+        "distrito": 2,
+        "secc": 38,
+        "seccion": "Florencio Varela"
+    },
+    {
+        "distrito": 7,
+        "secc": 11,
+        "seccion": "Florentino Ameghino"
+    },
+    {
+        "distrito": 2,
+        "secc": 127,
+        "seccion": "Florentino Ameghino"
+    },
+    {
+        "distrito": 9,
+        "secc": 1,
+        "seccion": "Formosa"
+    },
+    {
+        "distrito": 6,
+        "secc": 23,
+        "seccion": "Fray Justo Santa Mar\u00eda de Oro"
+    },
+    {
+        "distrito": 3,
+        "secc": 9,
+        "seccion": "Fray Mamerto Esqui\u00fa"
+    },
+    {
+        "distrito": 7,
+        "secc": 6,
+        "seccion": "Futaleuf\u00fa"
+    },
+    {
+        "distrito": 7,
+        "secc": 12,
+        "seccion": "Gaiman"
+    },
+    {
+        "distrito": 21,
+        "secc": 4,
+        "seccion": "Garay"
+    },
+    {
+        "distrito": 7,
+        "secc": 4,
+        "seccion": "Gastre"
+    },
+    {
+        "distrito": 2,
+        "secc": 39,
+        "seccion": "General Alvarado"
+    },
+    {
+        "distrito": 5,
+        "secc": 22,
+        "seccion": "General Alvear"
+    },
+    {
+        "distrito": 2,
+        "secc": 40,
+        "seccion": "General Alvear"
+    },
+    {
+        "distrito": 13,
+        "secc": 18,
+        "seccion": "General Alvear"
+    },
+    {
+        "distrito": 2,
+        "secc": 41,
+        "seccion": "General Arenales"
+    },
+    {
+        "distrito": 12,
+        "secc": 14,
+        "seccion": "General Belgrano"
+    },
+    {
+        "distrito": 2,
+        "secc": 42,
+        "seccion": "General Belgrano"
+    },
+    {
+        "distrito": 6,
+        "secc": 18,
+        "seccion": "General Belgrano"
+    },
+    {
+        "distrito": 6,
+        "secc": 4,
+        "seccion": "General Donovan"
+    },
+    {
+        "distrito": 2,
+        "secc": 43,
+        "seccion": "General Guido"
+    },
+    {
+        "distrito": 17,
+        "secc": 3,
+        "seccion": "General G\u00fcemes"
+    },
+    {
+        "distrito": 6,
+        "secc": 25,
+        "seccion": "General G\u00fcemes"
+    },
+    {
+        "distrito": 17,
+        "secc": 8,
+        "seccion": "General Jos\u00e9 de San Mart\u00edn"
+    },
+    {
+        "distrito": 12,
+        "secc": 15,
+        "seccion": "General Juan Facundo Quiroga"
+    },
+    {
+        "distrito": 2,
+        "secc": 47,
+        "seccion": "General Juan Madariaga"
+    },
+    {
+        "distrito": 2,
+        "secc": 44,
+        "seccion": "General La Madrid"
+    },
+    {
+        "distrito": 12,
+        "secc": 9,
+        "seccion": "General Lamadrid"
+    },
+    {
+        "distrito": 2,
+        "secc": 45,
+        "seccion": "General Las Heras"
+    },
+    {
+        "distrito": 2,
+        "secc": 46,
+        "seccion": "General Lavalle"
+    },
+    {
+        "distrito": 21,
+        "secc": 16,
+        "seccion": "General L\u00f3pez"
+    },
+    {
+        "distrito": 14,
+        "secc": 17,
+        "seccion": "General Manuel Belgrano"
+    },
+    {
+        "distrito": 21,
+        "secc": 9,
+        "seccion": "General Obligado"
+    },
+    {
+        "distrito": 12,
+        "secc": 16,
+        "seccion": "General Ortiz de Ocampo"
+    },
+    {
+        "distrito": 5,
+        "secc": 14,
+        "seccion": "General Paz"
+    },
+    {
+        "distrito": 2,
+        "secc": 48,
+        "seccion": "General Paz"
+    },
+    {
+        "distrito": 19,
+        "secc": 3,
+        "seccion": "General Pedernera"
+    },
+    {
+        "distrito": 2,
+        "secc": 49,
+        "seccion": "General Pinto"
+    },
+    {
+        "distrito": 2,
+        "secc": 50,
+        "seccion": "General Pueyrred\u00f3n"
+    },
+    {
+        "distrito": 16,
+        "secc": 12,
+        "seccion": "General Roca"
+    },
+    {
+        "distrito": 4,
+        "secc": 5,
+        "seccion": "General Roca"
+    },
+    {
+        "distrito": 2,
+        "secc": 51,
+        "seccion": "General Rodr\u00edguez"
+    },
+    {
+        "distrito": 12,
+        "secc": 18,
+        "seccion": "General San Mart\u00edn"
+    },
+    {
+        "distrito": 4,
+        "secc": 6,
+        "seccion": "General San Mart\u00edn"
+    },
+    {
+        "distrito": 2,
+        "secc": 52,
+        "seccion": "General San Mart\u00edn"
+    },
+    {
+        "distrito": 22,
+        "secc": 27,
+        "seccion": "General Taboada"
+    },
+    {
+        "distrito": 2,
+        "secc": 54,
+        "seccion": "General Viamonte"
+    },
+    {
+        "distrito": 2,
+        "secc": 55,
+        "seccion": "General Villegas"
+    },
+    {
+        "distrito": 19,
+        "secc": 9,
+        "seccion": "Gobernador Dupuy"
+    },
+    {
+        "distrito": 13,
+        "secc": 2,
+        "seccion": "Godoy Cruz"
+    },
+    {
+        "distrito": 5,
+        "secc": 2,
+        "seccion": "Goya"
+    },
+    {
+        "distrito": 23,
+        "secc": 9,
+        "seccion": "Graneros"
+    },
+    {
+        "distrito": 17,
+        "secc": 14,
+        "seccion": "Guachipas"
+    },
+    {
+        "distrito": 8,
+        "secc": 7,
+        "seccion": "Gualeguay"
+    },
+    {
+        "distrito": 8,
+        "secc": 10,
+        "seccion": "Gualeguaych\u00fa"
+    },
+    {
+        "distrito": 2,
+        "secc": 57,
+        "seccion": "Guamin\u00ed"
+    },
+    {
+        "distrito": 14,
+        "secc": 13,
+        "seccion": "Guaran\u00ed"
+    },
+    {
+        "distrito": 22,
+        "secc": 11,
+        "seccion": "Guasay\u00e1n"
+    },
+    {
+        "distrito": 11,
+        "secc": 10,
+        "seccion": "Guatrach\u00e9"
+    },
+    {
+        "distrito": 13,
+        "secc": 3,
+        "seccion": "Guaymall\u00e9n"
+    },
+    {
+        "distrito": 20,
+        "secc": 7,
+        "seccion": "G\u00fcer Aike"
+    },
+    {
+        "distrito": 2,
+        "secc": 58,
+        "seccion": "Hip\u00f3lito Yrigoyen"
+    },
+    {
+        "distrito": 11,
+        "secc": 11,
+        "seccion": "Hucal"
+    },
+    {
+        "distrito": 15,
+        "secc": 14,
+        "seccion": "Huiliches"
+    },
+    {
+        "distrito": 10,
+        "secc": 11,
+        "seccion": "Humahuaca"
+    },
+    {
+        "distrito": 2,
+        "secc": 134,
+        "seccion": "Hurlingham"
+    },
+    {
+        "distrito": 18,
+        "secc": 18,
+        "seccion": "Iglesia"
+    },
+    {
+        "distrito": 14,
+        "secc": 16,
+        "seccion": "Iguaz\u00fa"
+    },
+    {
+        "distrito": 6,
+        "secc": 17,
+        "seccion": "Independencia"
+    },
+    {
+        "distrito": 12,
+        "secc": 11,
+        "seccion": "Independencia"
+    },
+    {
+        "distrito": 21,
+        "secc": 18,
+        "seccion": "Iriondo"
+    },
+    {
+        "distrito": 17,
+        "secc": 9,
+        "seccion": "Iruya"
+    },
+    {
+        "distrito": 4,
+        "secc": 7,
+        "seccion": "Ischil\u00edn"
+    },
+    {
+        "distrito": 8,
+        "secc": 11,
+        "seccion": "Islas del Ibicuy"
+    },
+    {
+        "distrito": 5,
+        "secc": 24,
+        "seccion": "Itat\u00ed"
+    },
+    {
+        "distrito": 2,
+        "secc": 133,
+        "seccion": "Ituzaing\u00f3"
+    },
+    {
+        "distrito": 5,
+        "secc": 19,
+        "seccion": "Ituzaing\u00f3"
+    },
+    {
+        "distrito": 22,
+        "secc": 12,
+        "seccion": "Jim\u00e9nez"
+    },
+    {
+        "distrito": 2,
+        "secc": 129,
+        "seccion": "Jos\u00e9 C. Paz"
+    },
+    {
+        "distrito": 23,
+        "secc": 7,
+        "seccion": "Juan Bautista Alberdi"
+    },
+    {
+        "distrito": 22,
+        "secc": 14,
+        "seccion": "Juan F. Ibarra"
+    },
+    {
+        "distrito": 19,
+        "secc": 1,
+        "seccion": "Juan Mart\u00edn de Pueyrred\u00f3n"
+    },
+    {
+        "distrito": 13,
+        "secc": 10,
+        "seccion": "Jun\u00edn"
+    },
+    {
+        "distrito": 19,
+        "secc": 6,
+        "seccion": "Jun\u00edn"
+    },
+    {
+        "distrito": 2,
+        "secc": 60,
+        "seccion": "Jun\u00edn"
+    },
+    {
+        "distrito": 4,
+        "secc": 8,
+        "seccion": "Ju\u00e1rez Celman"
+    },
+    {
+        "distrito": 18,
+        "secc": 17,
+        "seccion": "J\u00e1chal"
+    },
+    {
+        "distrito": 17,
+        "secc": 2,
+        "seccion": "La Caldera"
+    },
+    {
+        "distrito": 17,
+        "secc": 16,
+        "seccion": "La Candelaria"
+    },
+    {
+        "distrito": 21,
+        "secc": 1,
+        "seccion": "La Capital"
+    },
+    {
+        "distrito": 23,
+        "secc": 8,
+        "seccion": "La Cocha"
+    },
+    {
+        "distrito": 2,
+        "secc": 119,
+        "seccion": "La Costa"
+    },
+    {
+        "distrito": 2,
+        "secc": 61,
+        "seccion": "La Matanza"
+    },
+    {
+        "distrito": 3,
+        "secc": 3,
+        "seccion": "La Paz"
+    },
+    {
+        "distrito": 8,
+        "secc": 3,
+        "seccion": "La Paz"
+    },
+    {
+        "distrito": 13,
+        "secc": 15,
+        "seccion": "La Paz"
+    },
+    {
+        "distrito": 2,
+        "secc": 63,
+        "seccion": "La Plata"
+    },
+    {
+        "distrito": 17,
+        "secc": 22,
+        "seccion": "La Poma"
+    },
+    {
+        "distrito": 17,
+        "secc": 13,
+        "seccion": "La Vi\u00f1a"
+    },
+    {
+        "distrito": 20,
+        "secc": 6,
+        "seccion": "Lago Argentino"
+    },
+    {
+        "distrito": 20,
+        "secc": 2,
+        "seccion": "Lago Buenos Aires"
+    },
+    {
+        "distrito": 9,
+        "secc": 2,
+        "seccion": "Laish\u00ed"
+    },
+    {
+        "distrito": 7,
+        "secc": 7,
+        "seccion": "Langui\u00f1eo"
+    },
+    {
+        "distrito": 2,
+        "secc": 62,
+        "seccion": "Lan\u00fas"
+    },
+    {
+        "distrito": 2,
+        "secc": 64,
+        "seccion": "Laprida"
+    },
+    {
+        "distrito": 21,
+        "secc": 2,
+        "seccion": "Las Colonias"
+    },
+    {
+        "distrito": 2,
+        "secc": 65,
+        "seccion": "Las Flores"
+    },
+    {
+        "distrito": 13,
+        "secc": 4,
+        "seccion": "Las Heras"
+    },
+    {
+        "distrito": 13,
+        "secc": 5,
+        "seccion": "Lavalle"
+    },
+    {
+        "distrito": 5,
+        "secc": 6,
+        "seccion": "Lavalle"
+    },
+    {
+        "distrito": 23,
+        "secc": 11,
+        "seccion": "Leales"
+    },
+    {
+        "distrito": 14,
+        "secc": 4,
+        "seccion": "Leandro N. Alem"
+    },
+    {
+        "distrito": 2,
+        "secc": 66,
+        "seccion": "Leandro N. Alem"
+    },
+    {
+        "distrito": 10,
+        "secc": 7,
+        "seccion": "Ledesma"
+    },
+    {
+        "distrito": 2,
+        "secc": 135,
+        "seccion": "Lezama"
+    },
+    {
+        "distrito": 6,
+        "secc": 3,
+        "seccion": "Libertad"
+    },
+    {
+        "distrito": 14,
+        "secc": 9,
+        "seccion": "Libertador General San Mart\u00edn"
+    },
+    {
+        "distrito": 6,
+        "secc": 8,
+        "seccion": "Libertador General San Mart\u00edn"
+    },
+    {
+        "distrito": 19,
+        "secc": 5,
+        "seccion": "Libertador General San Mart\u00edn"
+    },
+    {
+        "distrito": 11,
+        "secc": 13,
+        "seccion": "Lihuel Calel"
+    },
+    {
+        "distrito": 11,
+        "secc": 14,
+        "seccion": "Limay Mahuida"
+    },
+    {
+        "distrito": 2,
+        "secc": 67,
+        "seccion": "Lincoln"
+    },
+    {
+        "distrito": 2,
+        "secc": 68,
+        "seccion": "Lober\u00eda"
+    },
+    {
+        "distrito": 2,
+        "secc": 69,
+        "seccion": "Lobos"
+    },
+    {
+        "distrito": 2,
+        "secc": 70,
+        "seccion": "Lomas de Zamora"
+    },
+    {
+        "distrito": 15,
+        "secc": 8,
+        "seccion": "Loncopu\u00e9"
+    },
+    {
+        "distrito": 22,
+        "secc": 13,
+        "seccion": "Loreto"
+    },
+    {
+        "distrito": 17,
+        "secc": 23,
+        "seccion": "Los Andes"
+    },
+    {
+        "distrito": 15,
+        "secc": 16,
+        "seccion": "Los Lagos"
+    },
+    {
+        "distrito": 11,
+        "secc": 12,
+        "seccion": "Loventu\u00e9"
+    },
+    {
+        "distrito": 2,
+        "secc": 71,
+        "seccion": "Luj\u00e1n"
+    },
+    {
+        "distrito": 13,
+        "secc": 7,
+        "seccion": "Luj\u00e1n de Cuyo"
+    },
+    {
+        "distrito": 23,
+        "secc": 2,
+        "seccion": "Lules"
+    },
+    {
+        "distrito": 15,
+        "secc": 15,
+        "seccion": "L\u00e1car"
+    },
+    {
+        "distrito": 20,
+        "secc": 3,
+        "seccion": "Magallanes"
+    },
+    {
+        "distrito": 2,
+        "secc": 72,
+        "seccion": "Magdalena"
+    },
+    {
+        "distrito": 13,
+        "secc": 6,
+        "seccion": "Maip\u00fa"
+    },
+    {
+        "distrito": 2,
+        "secc": 73,
+        "seccion": "Maip\u00fa"
+    },
+    {
+        "distrito": 6,
+        "secc": 16,
+        "seccion": "Maip\u00fa"
+    },
+    {
+        "distrito": 13,
+        "secc": 17,
+        "seccion": "Malarg\u00fce"
+    },
+    {
+        "distrito": 2,
+        "secc": 130,
+        "seccion": "Malvinas Argentinas"
+    },
+    {
+        "distrito": 2,
+        "secc": 74,
+        "seccion": "Mar Chiquita"
+    },
+    {
+        "distrito": 11,
+        "secc": 15,
+        "seccion": "Marac\u00f3"
+    },
+    {
+        "distrito": 4,
+        "secc": 9,
+        "seccion": "Marcos Ju\u00e1rez"
+    },
+    {
+        "distrito": 2,
+        "secc": 75,
+        "seccion": "Marcos Paz"
+    },
+    {
+        "distrito": 9,
+        "secc": 8,
+        "seccion": "Matacos"
+    },
+    {
+        "distrito": 6,
+        "secc": 11,
+        "seccion": "Mayor Luis J. Fontana"
+    },
+    {
+        "distrito": 5,
+        "secc": 18,
+        "seccion": "Mburucuy\u00e1"
+    },
+    {
+        "distrito": 2,
+        "secc": 76,
+        "seccion": "Mercedes"
+    },
+    {
+        "distrito": 5,
+        "secc": 4,
+        "seccion": "Mercedes"
+    },
+    {
+        "distrito": 2,
+        "secc": 77,
+        "seccion": "Merlo"
+    },
+    {
+        "distrito": 17,
+        "secc": 4,
+        "seccion": "Met\u00e1n"
+    },
+    {
+        "distrito": 15,
+        "secc": 6,
+        "seccion": "Minas"
+    },
+    {
+        "distrito": 4,
+        "secc": 10,
+        "seccion": "Minas"
+    },
+    {
+        "distrito": 22,
+        "secc": 15,
+        "seccion": "Mitre"
+    },
+    {
+        "distrito": 17,
+        "secc": 19,
+        "seccion": "Molinos"
+    },
+    {
+        "distrito": 2,
+        "secc": 78,
+        "seccion": "Monte"
+    },
+    {
+        "distrito": 5,
+        "secc": 9,
+        "seccion": "Monte Caseros"
+    },
+    {
+        "distrito": 2,
+        "secc": 120,
+        "seccion": "Monte Hermoso"
+    },
+    {
+        "distrito": 14,
+        "secc": 12,
+        "seccion": "Montecarlo"
+    },
+    {
+        "distrito": 23,
+        "secc": 4,
+        "seccion": "Monteros"
+    },
+    {
+        "distrito": 2,
+        "secc": 79,
+        "seccion": "Moreno"
+    },
+    {
+        "distrito": 22,
+        "secc": 16,
+        "seccion": "Moreno"
+    },
+    {
+        "distrito": 2,
+        "secc": 80,
+        "seccion": "Mor\u00f3n"
+    },
+    {
+        "distrito": 7,
+        "secc": 10,
+        "seccion": "M\u00e1rtires"
+    },
+    {
+        "distrito": 2,
+        "secc": 81,
+        "seccion": "Navarro"
+    },
+    {
+        "distrito": 2,
+        "secc": 82,
+        "seccion": "Necochea"
+    },
+    {
+        "distrito": 8,
+        "secc": 6,
+        "seccion": "Nogoy\u00e1"
+    },
+    {
+        "distrito": 6,
+        "secc": 12,
+        "seccion": "O'Higgins"
+    },
+    {
+        "distrito": 14,
+        "secc": 8,
+        "seccion": "Ober\u00e1"
+    },
+    {
+        "distrito": 22,
+        "secc": 17,
+        "seccion": "Ojo de Agua"
+    },
+    {
+        "distrito": 2,
+        "secc": 84,
+        "seccion": "Olavarr\u00eda"
+    },
+    {
+        "distrito": 17,
+        "secc": 7,
+        "seccion": "Or\u00e1n"
+    },
+    {
+        "distrito": 3,
+        "secc": 7,
+        "seccion": "Pacl\u00edn"
+    },
+    {
+        "distrito": 10,
+        "secc": 2,
+        "seccion": "Palpal\u00e1"
+    },
+    {
+        "distrito": 8,
+        "secc": 1,
+        "seccion": "Paran\u00e1"
+    },
+    {
+        "distrito": 7,
+        "secc": 9,
+        "seccion": "Paso de Indios"
+    },
+    {
+        "distrito": 5,
+        "secc": 8,
+        "seccion": "Paso de los Libres"
+    },
+    {
+        "distrito": 2,
+        "secc": 22,
+        "seccion": "Patagones"
+    },
+    {
+        "distrito": 9,
+        "secc": 6,
+        "seccion": "Pati\u00f1o"
+    },
+    {
+        "distrito": 2,
+        "secc": 85,
+        "seccion": "Pehuaj\u00f3"
+    },
+    {
+        "distrito": 15,
+        "secc": 4,
+        "seccion": "Pehuenches"
+    },
+    {
+        "distrito": 2,
+        "secc": 86,
+        "seccion": "Pellegrini"
+    },
+    {
+        "distrito": 22,
+        "secc": 18,
+        "seccion": "Pellegrini"
+    },
+    {
+        "distrito": 2,
+        "secc": 87,
+        "seccion": "Pergamino"
+    },
+    {
+        "distrito": 16,
+        "secc": 10,
+        "seccion": "Pichi Mahuida"
+    },
+    {
+        "distrito": 15,
+        "secc": 9,
+        "seccion": "Picunches"
+    },
+    {
+        "distrito": 15,
+        "secc": 12,
+        "seccion": "Pic\u00fan Leuf\u00fa"
+    },
+    {
+        "distrito": 2,
+        "secc": 88,
+        "seccion": "Pila"
+    },
+    {
+        "distrito": 9,
+        "secc": 5,
+        "seccion": "Pilag\u00e1s"
+    },
+    {
+        "distrito": 2,
+        "secc": 89,
+        "seccion": "Pilar"
+    },
+    {
+        "distrito": 16,
+        "secc": 8,
+        "seccion": "Pilcaniyeu"
+    },
+    {
+        "distrito": 9,
+        "secc": 3,
+        "seccion": "Pilcomayo"
+    },
+    {
+        "distrito": 2,
+        "secc": 90,
+        "seccion": "Pinamar"
+    },
+    {
+        "distrito": 9,
+        "secc": 4,
+        "seccion": "Piran\u00e9"
+    },
+    {
+        "distrito": 4,
+        "secc": 11,
+        "seccion": "Pocho"
+    },
+    {
+        "distrito": 18,
+        "secc": 12,
+        "seccion": "Pocito"
+    },
+    {
+        "distrito": 3,
+        "secc": 11,
+        "seccion": "Pom\u00e1n"
+    },
+    {
+        "distrito": 6,
+        "secc": 6,
+        "seccion": "Presidencia de la Plaza"
+    },
+    {
+        "distrito": 2,
+        "secc": 128,
+        "seccion": "Presidente Per\u00f3n"
+    },
+    {
+        "distrito": 4,
+        "secc": 17,
+        "seccion": "Presidente Roque S\u00e1enz Pe\u00f1a"
+    },
+    {
+        "distrito": 2,
+        "secc": 91,
+        "seccion": "Puan"
+    },
+    {
+        "distrito": 11,
+        "secc": 16,
+        "seccion": "Puel\u00e9n"
+    },
+    {
+        "distrito": 4,
+        "secc": 12,
+        "seccion": "Punilla"
+    },
+    {
+        "distrito": 2,
+        "secc": 131,
+        "seccion": "Punta Indio"
+    },
+    {
+        "distrito": 22,
+        "secc": 19,
+        "seccion": "Quebrachos"
+    },
+    {
+        "distrito": 11,
+        "secc": 17,
+        "seccion": "Quem\u00fa Quem\u00fa"
+    },
+    {
+        "distrito": 2,
+        "secc": 92,
+        "seccion": "Quilmes"
+    },
+    {
+        "distrito": 6,
+        "secc": 14,
+        "seccion": "Quitilipi"
+    },
+    {
+        "distrito": 2,
+        "secc": 93,
+        "seccion": "Ramallo"
+    },
+    {
+        "distrito": 9,
+        "secc": 9,
+        "seccion": "Ram\u00f3n Lista"
+    },
+    {
+        "distrito": 11,
+        "secc": 18,
+        "seccion": "Rancul"
+    },
+    {
+        "distrito": 2,
+        "secc": 94,
+        "seccion": "Rauch"
+    },
+    {
+        "distrito": 7,
+        "secc": 1,
+        "seccion": "Rawson"
+    },
+    {
+        "distrito": 18,
+        "secc": 6,
+        "seccion": "Rawson"
+    },
+    {
+        "distrito": 11,
+        "secc": 19,
+        "seccion": "Realic\u00f3"
+    },
+    {
+        "distrito": 10,
+        "secc": 13,
+        "seccion": "Rinconada"
+    },
+    {
+        "distrito": 2,
+        "secc": 95,
+        "seccion": "Rivadavia"
+    },
+    {
+        "distrito": 18,
+        "secc": 4,
+        "seccion": "Rivadavia"
+    },
+    {
+        "distrito": 22,
+        "secc": 20,
+        "seccion": "Rivadavia"
+    },
+    {
+        "distrito": 13,
+        "secc": 11,
+        "seccion": "Rivadavia"
+    },
+    {
+        "distrito": 17,
+        "secc": 6,
+        "seccion": "Rivadavia"
+    },
+    {
+        "distrito": 22,
+        "secc": 21,
+        "seccion": "Robles"
+    },
+    {
+        "distrito": 2,
+        "secc": 96,
+        "seccion": "Rojas"
+    },
+    {
+        "distrito": 2,
+        "secc": 97,
+        "seccion": "Roque P\u00e9rez"
+    },
+    {
+        "distrito": 21,
+        "secc": 13,
+        "seccion": "Rosario"
+    },
+    {
+        "distrito": 12,
+        "secc": 17,
+        "seccion": "Rosario Vera Pe\u00f1aloza"
+    },
+    {
+        "distrito": 17,
+        "secc": 21,
+        "seccion": "Rosario de Lerma"
+    },
+    {
+        "distrito": 17,
+        "secc": 15,
+        "seccion": "Rosario de la Frontera"
+    },
+    {
+        "distrito": 23,
+        "secc": 6,
+        "seccion": "R\u00edo Chico"
+    },
+    {
+        "distrito": 20,
+        "secc": 4,
+        "seccion": "R\u00edo Chico"
+    },
+    {
+        "distrito": 4,
+        "secc": 13,
+        "seccion": "R\u00edo Cuarto"
+    },
+    {
+        "distrito": 24,
+        "secc": 2,
+        "seccion": "R\u00edo Grande"
+    },
+    {
+        "distrito": 22,
+        "secc": 22,
+        "seccion": "R\u00edo Hondo"
+    },
+    {
+        "distrito": 4,
+        "secc": 14,
+        "seccion": "R\u00edo Primero"
+    },
+    {
+        "distrito": 4,
+        "secc": 15,
+        "seccion": "R\u00edo Seco"
+    },
+    {
+        "distrito": 4,
+        "secc": 16,
+        "seccion": "R\u00edo Segundo"
+    },
+    {
+        "distrito": 7,
+        "secc": 13,
+        "seccion": "R\u00edo Senguer"
+    },
+    {
+        "distrito": 2,
+        "secc": 98,
+        "seccion": "Saavedra"
+    },
+    {
+        "distrito": 5,
+        "secc": 15,
+        "seccion": "Saladas"
+    },
+    {
+        "distrito": 2,
+        "secc": 99,
+        "seccion": "Saladillo"
+    },
+    {
+        "distrito": 22,
+        "secc": 25,
+        "seccion": "Salavina"
+    },
+    {
+        "distrito": 2,
+        "secc": 100,
+        "seccion": "Salliquel\u00f3"
+    },
+    {
+        "distrito": 2,
+        "secc": 101,
+        "seccion": "Salto"
+    },
+    {
+        "distrito": 4,
+        "secc": 18,
+        "seccion": "San Alberto"
+    },
+    {
+        "distrito": 2,
+        "secc": 102,
+        "seccion": "San Andr\u00e9s de Giles"
+    },
+    {
+        "distrito": 16,
+        "secc": 3,
+        "seccion": "San Antonio"
+    },
+    {
+        "distrito": 10,
+        "secc": 3,
+        "seccion": "San Antonio"
+    },
+    {
+        "distrito": 2,
+        "secc": 103,
+        "seccion": "San Antonio de Areco"
+    },
+    {
+        "distrito": 12,
+        "secc": 5,
+        "seccion": "San Blas de los Sauces"
+    },
+    {
+        "distrito": 17,
+        "secc": 18,
+        "seccion": "San Carlos"
+    },
+    {
+        "distrito": 13,
+        "secc": 13,
+        "seccion": "San Carlos"
+    },
+    {
+        "distrito": 2,
+        "secc": 104,
+        "seccion": "San Cayetano"
+    },
+    {
+        "distrito": 5,
+        "secc": 21,
+        "seccion": "San Cosme"
+    },
+    {
+        "distrito": 21,
+        "secc": 7,
+        "seccion": "San Crist\u00f3bal"
+    },
+    {
+        "distrito": 6,
+        "secc": 1,
+        "seccion": "San Fernando"
+    },
+    {
+        "distrito": 2,
+        "secc": 105,
+        "seccion": "San Fernando"
+    },
+    {
+        "distrito": 14,
+        "secc": 7,
+        "seccion": "San Ignacio"
+    },
+    {
+        "distrito": 2,
+        "secc": 106,
+        "seccion": "San Isidro"
+    },
+    {
+        "distrito": 4,
+        "secc": 19,
+        "seccion": "San Javier"
+    },
+    {
+        "distrito": 21,
+        "secc": 11,
+        "seccion": "San Javier"
+    },
+    {
+        "distrito": 14,
+        "secc": 6,
+        "seccion": "San Javier"
+    },
+    {
+        "distrito": 21,
+        "secc": 3,
+        "seccion": "San Jer\u00f3nimo"
+    },
+    {
+        "distrito": 4,
+        "secc": 20,
+        "seccion": "San Justo"
+    },
+    {
+        "distrito": 21,
+        "secc": 8,
+        "seccion": "San Justo"
+    },
+    {
+        "distrito": 6,
+        "secc": 10,
+        "seccion": "San Lorenzo"
+    },
+    {
+        "distrito": 21,
+        "secc": 19,
+        "seccion": "San Lorenzo"
+    },
+    {
+        "distrito": 5,
+        "secc": 10,
+        "seccion": "San Luis del Palmar"
+    },
+    {
+        "distrito": 18,
+        "secc": 8,
+        "seccion": "San Mart\u00edn"
+    },
+    {
+        "distrito": 22,
+        "secc": 24,
+        "seccion": "San Mart\u00edn"
+    },
+    {
+        "distrito": 21,
+        "secc": 6,
+        "seccion": "San Mart\u00edn"
+    },
+    {
+        "distrito": 5,
+        "secc": 16,
+        "seccion": "San Mart\u00edn"
+    },
+    {
+        "distrito": 13,
+        "secc": 9,
+        "seccion": "San Mart\u00edn"
+    },
+    {
+        "distrito": 2,
+        "secc": 53,
+        "seccion": "San Miguel"
+    },
+    {
+        "distrito": 5,
+        "secc": 23,
+        "seccion": "San Miguel"
+    },
+    {
+        "distrito": 2,
+        "secc": 107,
+        "seccion": "San Nicol\u00e1s"
+    },
+    {
+        "distrito": 14,
+        "secc": 15,
+        "seccion": "San Pedro"
+    },
+    {
+        "distrito": 2,
+        "secc": 108,
+        "seccion": "San Pedro"
+    },
+    {
+        "distrito": 10,
+        "secc": 5,
+        "seccion": "San Pedro"
+    },
+    {
+        "distrito": 13,
+        "secc": 16,
+        "seccion": "San Rafael"
+    },
+    {
+        "distrito": 5,
+        "secc": 13,
+        "seccion": "San Roque"
+    },
+    {
+        "distrito": 8,
+        "secc": 18,
+        "seccion": "San Salvador"
+    },
+    {
+        "distrito": 2,
+        "secc": 109,
+        "seccion": "San Vicente"
+    },
+    {
+        "distrito": 12,
+        "secc": 2,
+        "seccion": "Sanagasta"
+    },
+    {
+        "distrito": 10,
+        "secc": 6,
+        "seccion": "Santa B\u00e1rbara"
+    },
+    {
+        "distrito": 10,
+        "secc": 14,
+        "seccion": "Santa Catalina"
+    },
+    {
+        "distrito": 18,
+        "secc": 2,
+        "seccion": "Santa Luc\u00eda"
+    },
+    {
+        "distrito": 4,
+        "secc": 21,
+        "seccion": "Santa Mar\u00eda"
+    },
+    {
+        "distrito": 3,
+        "secc": 16,
+        "seccion": "Santa Mar\u00eda"
+    },
+    {
+        "distrito": 3,
+        "secc": 6,
+        "seccion": "Santa Rosa"
+    },
+    {
+        "distrito": 13,
+        "secc": 14,
+        "seccion": "Santa Rosa"
+    },
+    {
+        "distrito": 17,
+        "secc": 10,
+        "seccion": "Santa Victoria"
+    },
+    {
+        "distrito": 5,
+        "secc": 7,
+        "seccion": "Santo Tom\u00e9"
+    },
+    {
+        "distrito": 6,
+        "secc": 5,
+        "seccion": "Sargento Cabral"
+    },
+    {
+        "distrito": 7,
+        "secc": 14,
+        "seccion": "Sarmiento"
+    },
+    {
+        "distrito": 18,
+        "secc": 13,
+        "seccion": "Sarmiento"
+    },
+    {
+        "distrito": 22,
+        "secc": 26,
+        "seccion": "Sarmiento"
+    },
+    {
+        "distrito": 5,
+        "secc": 20,
+        "seccion": "Sauce"
+    },
+    {
+        "distrito": 22,
+        "secc": 23,
+        "seccion": "Sil\u00edpica"
+    },
+    {
+        "distrito": 23,
+        "secc": 10,
+        "seccion": "Simoca"
+    },
+    {
+        "distrito": 4,
+        "secc": 22,
+        "seccion": "Sobremonte"
+    },
+    {
+        "distrito": 2,
+        "secc": 110,
+        "seccion": "Suipacha"
+    },
+    {
+        "distrito": 10,
+        "secc": 16,
+        "seccion": "Susques"
+    },
+    {
+        "distrito": 23,
+        "secc": 16,
+        "seccion": "Taf\u00ed Viejo"
+    },
+    {
+        "distrito": 23,
+        "secc": 17,
+        "seccion": "Taf\u00ed del Valle"
+    },
+    {
+        "distrito": 8,
+        "secc": 8,
+        "seccion": "Tala"
+    },
+    {
+        "distrito": 2,
+        "secc": 111,
+        "seccion": "Tandil"
+    },
+    {
+        "distrito": 2,
+        "secc": 112,
+        "seccion": "Tapalqu\u00e9"
+    },
+    {
+        "distrito": 6,
+        "secc": 9,
+        "seccion": "Tapenag\u00e1"
+    },
+    {
+        "distrito": 7,
+        "secc": 8,
+        "seccion": "Tehuelches"
+    },
+    {
+        "distrito": 7,
+        "secc": 3,
+        "seccion": "Telsen"
+    },
+    {
+        "distrito": 4,
+        "secc": 23,
+        "seccion": "Tercero Arriba"
+    },
+    {
+        "distrito": 2,
+        "secc": 113,
+        "seccion": "Tigre"
+    },
+    {
+        "distrito": 10,
+        "secc": 10,
+        "seccion": "Tilcara"
+    },
+    {
+        "distrito": 3,
+        "secc": 15,
+        "seccion": "Tinogasta"
+    },
+    {
+        "distrito": 11,
+        "secc": 20,
+        "seccion": "Toay"
+    },
+    {
+        "distrito": 24,
+        "secc": 5,
+        "seccion": "Tolhuin"
+    },
+    {
+        "distrito": 2,
+        "secc": 116,
+        "seccion": "Tordillo"
+    },
+    {
+        "distrito": 2,
+        "secc": 114,
+        "seccion": "Tornquist"
+    },
+    {
+        "distrito": 4,
+        "secc": 24,
+        "seccion": "Totoral"
+    },
+    {
+        "distrito": 23,
+        "secc": 14,
+        "seccion": "Trancas"
+    },
+    {
+        "distrito": 11,
+        "secc": 21,
+        "seccion": "Trenel"
+    },
+    {
+        "distrito": 2,
+        "secc": 115,
+        "seccion": "Trenque Lauquen"
+    },
+    {
+        "distrito": 2,
+        "secc": 117,
+        "seccion": "Tres Arroyos"
+    },
+    {
+        "distrito": 2,
+        "secc": 126,
+        "seccion": "Tres Lomas"
+    },
+    {
+        "distrito": 2,
+        "secc": 118,
+        "seccion": "Tres de Febrero"
+    },
+    {
+        "distrito": 4,
+        "secc": 25,
+        "seccion": "Tulumba"
+    },
+    {
+        "distrito": 10,
+        "secc": 9,
+        "seccion": "Tumbaya"
+    },
+    {
+        "distrito": 13,
+        "secc": 12,
+        "seccion": "Tunuy\u00e1n"
+    },
+    {
+        "distrito": 13,
+        "secc": 8,
+        "seccion": "Tupungato"
+    },
+    {
+        "distrito": 18,
+        "secc": 11,
+        "seccion": "Ullum"
+    },
+    {
+        "distrito": 4,
+        "secc": 26,
+        "seccion": "Uni\u00f3n"
+    },
+    {
+        "distrito": 8,
+        "secc": 9,
+        "seccion": "Uruguay"
+    },
+    {
+        "distrito": 24,
+        "secc": 1,
+        "seccion": "Ushuaia"
+    },
+    {
+        "distrito": 11,
+        "secc": 22,
+        "seccion": "Utrac\u00e1n"
+    },
+    {
+        "distrito": 16,
+        "secc": 4,
+        "seccion": "Valcheta"
+    },
+    {
+        "distrito": 18,
+        "secc": 16,
+        "seccion": "Valle F\u00e9rtil"
+    },
+    {
+        "distrito": 10,
+        "secc": 8,
+        "seccion": "Valle Grande"
+    },
+    {
+        "distrito": 3,
+        "secc": 8,
+        "seccion": "Valle Viejo"
+    },
+    {
+        "distrito": 21,
+        "secc": 10,
+        "seccion": "Vera"
+    },
+    {
+        "distrito": 2,
+        "secc": 122,
+        "seccion": "Vicente L\u00f3pez"
+    },
+    {
+        "distrito": 8,
+        "secc": 5,
+        "seccion": "Victoria"
+    },
+    {
+        "distrito": 2,
+        "secc": 123,
+        "seccion": "Villa Gesell"
+    },
+    {
+        "distrito": 8,
+        "secc": 12,
+        "seccion": "Villaguay"
+    },
+    {
+        "distrito": 2,
+        "secc": 124,
+        "seccion": "Villarino"
+    },
+    {
+        "distrito": 12,
+        "secc": 10,
+        "seccion": "Vinchina"
+    },
+    {
+        "distrito": 10,
+        "secc": 15,
+        "seccion": "Yavi"
+    },
+    {
+        "distrito": 23,
+        "secc": 15,
+        "seccion": "Yerba Buena"
+    },
+    {
+        "distrito": 15,
+        "secc": 2,
+        "seccion": "Zapala"
+    },
+    {
+        "distrito": 18,
+        "secc": 5,
+        "seccion": "Zonda"
+    },
+    {
+        "distrito": 2,
+        "secc": 125,
+        "seccion": "Z\u00e1rate"
+    },
+    {
+        "distrito": 12,
+        "secc": 13,
+        "seccion": "\u00c1ngel Vicente Pe\u00f1aloza"
+    },
+    {
+        "distrito": 16,
+        "secc": 7,
+        "seccion": "\u00d1orquinco"
+    },
+    {
+        "distrito": 15,
+        "secc": 7,
+        "seccion": "\u00d1orqu\u00edn"
+    }
 ]

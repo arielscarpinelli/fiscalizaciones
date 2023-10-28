@@ -1,0 +1,27 @@
+<script src="https://seikichi.github.io/tiff.js/tiff.min.js"></script>
+<script>
+    Tiff.initialize({TOTAL_MEMORY: 16777216 * 10});
+
+async function cargarTelegrama(form) {
+  const id = form.distrito.value + form.seccion.value + form.mesa.value + form.mesa_tipo.value;
+  const res = await fetch("https://resultados.gob.ar/backend-difu/scope/data/getTiff/" + id);
+  const data64 = (await res.json()).encodingBinary;
+  const buffer = Uint8Array.from(atob(data64), c => c.charCodeAt(0));
+  const tiff = new Tiff({buffer});
+  document.getElementById("telegrama").src = tiff.toDataURL();
+}
+</script>
+
+<form id="form" onsubmit="cargarTelegrama(event.target); event.preventDefault();">
+    <label for="distrito">Distrito</label>
+    <input name="distrito" value="01"/>
+    <label for="seccion">Sección</label>
+    <input name="seccion" value="013"/>
+    <label for="mesa">Mesa</label>
+    <input name="mesa" value="06136"/>
+    <label for="mesa_tipo">Tipo</label>
+    <input name="mesa_tipo" value="X"/>
+    <button>Buscar</button>
+  </form>
+  
+  <img id="telegrama"/>

@@ -13,7 +13,21 @@
       3) Ejecutar `npm run prod`.
       
        
-      
+# Crear base de escuelas, distritos y secciones desde sitio de resultados
+
+```
+
+curl https://resultados.gob.ar/backend-difu/nomenclator/getNomenclator -o nomenclator.json
+
+python escuelas.py
+
+```      
+
+## Crear tabla de secciones electorales (no la usa la app, pero sirve para reporting)
+
+CREATE TABLE `Seccion_Electoral` (`distrito` int NOT NULL,`seccion_electoral` int NOT NULL,`nombre` varchar(255),`division` int, PRIMARY KEY (distrito, seccion_electoral));
+
+
 # Crear base de escuelas desde padron
 
 Los codigos de escuela son unicos por distrito
@@ -25,9 +39,3 @@ from lugares;
 ```
 
       
-## Crear tabla de secciones electorales (no la usa la app, pero sirve para reporting)
-
-CREATE TABLE `Seccion_Electoral` (`distrito` int NOT NULL,`seccion_electoral` int NOT NULL,`nombre` varchar(255),`division` int, PRIMARY KEY (distrito, seccion_electoral));
-Datos en https://docs.google.com/spreadsheets/d/1000d1-lIrSWx3Fsuuuw_59c0oKwYl97p5nMbkq17Lsg/edit#gid=831429320
-
-

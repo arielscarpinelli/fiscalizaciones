@@ -75,7 +75,7 @@ const run = async () => {
       console.error("No se puede crear el usuario superadmin inicial, falta establecer password");
     } else {
       await User.create({
-        email: 'admin@republicanosunidospba.com.ar',
+        email: 'admin@lalibertadavanza.com.ar',
         role: 'SUPERADMIN',
         password: SUPERADMIN_INITIAL_PASSWORD,
       });
@@ -87,7 +87,7 @@ const run = async () => {
   if (await Partido.count() === 0) {
     await Partido.create({
       id: 1,
-      name: 'RU',
+      name: 'LLA',
     });
   }
 

@@ -18,13 +18,16 @@ module.exports = {
       seccion_electoral: {
         type: Sequelize.INTEGER,
       },
-      listas: {
-        type: Sequelize.TEXT
+      lista: {
+        type: Sequelize.STRING
+      },
+      cargos: {
+        type: Sequelize.STRING
       }
     });
     await queryInterface.addIndex("Listas", {
       unique: true,
-      fields: ['eleccion', 'distrito', 'seccion_electoral']
+      fields: ['eleccion', 'distrito', 'seccion_electoral', 'lista']
     });
   },
   down: async (queryInterface, Sequelize) => {
